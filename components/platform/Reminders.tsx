@@ -3,6 +3,8 @@ import { usePathname } from "next/navigation";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Twitter, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { GetCreditsDialog } from "./GetCreditsDialog";
+import { Dialog } from "@radix-ui/react-dialog";
 
 const REMINDER_MESSAGES = [
   {
@@ -23,6 +25,11 @@ const REMINDER_MESSAGES = [
     },
   },
   */
+  {
+    type: "credits",
+    message:
+      "Do you want to get more credits? You can claim a code by clicking on the credits button in the top right corner.",
+  },
 ];
 
 export function Reminders() {
@@ -30,6 +37,7 @@ export function Reminders() {
   const [isExiting, setIsExiting] = useState(false);
   const [reminder, setReminder] = useState(REMINDER_MESSAGES[0]);
   const pathname = usePathname();
+  const [showDialog, setShowDialog] = useState(false);
 
   const handleHideReminder = () => {
     setIsExiting(true);
@@ -79,35 +87,39 @@ export function Reminders() {
   if (!showReminder) return null;
 
   return (
-    <Alert
-      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[80vw] flex items-center gap-4 ${
-        isExiting
-          ? "animate-[fadeOut_300ms_ease-in-out_forwards]"
-          : "animate-[fadeIn_300ms_ease-in-out]"
-      }`}
-    >
-      <AlertDescription className="flex items-center justify-between w-full gap-4">
-        <div className="flex items-center gap-2">
-          {reminder.type === "twitter" && <Twitter className="h-4 w-4" />}
-          {reminder.message}
-        </div>
-        <div className="flex items-center gap-2">
-          <Button
-            variant="neutral"
-            size="sm"
-            className="ml-2"
-            onClick={() => {
-              window.open(reminder.action.url, "_blank");
-              handleHideReminder();
-            }}
-          >
-            {reminder.action.text}
-          </Button>
-          <Button variant="neutral" size="sm" onClick={handleHideReminder}>
-            <X className="h-4 w-4" />
-          </Button>
-        </div>
-      </AlertDescription>
-    </Alert>
+    <>
+      <Alert
+        className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[80vw] flex items-center gap-4 ${
+          isExiting
+            ? "animate-[fadeOut_300ms_ease-in-out_forwards]"
+            : "animate-[fadeIn_300ms_ease-in-out]"
+        }`}
+      >
+        <AlertDescription className="flex items-center justify-between w-full gap-4">
+          <div className="flex items-center gap-2">
+            {reminder.type === "twitter" && <Twitter className="h-4 w-4" />}
+            {reminder.message}
+          </div>
+          <div className="flex items-center gap-2">
+            {reminder.action && (
+              <Button
+                variant="neutral"
+                size="sm"
+                className="ml-2"
+                onClick={() => {
+                  window.open(reminder.action.url, "_blank");
+                  handleHideReminder();
+                }}
+              >
+                {reminder.action.text}
+              </Button>
+            )}
+            <Button variant="neutral" size="sm" onClick={handleHideReminder}>
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
+        </AlertDescription>
+      </Alert>
+    </>
   );
 }
