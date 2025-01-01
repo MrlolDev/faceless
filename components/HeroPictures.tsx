@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-
 const pictures = {
   ai_one: [
     "https://replicate.delivery/xezq/UvZMoh4kfT1USaiRFGL3j4lT3h97X11u3XwwRfl1ODMgJwAUA/out-0.webp",
