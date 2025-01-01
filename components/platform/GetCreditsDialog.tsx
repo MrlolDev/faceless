@@ -8,11 +8,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 export function GetCreditsDialog() {
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const router = useRouter();
 
   const handleClaimCode = async () => {
     if (!code) return;
@@ -38,6 +40,7 @@ export function GetCreditsDialog() {
         description: `You've received ${data.credits} credits!`,
       });
       setCode("");
+      router.refresh();
     } catch (error) {
       toast({
         title: "Error",
