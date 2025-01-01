@@ -3,8 +3,6 @@ import { usePathname } from "next/navigation";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Twitter, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { GetCreditsDialog } from "./GetCreditsDialog";
-import { Dialog } from "@radix-ui/react-dialog";
 
 const REMINDER_MESSAGES = [
   {
@@ -37,7 +35,6 @@ export function Reminders() {
   const [isExiting, setIsExiting] = useState(false);
   const [reminder, setReminder] = useState(REMINDER_MESSAGES[0]);
   const pathname = usePathname();
-  const [showDialog, setShowDialog] = useState(false);
 
   const handleHideReminder = () => {
     setIsExiting(true);
