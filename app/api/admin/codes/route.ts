@@ -53,6 +53,7 @@ export async function POST(req: NextRequest) {
     code,
     credits,
     maxUses,
+    is_active: true,
     expires_at,
     usedBy: [],
   });
