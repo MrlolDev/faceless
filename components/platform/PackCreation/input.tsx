@@ -1,0 +1,279 @@
+"use client";
+
+import { useState, useRef, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Camera, Upload, X } from "lucide-react";
+import * as faceapi from "face-api.js";
+import { useToast } from "@/hooks/use-toast";
+import { User } from "@supabase/supabase-js";
+
+interface PhotoInputProps {
+  onGenerate: (url: string) => void;
+  user: User;
+  loading: boolean;
+}
+
+export default function PhotoInput({
+  onGenerate,
+  user,
+  loading,
+}: PhotoInputProps) {
+  const [preview, setPreview] = useState<string | null>(null);
+  const [isWebcam, setIsWebcam] = useState(false);
+  const [faceDetected, setFaceDetected] = useState<boolean | null>(null);
+  const [modelsLoaded, setModelsLoaded] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    const loadModels = async () => {
+      try {
+        await Promise.all([
+          faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
+          faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
+        ]);
+        setModelsLoaded(true);
+      } catch (error) {
+        console.error("Error loading face detection models:", error);
+      }
+    };
+    loadModels();
+  }, []);
+
+  const detectFace = async (element: HTMLImageElement | HTMLVideoElement) => {
+    if (!modelsLoaded) return;
+
+    try {
+      const detections = await faceapi.detectAllFaces(
+        element,
+        new faceapi.TinyFaceDetectorOptions()
+      );
+      setFaceDetected(detections.length > 0);
+      if (detections.length > 0) {
+        if (detections.length > 1) {
+          toast({
+            title: "Multiple faces detected",
+            description: "Please ensure only one face is in the image",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Face detected",
+            description: "The face has been detected in the image",
+          });
+        }
+      } else {
+        toast({
+          title: "No face detected",
+          description: "Please ensure a face is in the image",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Error detecting faces:", error);
+      setFaceDetected(null);
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setPreview(url);
+      setFaceDetected(null);
+
+      // Create new image for face detection
+      const img = new Image();
+      img.src = url;
+      img.onload = () => detectFace(img);
+    }
+  };
+
+  const startWebcam = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        streamRef.current = stream;
+        await videoRef.current.play();
+      }
+      setIsWebcam(true);
+    } catch (error) {
+      console.error("Error accessing webcam:", error);
+    }
+  };
+
+  const capturePhoto = () => {
+    if (videoRef.current) {
+      const canvas = document.createElement("canvas");
+      canvas.width = videoRef.current.videoWidth;
+      canvas.height = videoRef.current.videoHeight;
+      canvas.getContext("2d")?.drawImage(videoRef.current, 0, 0);
+
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const file = new File([blob], "webcam-capture.jpg", {
+            type: "image/jpeg",
+          });
+          const url = URL.createObjectURL(blob);
+          setPreview(url);
+          stopWebcam();
+
+          // Create new image for face detection
+          const img = new Image();
+          img.src = url;
+          img.onload = () => detectFace(img);
+        }
+      }, "image/jpeg");
+    }
+  };
+
+  const stopWebcam = () => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((track) => track.stop());
+      streamRef.current = null;
+    }
+    setIsWebcam(false);
+  };
+
+  const clearPreview = () => {
+    if (preview) {
+      URL.revokeObjectURL(preview);
+    }
+    setPreview(null);
+    setFaceDetected(null);
+  };
+
+  const handleGenerate = async () => {
+    if (preview && faceDetected) {
+      try {
+        // First fetch the blob from the preview URL
+        const res = await fetch(preview);
+        const blob = await res.blob();
+
+        // Create a FormData object to send the file
+        const formData = new FormData();
+        formData.append("file", blob, "photo.jpg");
+        formData.append("userId", user.id);
+
+        // Upload to Supabase storage
+        setIsUploading(true);
+        const uploadRes = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!uploadRes.ok) {
+          throw new Error("Failed to upload image");
+        }
+
+        const { url } = await uploadRes.json();
+        setIsUploading(false);
+
+        // Now call onGenerate with the public URL
+        onGenerate(url);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        toast({
+          title: "Error",
+          description: "Failed to upload image",
+          variant: "destructive",
+        });
+      }
+    }
+  };
+
+  return (
+    <div className="flex flex-col gap-4 w-full justify-center items-center">
+      <div className="flex gap-2">
+        <Button
+          onClick={() => document.getElementById("photo-input")?.click()}
+          variant="neutral"
+        >
+          <Upload className="w-4 h-4" />
+          Upload Photo
+        </Button>
+        <Button onClick={startWebcam} variant="neutral">
+          <Camera className="w-4 h-4" />
+          Use Webcam
+        </Button>
+        <input
+          type="file"
+          id="photo-input"
+          className="hidden"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
+      </div>
+      <div className="flex flex-col gap-4 w-fit justify-center items-center">
+        <div
+          className={`relative w-full aspect-square max-w-md mx-auto border-2 rounded-base overflow-hidden h-full min-w-96 ${
+            preview && faceDetected === false
+              ? "border-red-500"
+              : preview && faceDetected
+              ? "border-green-500"
+              : "border-border"
+          }`}
+        >
+          {isWebcam ? (
+            <>
+              <video
+                ref={videoRef}
+                autoPlay
+                playsInline
+                className="w-full h-full object-cover"
+              />
+            </>
+          ) : preview ? (
+            <>
+              <img
+                ref={imageRef}
+                src={preview}
+                alt="Preview"
+                className="w-full h-full object-cover"
+              />
+              <Button
+                variant="neutral"
+                size="icon"
+                className="absolute top-2 right-2"
+                onClick={clearPreview}
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </>
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-text font-base">
+              No photo selected
+            </div>
+          )}
+        </div>
+        {preview && faceDetected === false && (
+          <div className="text-red-500 text-sm">
+            No face detected in the image
+          </div>
+        )}
+        {preview && faceDetected && (
+          <Button
+            onClick={handleGenerate}
+            className="w-full z-100"
+            disabled={loading || isUploading}
+          >
+            {isUploading
+              ? "Uploading..."
+              : loading
+              ? "Generating..."
+              : "Generate Avatar"}
+          </Button>
+        )}
+        {isWebcam && (
+          <Button onClick={capturePhoto} className="w-full">
+            Take Photo
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+}
