@@ -25,7 +25,7 @@ async function Navbar() {
           <div className="flex items-center justify-end gap-5 m800:w-[unset] m400:gap-3">
             <a
               target="_blank"
-              href="https://twitter.com/samuelbreznjak"
+              href="https://twitter.com/mrloldev"
               className="m800:hidden flex items-center justify-center rounded-base border-2 border-border shadow-nav dark:shadow-navDark dark:border-darkBorder p-2 transition-all hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none dark:hover:shadow-none"
             >
               <svg
