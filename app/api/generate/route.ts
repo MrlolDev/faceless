@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
   if (userError || !user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-
+  console.log("imageURL", imageURL);
   const { data: creditsDataExist, error: creditsErrorExist } = await supabase
     .from("credits")
     .select("*")
@@ -79,6 +79,7 @@ export async function POST(req: NextRequest) {
     description = packData.characterDescription;
     pack = packData;
   }
+  console.log("description", description);
   const image = await getImage(imageURL, description, posture, background);
   if (!image) {
     return NextResponse.json(
