@@ -29,7 +29,7 @@ export default function AppPage({
     defaultPack?.photos[0] || null
   );
   const [selectedPosture, setSelectedPosture] = useState<PostureType | null>(
-    "looking-forward"
+    "watching-horizon"
   );
   const [background, setBackground] = useState<Background | null>({
     type: "solid",

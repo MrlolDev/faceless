@@ -316,7 +316,7 @@ export default function PhotoInput({
       {preview && faceDetected && (
         <div className="flex flex-col gap-4 w-full">
           <PostureSelector
-            value={selectedPosture || "looking-forward"}
+            value={selectedPosture || "watching-horizon"}
             onChange={(posture) => onPostureChange?.(posture)}
             disabled={loading || isUploading}
           />
