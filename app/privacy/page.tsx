@@ -102,7 +102,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-2xl font-heading mb-4">
-              7. Children's Privacy
+              7. Children&apos;s Privacy
             </h2>
             <p>
               Our service is not intended for users under the age of 13. We do
@@ -128,7 +128,7 @@ export default function PrivacyPage() {
               If you have any questions about this privacy policy or our
               practices, please contact us at:
             </p>
-            <p className="mt-2">Email: privacy@faceless-avatar.com</p>
+            <p className="mt-2">Email: support@faceless-avatar.com</p>
           </section>
 
           <section className="mt-8">

@@ -14,6 +14,14 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Moon } from "lucide-react";
 import { Sun } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useState } from "react";
 
 export function AppHeader({
   user,
@@ -30,6 +38,7 @@ export function AppHeader({
     router.push("/login");
   };
   const { setTheme, theme } = useTheme();
+  const [showCreditsDialog, setShowCreditsDialog] = useState(false);
 
   return (
     <header className="w-full border-b border-border">
@@ -57,11 +66,34 @@ export function AppHeader({
           </nav>
         </div>
         <div className="flex items-center gap-4 sm:gap-2">
-          <Badge variant="default" className="text-sm flex items-center gap-1">
+          <Badge
+            variant="default"
+            className="text-sm flex items-center gap-1 cursor-pointer hover:opacity-90"
+            onClick={() => setShowCreditsDialog(true)}
+          >
             <span className="font-heading">{credits}</span>
             <span className="text-xs hidden md:block">Credits</span>
             <span className="text-xs block md:hidden">c</span>
           </Badge>
+
+          <Dialog open={showCreditsDialog} onOpenChange={setShowCreditsDialog}>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Need more credits?</DialogTitle>
+                <DialogDescription>
+                  To get more credits, please contact MrLolDev on Twitter at{" "}
+                  <a
+                    href="https://twitter.com/mrloldev"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    @mrloldev
+                  </a>
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
