@@ -19,6 +19,11 @@ const nextConfig = {
         hostname: "replicate.delivery",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "kbthrjuoewftreopxkiq.supabase.co",
+        pathname: "/**",
+      },
     ],
   },
 };

@@ -5,6 +5,7 @@ interface UsePacks {
   packs: (Pack & { photos: Photos[] })[];
   loading: boolean;
   error: Error | null;
+  deletePack: (packId: number) => Promise<void>;
 }
 
 export const usePacks = (userId: string): UsePacks => {
@@ -44,5 +45,18 @@ export const usePacks = (userId: string): UsePacks => {
     }
   }, [userId]);
 
-  return { packs, loading, error };
+  const deletePack = async (packId: number) => {
+    try {
+      const response = await fetch(`/api/packs/${packId}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        setPacks(packs.filter((pack) => pack.id !== packId));
+      }
+    } catch (error) {
+      console.error("Error deleting pack", error);
+    }
+  };
+
+  return { packs, loading, error, deletePack };
 };

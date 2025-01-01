@@ -1,3 +1,4 @@
+import { PostureType } from "@/types/packs";
 import Replicate from "replicate";
 
 declare const process: {
@@ -15,11 +16,33 @@ const replicate = new Replicate({
 export const getImage = async (
   imageURL: string,
   characterDescription: string,
+  posture: PostureType = "watching-horizon",
+  background: {
+    type: "solid" | "gradient";
+    colors: string[];
+  } = {
+    type: "solid",
+    colors: ["yellow"],
+  },
   baseModel: "schnell" | "dev" = "schnell",
   steps: number = 4,
   promptStrength: number = 0.8
 ) => {
-  const prompt = `A minimalist illustration of ${characterDescription}. The figure gazes upward to the right toward the horizon. The design excludes eyes, eye lines, nose, and mouth lines for a flat, clean aesthetic. A normal neck is included. The background is a solid color, yellow. Styled in the artistic manner of TOK.`;
+  const posturePrompt =
+    posture === "watching-horizon"
+      ? "The figure gazes upward to the right toward the horizon."
+      : posture === "looking-forward"
+      ? "The figure gazes forward."
+      : posture === "looking-left"
+      ? "The figure gazes left."
+      : "The figure gazes right.";
+
+  const backgroundPrompt =
+    background.type === "solid"
+      ? `The background is a solid color, ${background.colors[0]}.`
+      : `The background is a gradient, ${background.colors.join(", ")}.`;
+
+  const prompt = `A minimalist illustration of ${characterDescription}. ${posturePrompt}. The design excludes eyes, eye lines, nose, and mouth lines for a flat, clean aesthetic. A normal neck is included. ${backgroundPrompt} Styled in the artistic manner of TOK.`;
   const prediction = await replicate.predictions.create({
     version: process.env.REPLICATE_MODEL_VERSION,
     input: {

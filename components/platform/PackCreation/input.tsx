@@ -6,17 +6,32 @@ import { Camera, Upload, X } from "lucide-react";
 import * as faceapi from "face-api.js";
 import { useToast } from "@/hooks/use-toast";
 import { User } from "@supabase/supabase-js";
+import { PostureType, Background } from "@/types/packs";
+import PostureSelector from "@/components/platform/PackCreation/PostureSelector";
+import BackgroundSelector from "@/components/platform/PackCreation/BackgroundSelector";
 
 interface PhotoInputProps {
-  onGenerate: (url: string) => void;
+  onGenerate: (url?: string) => void;
   user: User;
   loading: boolean;
+  onPostureChange?: (posture: PostureType) => void;
+  selectedPosture?: PostureType;
+  imageUrl: string | null;
+  setImageUrl: (url: string) => void;
+  background: Background | null;
+  setBackground: (background: Background) => void;
 }
 
 export default function PhotoInput({
   onGenerate,
   user,
   loading,
+  onPostureChange,
+  selectedPosture,
+  imageUrl,
+  setImageUrl,
+  background,
+  setBackground,
 }: PhotoInputProps) {
   const [preview, setPreview] = useState<string | null>(null);
   const [isWebcam, setIsWebcam] = useState(false);
@@ -151,30 +166,33 @@ export default function PhotoInput({
     if (preview && faceDetected) {
       try {
         // First fetch the blob from the preview URL
-        const res = await fetch(preview);
-        const blob = await res.blob();
+        if (!imageUrl) {
+          const res = await fetch(preview);
+          const blob = await res.blob();
 
-        // Create a FormData object to send the file
-        const formData = new FormData();
-        formData.append("file", blob, "photo.jpg");
-        formData.append("userId", user.id);
+          // Create a FormData object to send the file
+          const formData = new FormData();
+          formData.append("file", blob, "photo.jpg");
+          formData.append("userId", user.id);
 
-        // Upload to Supabase storage
-        setIsUploading(true);
-        const uploadRes = await fetch("/api/upload", {
-          method: "POST",
-          body: formData,
-        });
+          // Upload to Supabase storage
+          setIsUploading(true);
+          const uploadRes = await fetch("/api/upload", {
+            method: "POST",
+            body: formData,
+          });
 
-        if (!uploadRes.ok) {
-          throw new Error("Failed to upload image");
+          if (!uploadRes.ok) {
+            throw new Error("Failed to upload image");
+          }
+
+          const { url } = await uploadRes.json();
+          setIsUploading(false);
+          setImageUrl(url);
+          onGenerate(url);
+        } else {
+          onGenerate();
         }
-
-        const { url } = await uploadRes.json();
-        setIsUploading(false);
-
-        // Now call onGenerate with the public URL
-        onGenerate(url);
       } catch (error) {
         console.error("Error uploading image:", error);
         toast({
@@ -188,29 +206,30 @@ export default function PhotoInput({
 
   return (
     <div className="flex flex-col gap-4 w-full justify-center items-center">
-      <div className="flex gap-2">
-        <Button
-          onClick={() => document.getElementById("photo-input")?.click()}
-          variant="neutral"
-        >
-          <Upload className="w-4 h-4" />
-          Upload Photo
-        </Button>
-        <Button onClick={startWebcam} variant="neutral">
-          <Camera className="w-4 h-4" />
-          Use Webcam
-        </Button>
-        <input
-          type="file"
-          id="photo-input"
-          className="hidden"
-          accept="image/*"
-          onChange={handleFileChange}
-        />
-      </div>
       <div className="flex flex-col gap-4 w-fit justify-center items-center">
+        <div className="flex gap-2 w-full justify-between">
+          <Button
+            onClick={() => document.getElementById("photo-input")?.click()}
+            variant="neutral"
+            className="w-full"
+          >
+            <Upload className="w-4 h-4" />
+            Upload Photo
+          </Button>
+          <Button onClick={startWebcam} variant="neutral" className="w-full">
+            <Camera className="w-4 h-4" />
+            Use Webcam
+          </Button>
+          <input
+            type="file"
+            id="photo-input"
+            className="hidden"
+            accept="image/*"
+            onChange={handleFileChange}
+          />
+        </div>
         <div
-          className={`relative w-full aspect-square max-w-md mx-auto border-2 rounded-base overflow-hidden h-full min-w-96 ${
+          className={`relative aspect-square max-w-md mx-auto border-2 rounded-base overflow-hidden h-full w-[350px] ${
             preview && faceDetected === false
               ? "border-red-500"
               : preview && faceDetected
@@ -256,17 +275,29 @@ export default function PhotoInput({
           </div>
         )}
         {preview && faceDetected && (
-          <Button
-            onClick={handleGenerate}
-            className="w-full z-100"
-            disabled={loading || isUploading}
-          >
-            {isUploading
-              ? "Uploading..."
-              : loading
-              ? "Generating..."
-              : "Generate Avatar"}
-          </Button>
+          <div className="flex flex-col gap-4 w-full">
+            <PostureSelector
+              value={selectedPosture || "looking-forward"}
+              onChange={(posture) => onPostureChange?.(posture)}
+              disabled={loading || isUploading}
+            />
+            <BackgroundSelector
+              value={background || { type: "solid", colors: ["yellow"] }}
+              onChange={setBackground}
+              disabled={loading || isUploading}
+            />
+            <Button
+              onClick={handleGenerate}
+              className="w-full z-100"
+              disabled={loading || isUploading}
+            >
+              {isUploading
+                ? "Uploading..."
+                : loading
+                ? "Generating..."
+                : "Generate Avatar"}
+            </Button>
+          </div>
         )}
         {isWebcam && (
           <Button onClick={capturePhoto} className="w-full">
