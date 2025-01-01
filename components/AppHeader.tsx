@@ -12,6 +12,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import Link from "next/link";
+import { useTheme } from "next-themes";
+import { Moon } from "lucide-react";
+import { Sun } from "lucide-react";
 
 export function AppHeader({
   user,
@@ -27,30 +30,42 @@ export function AppHeader({
     await signOut();
     router.push("/login");
   };
+  const { setTheme, theme } = useTheme();
 
   return (
     <header className="w-full border-b border-border">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-10">
+        <div className="flex items-center gap-2 sm:gap-6">
           <Link
             className="text-[30px] h-11 w-11 rounded-base flex bg-main text-text border-2 border-black m500:w-9 m500:h-9 m500:text-[22px] items-center justify-center font-heading"
             href={"/app"}
           >
             F
           </Link>
-          <Link className="text-xl m1100:text-base font-base" href="/app">
-            Generate
-          </Link>
-          <Link className="text-xl m1100:text-base font-base" href="/app/packs">
-            Packs
-          </Link>
+          <nav className="flex items-center gap-4 md:gap-10 sm:gap-6 text-xl m1100:text-base">
+            <Link
+              className="font-base hover:opacity-70 transition-opacity"
+              href="/app"
+            >
+              Generate
+            </Link>
+            <Link
+              className="font-base hover:opacity-70 transition-opacity"
+              href="/app/packs"
+            >
+              Packs
+            </Link>
+          </nav>
         </div>
-        <div className="flex items-center gap-2">
-          <Badge variant="default" className="text-sm flex items-center gap-1">
+        <div className="flex items-center gap-4 sm:gap-2">
+          <Badge
+            variant="default"
+            className="text-sm flex items-center gap-1 sm:hidden"
+          >
             <span className="font-heading">{credits}</span>
-            <span className="text-xs">Credits</span>
+            <span className="text-xs hidden md:block">Credits</span>
+            <span className="text-xs block md:hidden">c</span>
           </Badge>
-          <ThemeSwitcher />
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -62,6 +77,26 @@ export function AppHeader({
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
+              <DropdownMenuItem className="sm:hidden" onClick={() => null}>
+                <span className="font-heading mr-2">{credits}</span>
+                Credits
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                className="sm:hidden"
+                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              >
+                {theme === "light" ? (
+                  <>
+                    <Moon className="h-6 w-6 m500:h-4 m500:w-4 inline dark:hidden stroke-text" />{" "}
+                    Dark
+                  </>
+                ) : (
+                  <>
+                    <Sun className="h-6 w-6 m500:h-4 m500:w-4 hidden dark:inline stroke-darkText" />{" "}
+                    Light
+                  </>
+                )}
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={handleSignOut}>
                 Sign out
               </DropdownMenuItem>

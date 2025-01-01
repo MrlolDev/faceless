@@ -82,7 +82,7 @@ export default function AppPage({
   return (
     <div className="min-h-screen bg-bg">
       <AppHeader user={user} signOut={signOut} credits={credits} />
-      <main className="container mx-auto px-4 py-8 flex flex-row items-start gap-24 w-full justify-center">
+      <main className="container mx-auto px-4 py-8 flex flex-col md:flex-row items-center md:items-start gap-24 w-full justify-center">
         <PhotoInput
           onGenerate={handleGenerate}
           setImageUrl={setImageUrl}
