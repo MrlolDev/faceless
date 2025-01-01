@@ -1,7 +1,12 @@
-import { type NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
 
 export async function middleware(request: NextRequest) {
+  // Allow direct access to the landing page
+  if (request.nextUrl.pathname === "/") {
+    return NextResponse.next();
+  }
+
   return await updateSession(request);
 }
 
