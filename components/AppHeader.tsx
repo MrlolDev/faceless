@@ -57,10 +57,7 @@ export function AppHeader({
           </nav>
         </div>
         <div className="flex items-center gap-4 sm:gap-2">
-          <Badge
-            variant="default"
-            className="text-sm flex items-center gap-1 sm:hidden"
-          >
+          <Badge variant="default" className="text-sm flex items-center gap-1">
             <span className="font-heading">{credits}</span>
             <span className="text-xs hidden md:block">Credits</span>
             <span className="text-xs block md:hidden">c</span>

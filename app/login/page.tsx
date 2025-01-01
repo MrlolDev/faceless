@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Turnstile } from "@marsidev/react-turnstile";
+import { Checkbox } from "@/components/ui/checkbox";
+import Link from "next/link";
 
 import { SendOTP, VerifyOTP } from "./actions";
 import {
@@ -19,10 +21,20 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState<"email" | "otp">("email");
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const { toast } = useToast();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!acceptedTerms) {
+      toast({
+        title: "Please accept the terms",
+        description: "You must accept the terms and privacy policy to continue",
+        variant: "destructive",
+      });
+      return;
+    }
 
     if (!captchaToken) {
       toast({
@@ -89,6 +101,28 @@ export default function Login() {
               required
               disabled={loading}
             />
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="terms"
+                checked={acceptedTerms}
+                onCheckedChange={(checked) =>
+                  setAcceptedTerms(checked as boolean)
+                }
+              />
+              <label
+                htmlFor="terms"
+                className="text-sm font-base leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                I agree to the{" "}
+                <Link href="/terms" className="underline">
+                  Terms of Service
+                </Link>{" "}
+                and{" "}
+                <Link href="/privacy" className="underline">
+                  Privacy Policy
+                </Link>
+              </label>
+            </div>
             <div className="flex justify-center">
               <Turnstile
                 siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY! as string}
