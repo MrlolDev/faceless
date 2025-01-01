@@ -72,7 +72,6 @@ export async function POST(req: NextRequest) {
       .from("codes")
       .update({
         usedBy: [...codeData.usedBy, user.id],
-        is_active: codeData.usedBy.length + 1 >= codeData.maxUses,
       })
       .eq("id", codeData.id);
 
