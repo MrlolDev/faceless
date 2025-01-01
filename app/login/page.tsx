@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -13,7 +13,6 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { useTheme } from "next-themes";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -21,7 +20,6 @@ export default function Login() {
   const [step, setStep] = useState<"email" | "otp">("email");
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const { toast } = useToast();
-  const theme = useTheme();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
