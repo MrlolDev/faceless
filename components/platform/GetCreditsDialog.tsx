@@ -9,10 +9,12 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export function GetCreditsDialog() {
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
   const router = useRouter();
 
@@ -48,6 +50,7 @@ export function GetCreditsDialog() {
           error instanceof Error ? error.message : "Failed to claim code",
         variant: "destructive",
       });
+      setError("Invalid code");
     } finally {
       setLoading(false);
     }
@@ -93,6 +96,7 @@ export function GetCreditsDialog() {
               <Input
                 placeholder="Enter code"
                 value={code}
+                className={cn(error && "border-red-500")}
                 onChange={(e) => setCode(e.target.value)}
               />
               <Button onClick={handleClaimCode} disabled={loading || !code}>
