@@ -12,6 +12,7 @@ import { downloadImageAsPng } from "@/lib/img-utils";
 import Rating from "../Rating";
 import Loading from "@/components/Loading";
 import { sendGAEvent } from "@next/third-parties/google";
+import { Reminders } from "../Reminders";
 
 export default function AppPage({
   defaultPack,
@@ -92,6 +93,7 @@ export default function AppPage({
   return (
     <div className="min-h-screen bg-bg">
       <AppHeader user={user} signOut={signOut} credits={credits} />
+      <Reminders />
       <main className="container mx-auto px-4 py-8 flex flex-col md:flex-row items-center md:items-start gap-24 w-full justify-center">
         <PhotoInput
           onGenerate={handleGenerate}
@@ -156,6 +158,33 @@ export default function AppPage({
                 }}
               >
                 Download as PNG
+              </Button>
+              <Button
+                variant="neutral"
+                className="w-full"
+                onClick={() => {
+                  const tweetText =
+                    "Check out my new AI-generated avatar! 🤖✨\n\n\nPlatform made by @mrloldev";
+                  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                    tweetText
+                  )}&url=${encodeURIComponent(
+                    "https://faceless-avatar.com/pic/" +
+                      generatedImage[0].split("packs/")[1].split(".webp")[0]
+                  )}`;
+                  window.open(tweetUrl, "_blank");
+                }}
+              >
+                Share on Twitter{" "}
+                <svg
+                  className="h-4 w-4 sm:h-6 sm:w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"
+                >
+                  <path
+                    className="fill-text dark:fill-darkText"
+                    d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"
+                  />
+                </svg>
               </Button>
             </div>
           )}

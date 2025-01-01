@@ -11,7 +11,7 @@ import PostureSelector from "./PostureSelector";
 import BackgroundSelector from "./BackgroundSelector";
 import { Dialog } from "@/components/ui/dialog";
 import { GetCreditsDialog } from "@/components/platform/GetCreditsDialog";
-import { Turnstile } from "@marsidev/react-turnstile";
+import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile";
 
 interface PhotoInputProps {
   onGenerate: (url?: string) => void;
@@ -58,6 +58,7 @@ export default function PhotoInput({
   const imageRef = useRef<HTMLImageElement>(null);
   const { toast } = useToast();
   const [showCreditsDialog, setShowCreditsDialog] = useState(false);
+  const ref = useRef<TurnstileInstance | null>(null);
 
   useEffect(() => {
     const loadModels = async () => {
@@ -336,6 +337,7 @@ export default function PhotoInput({
               : "Generate Avatar"}
           </Button>
           <Turnstile
+            ref={ref}
             siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY! as string}
             onSuccess={(token: string) => setCaptchaToken(token)}
             onError={() => {
@@ -346,6 +348,7 @@ export default function PhotoInput({
               });
             }}
             className="mb-4"
+            onExpire={() => ref.current?.reset()}
           />
         </div>
       )}

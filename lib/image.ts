@@ -17,7 +17,6 @@ const replicate = new Replicate({
 export const getImage = async (
   imageURL: string,
   characterDescription: string,
-  userId: string,
   posture: PostureType = "watching-horizon",
   background: Background = {
     type: "solid",
@@ -76,15 +75,19 @@ export const getImage = async (
   const response = await fetch(replicateUrl);
   const imageBlob = await response.blob();
 
+  // Create a new Blob with explicit MIME type
+  const webpBlob = new Blob([imageBlob], { type: "image/webp" });
+
   // Upload to Supabase Storage
   const { data: uploadData, error: uploadError } = await serviceRole.storage
     .from("packs")
-    .upload(`${userId}/${Date.now()}.webp`, imageBlob, {
+    .upload(`${Date.now()}.webp`, webpBlob, {
       contentType: "image/webp",
       cacheControl: "3600",
     });
 
   if (uploadError) {
+    console.error("Failed to upload generated image to storage", uploadError);
     throw new Error("Failed to upload generated image to storage");
   }
 

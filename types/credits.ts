@@ -11,7 +11,8 @@ export interface Credits {
 export interface Transaction {
   id: string;
   amount: number;
-  type: "generate" | "buy";
-  paymentMethod: "cash" | "card" | "bank_transfer";
+  type: "generate" | "buy" | "code";
+  paymentMethod?: "cash" | "card" | "bank_transfer";
+  code?: string;
   createdAt: string;
 }

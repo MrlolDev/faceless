@@ -17,7 +17,6 @@ export async function SendOTP({
   const data = {
     email,
     options: {
-      shouldCreateUser: false,
       captchaToken: token,
     },
   };

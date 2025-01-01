@@ -58,6 +58,14 @@ export function AppHeader({
             >
               Packs
             </Link>
+            {user.email === "mrlol.yt.oficial@gmail.com" && (
+              <Link
+                className="font-base hover:opacity-70 transition-opacity"
+                href="/admin/codes"
+              >
+                Create Codes
+              </Link>
+            )}
           </nav>
         </div>
         <div className="flex items-center gap-4 sm:gap-2">

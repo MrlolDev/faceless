@@ -3,7 +3,13 @@ export const verifyTurnstileToken = async (token: string) => {
     `https://challenges.cloudflare.com/turnstile/v0/siteverify`,
     {
       method: "POST",
-      body: JSON.stringify({ secret: process.env.TURNSTILE_SECRET_KEY, token }),
+      body: JSON.stringify({
+        secret: process.env.TURNSTILE_SECRET_KEY,
+        response: token,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     }
   );
 
