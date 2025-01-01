@@ -37,9 +37,8 @@ export async function POST(req: NextRequest) {
         .eq("id", codeData.id);
       return NextResponse.json({ error: "Code has expired" }, { status: 400 });
     }
-
     // Check if user has already used this code
-    if (codeData.usedBy.includes(user.id)) {
+    if ((codeData.usedBy || []).includes(user.id)) {
       return NextResponse.json(
         { error: "You've already used this code" },
         { status: 400 }
@@ -47,7 +46,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Check if code has reached max uses
-    if (codeData.usedBy.length >= codeData.maxUses) {
+    if ((codeData.usedBy || []).length >= codeData.maxUses) {
       return NextResponse.json(
         { error: "Code has reached maximum uses" },
         { status: 400 }
