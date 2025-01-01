@@ -9,6 +9,8 @@ import { User } from "@supabase/supabase-js";
 import { PostureType, Background, Pack } from "@/types/packs";
 import PostureSelector from "./PostureSelector";
 import BackgroundSelector from "./BackgroundSelector";
+import { Dialog } from "@/components/ui/dialog";
+import { GetCreditsDialog } from "@/components/GetCreditsDialog";
 
 interface PhotoInputProps {
   onGenerate: (url?: string) => void;
@@ -24,6 +26,7 @@ interface PhotoInputProps {
   preview: string | null;
   setFaceDetected: (faceDetected: boolean | null) => void;
   faceDetected: boolean | null;
+  credits: number;
   setPack: (pack: Pack | null) => void;
 }
 
@@ -42,6 +45,7 @@ export default function PhotoInput({
   setFaceDetected,
   faceDetected,
   setPack,
+  credits,
 }: PhotoInputProps) {
   const [isWebcam, setIsWebcam] = useState(false);
   const [modelsLoaded, setModelsLoaded] = useState(false);
@@ -50,6 +54,7 @@ export default function PhotoInput({
   const streamRef = useRef<MediaStream | null>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const { toast } = useToast();
+  const [showCreditsDialog, setShowCreditsDialog] = useState(false);
 
   useEffect(() => {
     const loadModels = async () => {
@@ -181,6 +186,19 @@ export default function PhotoInput({
   };
 
   const handleGenerate = async () => {
+    if (credits < 1) {
+      toast({
+        title: "Insufficient credits",
+        description: "You need at least 1 credit to generate an avatar",
+        action: (
+          <Button variant="default" onClick={() => setShowCreditsDialog(true)}>
+            Get Credits
+          </Button>
+        ),
+      });
+      return;
+    }
+
     if (preview && faceDetected) {
       try {
         // First fetch the blob from the preview URL
@@ -321,6 +339,9 @@ export default function PhotoInput({
           Take Photo
         </Button>
       )}
+      <Dialog open={showCreditsDialog} onOpenChange={setShowCreditsDialog}>
+        <GetCreditsDialog />
+      </Dialog>
     </div>
   );
 }

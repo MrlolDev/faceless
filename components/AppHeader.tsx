@@ -12,16 +12,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { Moon } from "lucide-react";
+import { ChevronDown, Moon } from "lucide-react";
 import { Sun } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog } from "@/components/ui/dialog";
 import { useState } from "react";
+import { GetCreditsDialog } from "./GetCreditsDialog";
 
 export function AppHeader({
   user,
@@ -68,31 +63,17 @@ export function AppHeader({
         <div className="flex items-center gap-4 sm:gap-2">
           <Badge
             variant="default"
-            className="text-sm flex items-center gap-1 cursor-pointer hover:opacity-90"
+            className="text-sm flex items-center gap-1 cursor-pointer hover:opacity-90 active:scale-95 transition-all select-none"
             onClick={() => setShowCreditsDialog(true)}
           >
             <span className="font-heading">{credits}</span>
             <span className="text-xs hidden md:block">Credits</span>
             <span className="text-xs block md:hidden">c</span>
+            <ChevronDown className="h-4 w-4" />
           </Badge>
 
           <Dialog open={showCreditsDialog} onOpenChange={setShowCreditsDialog}>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Need more credits?</DialogTitle>
-                <DialogDescription>
-                  To get more credits, please contact MrLolDev on Twitter at{" "}
-                  <a
-                    href="https://twitter.com/mrloldev"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline"
-                  >
-                    @mrloldev
-                  </a>
-                </DialogDescription>
-              </DialogHeader>
-            </DialogContent>
+            <GetCreditsDialog />
           </Dialog>
 
           <DropdownMenu>

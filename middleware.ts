@@ -3,7 +3,11 @@ import { updateSession } from "@/lib/supabase/middleware";
 
 export async function middleware(request: NextRequest) {
   // Allow direct access to the landing page
-  if (request.nextUrl.pathname === "/") {
+  if (
+    request.nextUrl.pathname === "/" ||
+    request.nextUrl.pathname === "/terms" ||
+    request.nextUrl.pathname === "/privacy"
+  ) {
     return NextResponse.next();
   }
 

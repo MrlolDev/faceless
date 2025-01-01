@@ -106,6 +106,7 @@ export default function AppPage({
           setFaceDetected={setFaceDetected}
           faceDetected={faceDetected}
           setPack={setPack}
+          credits={credits}
         />
 
         <div className="flex flex-col items-center justify-center h-full w-[350px] gap-4">

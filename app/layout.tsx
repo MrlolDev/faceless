@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { ToastProvider } from "@/components/ui/toast";
 import { Analytics } from "@vercel/analytics/react";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Footer } from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -82,9 +83,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ToastProvider>{children}</ToastProvider>
+          <ToastProvider>
+            {children}
+            <Footer />
+          </ToastProvider>
         </ThemeProvider>
-        <Analytics />
         <GoogleAnalytics gaId="G-6KT1M005LZ" />
       </body>
     </html>
