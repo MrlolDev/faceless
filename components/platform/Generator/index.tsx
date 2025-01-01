@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { downloadImageAsPng } from "@/lib/img-utils";
 import Rating from "../Rating";
 import Loading from "@/components/Loading";
+import { sendGAEvent } from "@next/third-parties/google";
 
 export default function AppPage({
   defaultPack,
@@ -73,6 +74,12 @@ export default function AppPage({
       setGeneratedImage(data.data.photos.map((photo: Photos) => photo.imgUrl));
       setGeneratedPhoto(data.data.photos[0]);
       setCredits(data.data.actualCredits);
+      sendGAEvent("event", "generate_avatar", {
+        backgroundColor: background?.colors[0],
+        backgroundType: background?.type,
+        posture: selectedPosture,
+        credits: data.data.actualCredits,
+      });
     } catch (error) {
       console.error("Error generating image:", error);
     } finally {

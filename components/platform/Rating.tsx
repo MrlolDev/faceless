@@ -3,6 +3,8 @@ import { Button } from "../ui/button";
 import { Star, ThumbsUp, ThumbsDown } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { sendGAEvent } from "@next/third-parties/google";
+
 export default function Rating({
   photo,
   className,
@@ -36,6 +38,10 @@ export default function Rating({
           rating > 0 ? "Thanks for the like!" : "Thanks for the feedback!",
       });
       updatePhoto(data);
+      sendGAEvent("event", "rate_photo", {
+        rating,
+        photo_id: photo.id,
+      });
     } catch (error) {
       console.error("Error rating photo:", error);
       toast({
