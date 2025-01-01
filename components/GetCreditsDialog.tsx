@@ -10,16 +10,34 @@ export function GetCreditsDialog() {
     <DialogContent>
       <DialogHeader>
         <DialogTitle>Need more credits?</DialogTitle>
-        <DialogDescription>
-          To get more credits, please contact MrLolDev on Twitter at{" "}
-          <a
-            href="https://twitter.com/mrloldev"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary hover:underline"
-          >
-            @mrloldev
-          </a>
+        <DialogDescription className="flex flex-col gap-2">
+          <div>To get more credits, please contact MrLolDev through:</div>
+          <div className="flex gap-2">
+            <a
+              href="https://twitter.com/mrloldev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-main hover:underline"
+            >
+              Twitter
+            </a>
+            <span>•</span>
+            <a
+              href="mailto:leo@turing.sh"
+              className="text-main hover:underline"
+            >
+              Email
+            </a>
+            <span>•</span>
+            <a
+              href="https://linkedin.com/in/leonardo-ollero"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-main hover:underline"
+            >
+              LinkedIn
+            </a>
+          </div>
         </DialogDescription>
       </DialogHeader>
     </DialogContent>
