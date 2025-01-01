@@ -90,7 +90,6 @@ export async function POST(req: NextRequest) {
     description = packData.characterDescription;
     pack = packData;
   }
-  console.log("description", description);
   const image = await getImage(imageURL, description, posture, background);
   if (!image) {
     return NextResponse.json(
