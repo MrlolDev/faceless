@@ -10,7 +10,6 @@ import {
 import { User } from "@supabase/supabase-js";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Badge } from "./ui/badge";
-import { ThemeSwitcher } from "./ThemeSwitcher";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Moon } from "lucide-react";
@@ -82,7 +81,6 @@ export function AppHeader({
                 Credits
               </DropdownMenuItem>
               <DropdownMenuItem
-                className="sm:hidden"
                 onClick={() => setTheme(theme === "light" ? "dark" : "light")}
               >
                 {theme === "light" ? (
