@@ -93,8 +93,8 @@ export default function Login() {
             />
             <div className="flex justify-center">
               <Turnstile
-                sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-                onVerify={(token: string) => setCaptchaToken(token)}
+                siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY! as string}
+                onSuccess={(token: string) => setCaptchaToken(token)}
                 onError={() => {
                   toast({
                     title: "Error with security check",
@@ -102,7 +102,6 @@ export default function Login() {
                     variant: "destructive",
                   });
                 }}
-                theme={theme === "dark" ? "dark" : "light"}
                 className="mb-4"
               />
             </div>
