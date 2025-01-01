@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Faceless Labs",
-  description: "Faceless Labs",
+  title: "Faceless Avatar",
+  description: "Generate AI avatars with Faceless Avatar",
 };
 
 export default function RootLayout({

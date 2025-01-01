@@ -11,7 +11,7 @@ export default function Home() {
         <div className="mx-auto w-container max-w-full grid grid-cols-2 m1100:grid-cols-1">
           <div className="text-left m1000:text-center m1100:w-4/5 m1000:w-full">
             <h1 className="text-5xl font-heading m1400:text-4xl m800:text-3xl m500:text-2xl m400:text-xl">
-              Faceless
+              Faceless Avatar
             </h1>
 
             <p className="mb-[30px] leading-snug m800:mb-10 m800:mt-8 m1100:w-3/4 m1000:w-full mt-[20px] m1400:text-2xl font-base text-3xl m800:text-lg m400:text-base">

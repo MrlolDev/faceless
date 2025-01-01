@@ -31,10 +31,10 @@ export default function HeroPictures() {
           }}
         >
           {[...pictures.ai_one, ...pictures.ai_one].map((picture, index) => (
-            <Image
+            <img
               key={index}
               src={picture}
-              alt="Real picture"
+              alt="Faceless Avatar"
               width={400}
               height={400}
               className="w-full h-full object-cover"
@@ -50,10 +50,10 @@ export default function HeroPictures() {
           }}
         >
           {[...pictures.ai_two, ...pictures.ai_two].map((picture, index) => (
-            <Image
+            <img
               key={index}
               src={picture}
-              alt="AI picture"
+              alt="Faceless Avatar"
               width={400}
               height={400}
               className="w-full h-full object-cover"
