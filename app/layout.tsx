@@ -15,8 +15,52 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Faceless Avatar",
-  description: "Generate AI avatars with Faceless Avatar",
+  title: "Faceless Avatar - AI Avatar Generator",
+  description:
+    "Generate unique AI avatars with Faceless Avatar. Transform your photos into stunning AI-generated portraits with our advanced image generation technology.",
+  keywords: [
+    "AI avatar",
+    "avatar generator",
+    "AI portrait",
+    "profile picture generator",
+    "artificial intelligence",
+    "digital avatar",
+  ],
+  authors: [{ name: "MrlolDev" }],
+  openGraph: {
+    title: "Faceless Avatar - AI Avatar Generator",
+    description: "Transform your photos into stunning AI-generated avatars",
+    url: "https://faceless-avatar.com",
+    siteName: "Faceless Avatar",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Faceless Avatar - AI Avatar Generator",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Faceless Avatar - AI Avatar Generator",
+    description: "Transform your photos into stunning AI-generated avatars",
+    creator: "@samuelbreznjak",
+    images: ["/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
