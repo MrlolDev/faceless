@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 import { SendOTP, VerifyOTP } from "./actions";
 import {
@@ -12,23 +13,36 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { useTheme } from "next-themes";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState<"email" | "otp">("email");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const { toast } = useToast();
+  const theme = useTheme();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!captchaToken) {
+      toast({
+        title: "Please complete the security check",
+        description: "Verify that you are human before proceeding",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setLoading(true);
 
     try {
-      await SendOTP({ email });
+      await SendOTP({ email, token: captchaToken });
 
       toast({
         title: "Check your email for the code!",
-        description: "Please try again.",
+        description: "Enter the code to sign in",
       });
       setStep("otp");
     } catch (error) {
@@ -77,6 +91,21 @@ export default function Login() {
               required
               disabled={loading}
             />
+            <div className="flex justify-center">
+              <Turnstile
+                sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                onVerify={(token: string) => setCaptchaToken(token)}
+                onError={() => {
+                  toast({
+                    title: "Error with security check",
+                    description: "Please try again or refresh the page",
+                    variant: "destructive",
+                  });
+                }}
+                theme={theme === "dark" ? "dark" : "light"}
+                className="mb-4"
+              />
+            </div>
             <Button className="w-full" type="submit" disabled={loading}>
               {loading ? "Sending..." : "Send Code"}
             </Button>
@@ -94,7 +123,7 @@ export default function Login() {
               <InputOTPSlot index={3} />
               <InputOTPSlot index={4} />
               <InputOTPSlot index={5} />
-            </InputOTPGroup>{" "}
+            </InputOTPGroup>
           </InputOTP>
         )}
       </div>

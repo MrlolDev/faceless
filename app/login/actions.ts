@@ -5,13 +5,20 @@ import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
 
-export async function SendOTP({ email }: { email: string }) {
+export async function SendOTP({
+  email,
+  token,
+}: {
+  email: string;
+  token: string;
+}) {
   const supabase = await createClient();
 
   const data = {
     email,
     options: {
       shouldCreateUser: false,
+      captchaToken: token,
     },
   };
 
