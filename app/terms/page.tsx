@@ -121,7 +121,21 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-heading mb-4">8. Contact</h2>
+            <h2 className="text-2xl font-heading mb-4">8. Communications</h2>
+            <p>By using our service:</p>
+            <ul className="list-disc pl-6 mt-2 space-y-2">
+              <li>
+                You agree to receive emails about related projects and topics
+              </li>
+              <li>You can opt-out of marketing communications at any time</li>
+              <li>
+                We may still send you essential service-related communications
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-heading mb-4">9. Contact</h2>
             <p>
               For any questions regarding these terms, please contact us at
               support@faceless-avatar.com
