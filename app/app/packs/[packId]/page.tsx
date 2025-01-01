@@ -3,9 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import PackPage from "@/components/platform/Packs/PackPage";
 
-export default async function PrivatePage(props: {
-  params: { packId: string };
-}) {
+export default async function PrivatePage(props: any) {
   const supabase = await createClient();
   const params = await props.params;
 
