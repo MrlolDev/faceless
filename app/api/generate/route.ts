@@ -16,6 +16,25 @@ export async function POST(req: NextRequest) {
   if (userError || !user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+
+  const { data: creditsDataExist, error: creditsErrorExist } = await supabase
+    .from("credits")
+    .select("*")
+    .eq("userId", user.id)
+    .single();
+  if (!creditsDataExist) {
+    console.log(creditsErrorExist);
+    return NextResponse.json(
+      { error: "Failed to get credits" },
+      { status: 500 }
+    );
+  }
+  if (creditsDataExist.actual < 1) {
+    return NextResponse.json(
+      { error: "You don't have enough credits" },
+      { status: 400 }
+    );
+  }
   let description;
   let USDcost = 0;
   let pack;
@@ -112,6 +131,7 @@ export async function POST(req: NextRequest) {
     );
   }
   const actualCredits = creditsData.actual - credits;
+  console.log("actualCredits", actualCredits);
   const spentCredits = creditsData.spent + credits;
   const { data: creditsUpdateData, error: creditsUpdateError } =
     await serviceRole
@@ -147,6 +167,7 @@ export async function POST(req: NextRequest) {
     data: {
       pack: pack,
       photos: [photoData],
+      actualCredits: actualCredits,
     },
     error: photoError,
   });

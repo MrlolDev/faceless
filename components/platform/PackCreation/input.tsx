@@ -6,7 +6,7 @@ import { Camera, Upload, X } from "lucide-react";
 import * as faceapi from "face-api.js";
 import { useToast } from "@/hooks/use-toast";
 import { User } from "@supabase/supabase-js";
-import { PostureType, Background } from "@/types/packs";
+import { PostureType, Background, Pack } from "@/types/packs";
 import PostureSelector from "@/components/platform/PackCreation/PostureSelector";
 import BackgroundSelector from "@/components/platform/PackCreation/BackgroundSelector";
 
@@ -17,9 +17,14 @@ interface PhotoInputProps {
   onPostureChange?: (posture: PostureType) => void;
   selectedPosture?: PostureType;
   imageUrl: string | null;
-  setImageUrl: (url: string) => void;
+  setImageUrl: (url: string | null) => void;
   background: Background | null;
   setBackground: (background: Background) => void;
+  setPreview: (url: string | null) => void;
+  preview: string | null;
+  setFaceDetected: (faceDetected: boolean | null) => void;
+  faceDetected: boolean | null;
+  setPack: (pack: Pack | null) => void;
 }
 
 export default function PhotoInput({
@@ -32,10 +37,13 @@ export default function PhotoInput({
   setImageUrl,
   background,
   setBackground,
+  setPreview,
+  preview,
+  setFaceDetected,
+  faceDetected,
+  setPack,
 }: PhotoInputProps) {
-  const [preview, setPreview] = useState<string | null>(null);
   const [isWebcam, setIsWebcam] = useState(false);
-  const [faceDetected, setFaceDetected] = useState<boolean | null>(null);
   const [modelsLoaded, setModelsLoaded] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -97,9 +105,10 @@ export default function PhotoInput({
     const file = e.target.files?.[0];
     if (file) {
       const url = URL.createObjectURL(file);
+      setImageUrl(null);
       setPreview(url);
       setFaceDetected(null);
-
+      setPack(null);
       // Create new image for face detection
       const img = new Image();
       img.src = url;
@@ -115,7 +124,10 @@ export default function PhotoInput({
         streamRef.current = stream;
         await videoRef.current.play();
       }
+      setImageUrl(null);
+      setFaceDetected(null);
       setIsWebcam(true);
+      setPack(null);
     } catch (error) {
       console.error("Error accessing webcam:", error);
     }
@@ -135,6 +147,8 @@ export default function PhotoInput({
           });
           const url = URL.createObjectURL(blob);
           setPreview(url);
+          setImageUrl(url);
+          setPack(null);
           stopWebcam();
 
           // Create new image for face detection
@@ -152,6 +166,8 @@ export default function PhotoInput({
       streamRef.current = null;
     }
     setIsWebcam(false);
+    setImageUrl(null);
+    setPack(null);
   };
 
   const clearPreview = () => {
@@ -159,7 +175,9 @@ export default function PhotoInput({
       URL.revokeObjectURL(preview);
     }
     setPreview(null);
+    setImageUrl(null);
     setFaceDetected(null);
+    setPack(null);
   };
 
   const handleGenerate = async () => {
@@ -229,7 +247,7 @@ export default function PhotoInput({
           />
         </div>
         <div
-          className={`relative aspect-square max-w-md mx-auto border-2 rounded-base overflow-hidden h-full w-[350px] ${
+          className={`relative aspect-square max-w-md mx-auto border-2 rounded-base overflow-hidden h-full w-80 ${
             preview && faceDetected === false
               ? "border-red-500"
               : preview && faceDetected

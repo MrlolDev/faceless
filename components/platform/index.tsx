@@ -13,17 +13,18 @@ import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { downloadImageAsPng } from "@/lib/img-utils";
+import Rating from "./Rating";
 
 export default function AppPage({
   defaultPack,
 }: {
   defaultPack?: Pack | null;
 }) {
-  const { user, signOut, credits } = useAuth();
+  const { user, signOut, credits, setCredits } = useAuth();
   const [generatedImage, setGeneratedImage] = useState<string[] | null>(null);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
-  const [generatedPhotoId, setGeneratedPhotoId] = useState<number | null>(null);
+  const [generatedPhoto, setGeneratedPhoto] = useState<Photos | null>(null);
   const [selectedPosture, setSelectedPosture] = useState<PostureType | null>(
     "looking-forward"
   );
@@ -34,6 +35,8 @@ export default function AppPage({
   const [pack, setPack] = useState<Pack | null>(defaultPack || null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [tab, setTab] = useState<"generate" | "packs">("generate");
+  const [preview, setPreview] = useState<string | null>(null);
+  const [faceDetected, setFaceDetected] = useState<boolean | null>(null);
 
   if (!user) {
     return <div>Loading...</div>;
@@ -62,7 +65,8 @@ export default function AppPage({
       const data = await response.json();
       setPack(data.data.pack);
       setGeneratedImage(data.data.photos.map((photo: Photos) => photo.imgUrl));
-      setGeneratedPhotoId(data.data.photos[0].id);
+      setGeneratedPhoto(data.data.photos[0]);
+      setCredits(data.data.actualCredits);
     } catch (error) {
       console.error("Error generating image:", error);
     } finally {
@@ -70,40 +74,12 @@ export default function AppPage({
     }
   };
 
-  const handleRate = async (rating: number) => {
-    if (!generatedPhotoId) return;
-
-    try {
-      const response = await fetch(`/api/photos/${generatedPhotoId}/rate`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ rating }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to rate photo");
-      }
-
-      toast({
-        title: "Photo rated",
-        description:
-          rating > 0 ? "Thanks for the like!" : "Thanks for the feedback!",
-      });
-    } catch (error) {
-      console.error("Error rating photo:", error);
-      toast({
-        title: "Error",
-        description: "Failed to rate photo",
-        variant: "destructive",
-      });
-    }
-  };
   const handleOpenPack = (pack: Pack & { photos: Photos[] }) => {
     setImageUrl(pack.originPhoto);
     setPack(pack);
+    setPreview(pack.originPhoto);
     setGeneratedImage(pack.photos.map((photo: Photos) => photo.imgUrl));
+    setFaceDetected(true);
     setTab("generate");
   };
 
@@ -137,11 +113,16 @@ export default function AppPage({
                 selectedPosture={selectedPosture || "looking-forward"}
                 background={background}
                 setBackground={setBackground}
+                setPreview={setPreview}
+                preview={preview}
+                setFaceDetected={setFaceDetected}
+                faceDetected={faceDetected}
+                setPack={setPack}
               />
 
               <div className="flex flex-col items-center h-full w-full gap-4">
                 <div className="text-lg font-base">Your generated avatar:</div>
-                {generatedImage && !loading && (
+                {generatedImage && imageUrl && preview && !loading && (
                   <div className="flex flex-col items-center h-full w-fit gap-4">
                     <div className="relative max-w-md aspect-square w-[350px]">
                       <Image
@@ -151,40 +132,12 @@ export default function AppPage({
                         className="object-cover rounded-base border-2 border-border"
                       />
                     </div>
-                    <div className="flex gap-4">
-                      <Button
-                        variant="neutral"
-                        size="icon"
-                        onClick={() => handleRate(1)}
-                        className="hover:text-yellow-500"
-                        aria-label="Love avatar"
-                        title="Love avatar"
-                      >
-                        <Star className="h-4 w-4" />
-                      </Button>
-
-                      <Button
-                        variant="neutral"
-                        size="icon"
-                        onClick={() => handleRate(1)}
-                        className="hover:text-green-500"
-                        aria-label="Like avatar"
-                        title="Like avatar"
-                      >
-                        <ThumbsUp className="h-4 w-4" />
-                      </Button>
-
-                      <Button
-                        variant="neutral"
-                        size="icon"
-                        onClick={() => handleRate(-1)}
-                        className="hover:text-red-500"
-                        aria-label="Dislike avatar"
-                        title="Dislike avatar"
-                      >
-                        <ThumbsDown className="h-4 w-4" />
-                      </Button>
-                    </div>
+                    <Rating
+                      photo={generatedPhoto}
+                      updatePhoto={(photo) => {
+                        setGeneratedPhoto(photo);
+                      }}
+                    />
                     <Button
                       variant="neutral"
                       className="w-full"

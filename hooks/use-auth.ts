@@ -61,5 +61,6 @@ export function useAuth() {
     loading,
     signOut,
     credits,
+    setCredits,
   };
 }

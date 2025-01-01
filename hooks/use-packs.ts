@@ -6,6 +6,7 @@ interface UsePacks {
   loading: boolean;
   error: Error | null;
   deletePack: (packId: number) => Promise<void>;
+  updatePhoto: (photo: Photos) => void;
 }
 
 export const usePacks = (userId: string): UsePacks => {
@@ -58,5 +59,14 @@ export const usePacks = (userId: string): UsePacks => {
     }
   };
 
-  return { packs, loading, error, deletePack };
+  const updatePhoto = (photo: Photos) => {
+    setPacks(
+      packs.map((pack) => ({
+        ...pack,
+        photos: pack.photos.map((p) => (p.id === photo.id ? photo : p)),
+      }))
+    );
+  };
+
+  return { packs, loading, error, deletePack, updatePhoto };
 };

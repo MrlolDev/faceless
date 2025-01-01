@@ -1,10 +1,13 @@
 import { createClient } from "@/lib/supabase/server";
+import { serviceRole } from "@/lib/supabase/service-role";
+
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { photoId: string } }
+  props: { params: Promise<{ photoId: string }> }
 ) {
+  const params = await props.params;
   try {
     const supabase = await createClient();
     const { rating } = await request.json();
@@ -20,10 +23,10 @@ export async function POST(
     }
 
     // Update the photo rating
-    const { data, error } = await supabase
+    const { data, error } = await serviceRole
       .from("photos")
-      .update({ rating })
-      .eq("id", params.photoId)
+      .update({ rating: rating })
+      .eq("id", parseInt(params.photoId))
       .eq("userId", user.id)
       .select()
       .single();
@@ -35,7 +38,6 @@ export async function POST(
         { status: 500 }
       );
     }
-
     return NextResponse.json(data);
   } catch (error) {
     console.error("Error in rate route:", error);

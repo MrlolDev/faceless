@@ -1,94 +1,57 @@
-import useEmblaCarousel from "embla-carousel-react";
-import { Photos } from "@/types/packs";
+import { Pack, Photos } from "@/types/packs";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useCallback } from "react";
-import RatingBadge from "./RatingBadge";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import Rating from "./Rating";
 
 interface PhotoCarouselProps {
   photos: Photos[];
+  pack: Pack & { photos: Photos[] };
+  updatePhoto: (photo: Photos) => void;
 }
 
-export default function PhotoCarousel({ photos }: PhotoCarouselProps) {
-  const [emblaRef, emblaApi] = useEmblaCarousel();
-
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
-
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
-
-  const handleRatePhoto = async (photoId: number, rating: number) => {
-    try {
-      const response = await fetch(`/api/photos/${photoId}/rate`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ rating }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to rate photo");
-      }
-
-      // Update the local state to reflect the new rating
-      const updatedPhotos = photos.map((photo) =>
-        photo.id === photoId ? { ...photo, rating } : photo
-      );
-      // You'll need to implement a way to update the photos state in the parent component
-    } catch (error) {
-      console.error("Error rating photo:", error);
-    }
-  };
-
+export default function PhotoCarousel({
+  photos,
+  pack,
+  updatePhoto,
+}: PhotoCarouselProps) {
   if (photos.length === 0) return null;
 
   return (
-    <div className="relative">
-      <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex">
-          {photos.map((photo) => (
-            <div key={photo.id} className="relative aspect-square min-w-full">
-              <RatingBadge
-                rating={photo.rating}
-                onRatingChange={(newRating) =>
-                  handleRatePhoto(photo.id, newRating)
-                }
-              />
+    <Carousel className="w-full  h-fit">
+      <CarouselContent className="h-full w-full">
+        <CarouselItem key={pack.id} className="h-full w-full">
+          <div className="pt-0 px-[40px] h-[400px] w-full aspect-square flex flex-col items-center justify-start">
+            <img
+              src={pack.originPhoto}
+              alt="Generated avatar"
+              className="object-cover rounded-base border-2 border-border w-[300px] h-[300px] aspect-square"
+            />
+            <p className="text-sm font-base">Original photo</p>
+          </div>
+        </CarouselItem>
+        {photos.map((photo) => (
+          <CarouselItem key={photo.id} className="h-full w-full">
+            <div className="pt-0 px-[40px] h-full w-full flex flex-col gap-4 items-center">
               <Image
                 src={photo.imgUrl}
                 alt="Generated avatar"
-                fill
-                className="object-cover rounded-base border-2 border-border"
+                className="object-cover rounded-base border-2 border-border w-[300px] h-[300px] aspect-square"
+                width={200}
+                height={200}
               />
+              <Rating photo={photo} className="" updatePhoto={updatePhoto} />
             </div>
-          ))}
-        </div>
-      </div>
-      {photos.length > 1 && (
-        <>
-          <Button
-            variant="neutral"
-            size="icon"
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-10"
-            onClick={scrollPrev}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="neutral"
-            size="icon"
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-10"
-            onClick={scrollNext}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </>
-      )}
-    </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2" />
+      <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2" />
+    </Carousel>
   );
 }
