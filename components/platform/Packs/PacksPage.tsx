@@ -1,6 +1,6 @@
 "use client";
 
-import { AppHeader } from "@/components/AppHeader";
+import { AppHeader } from "@/components/platform/AppHeader";
 import { useAuth } from "@/hooks/use-auth";
 import PacksList from "@/components/platform/Packs/PacksList";
 import Loading from "@/components/Loading";

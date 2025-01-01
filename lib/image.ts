@@ -1,5 +1,6 @@
 import { Background, PostureType } from "@/types/packs";
 import Replicate from "replicate";
+import { serviceRole } from "@/lib/supabase/service-role";
 
 declare const process: {
   env: {
@@ -16,6 +17,7 @@ const replicate = new Replicate({
 export const getImage = async (
   imageURL: string,
   characterDescription: string,
+  userId: string,
   posture: PostureType = "watching-horizon",
   background: Background = {
     type: "solid",
@@ -44,6 +46,7 @@ export const getImage = async (
       : "";
 
   const prompt = `A minimalist illustration of ${characterDescription}. ${posturePrompt}. The design excludes eyes, eye lines, nose, and mouth lines for a flat, clean aesthetic. A normal neck is included. ${backgroundPrompt} Styled in the artistic manner of TOK.`;
+
   const prediction = await replicate.predictions.create({
     version: process.env.REPLICATE_MODEL_VERSION,
     input: {
@@ -65,9 +68,33 @@ export const getImage = async (
       num_inference_steps: steps,
     },
   });
+
   const output = await replicate.wait(prediction);
+  const replicateUrl = output.output[0];
+
+  // Download the image from Replicate
+  const response = await fetch(replicateUrl);
+  const imageBlob = await response.blob();
+
+  // Upload to Supabase Storage
+  const { data: uploadData, error: uploadError } = await serviceRole.storage
+    .from("packs")
+    .upload(`${userId}/${Date.now()}.webp`, imageBlob, {
+      contentType: "image/webp",
+      cacheControl: "3600",
+    });
+
+  if (uploadError) {
+    throw new Error("Failed to upload generated image to storage");
+  }
+
+  // Get the public URL
+  const {
+    data: { publicUrl },
+  } = serviceRole.storage.from("packs").getPublicUrl(uploadData.path);
+
   return {
-    imgUrl: output.output[0],
+    imgUrl: publicUrl,
     prompt: prompt,
     steps: steps,
     baseModel: baseModel,

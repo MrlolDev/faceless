@@ -53,6 +53,11 @@
   }
 }
 
-.animate-marquee-reverse {
-  animation: scroll 25s linear infinite reverse;
+@keyframes rotation-row {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }

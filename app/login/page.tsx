@@ -15,6 +15,7 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import Loading from "@/components/Loading";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -68,7 +69,7 @@ export default function Login() {
   };
 
   const handleOTP = async (otp: string) => {
-    console.log(otp);
+    setLoading(true);
     try {
       await VerifyOTP({ email, otp });
     } catch (error) {
@@ -78,6 +79,8 @@ export default function Login() {
         description: "Please try again.",
         variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -114,11 +117,17 @@ export default function Login() {
                 className="text-sm font-base leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
                 I agree to the{" "}
-                <Link href="/terms" className="underline">
+                <Link
+                  href="/terms"
+                  className="underline hover:opacity-90 text-main"
+                >
                   Terms of Service
                 </Link>{" "}
                 and{" "}
-                <Link href="/privacy" className="underline">
+                <Link
+                  href="/privacy"
+                  className="underline hover:opacity-90 text-main"
+                >
                   Privacy Policy
                 </Link>
               </label>
@@ -143,19 +152,25 @@ export default function Login() {
           </form>
         )}
         {step === "otp" && (
-          <InputOTP maxLength={6} onComplete={handleOTP}>
-            <InputOTPGroup>
-              <InputOTPSlot index={0} />
-              <InputOTPSlot index={1} />
-              <InputOTPSlot index={2} />
-            </InputOTPGroup>
-            <InputOTPSeparator />
-            <InputOTPGroup>
-              <InputOTPSlot index={3} />
-              <InputOTPSlot index={4} />
-              <InputOTPSlot index={5} />
-            </InputOTPGroup>
-          </InputOTP>
+          <>
+            {loading ? (
+              <Loading element="session" size="large" />
+            ) : (
+              <InputOTP maxLength={6} onComplete={handleOTP}>
+                <InputOTPGroup>
+                  <InputOTPSlot index={0} />
+                  <InputOTPSlot index={1} />
+                  <InputOTPSlot index={2} />
+                </InputOTPGroup>
+                <InputOTPSeparator />
+                <InputOTPGroup>
+                  <InputOTPSlot index={3} />
+                  <InputOTPSlot index={4} />
+                  <InputOTPSlot index={5} />
+                </InputOTPGroup>
+              </InputOTP>
+            )}
+          </>
         )}
       </div>
     </div>

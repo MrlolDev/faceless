@@ -19,7 +19,7 @@ export default function HeroPictures() {
   return (
     <div
       aria-hidden="true"
-      className="grid grid-cols-2 h-[100dvh] m1000:hidden w-[750px] m1600:w-[650px] m1500:w-[400px] m1500:right-32 m1200:w-[330px] m1100:right-2 m1500:grid-cols-1 right-2 absolute top-0 portrait:h-[100svh] overflow-y-hidden gap-5"
+      className=" grid-cols-2 h-[100dvh] hidden w-0 sm:grid sm:w-[750px]   m1500:w-[400px] m1500:right-32 m1200:w-[330px] m1100:right-2 m1500:grid-cols-1 right-2 absolute top-0 portrait:h-[100svh] overflow-y-hidden gap-5"
     >
       <div className="max-w-full">
         <div

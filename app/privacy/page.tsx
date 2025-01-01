@@ -1,4 +1,4 @@
-import Navbar from "@/components/LandingNavbar";
+import Navbar from "@/components/Landing/LandingNavbar";
 
 export default function PrivacyPage() {
   return (

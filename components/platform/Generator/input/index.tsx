@@ -10,7 +10,8 @@ import { PostureType, Background, Pack } from "@/types/packs";
 import PostureSelector from "./PostureSelector";
 import BackgroundSelector from "./BackgroundSelector";
 import { Dialog } from "@/components/ui/dialog";
-import { GetCreditsDialog } from "@/components/GetCreditsDialog";
+import { GetCreditsDialog } from "@/components/platform/GetCreditsDialog";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 interface PhotoInputProps {
   onGenerate: (url?: string) => void;
@@ -28,6 +29,7 @@ interface PhotoInputProps {
   faceDetected: boolean | null;
   credits: number;
   setPack: (pack: Pack | null) => void;
+  setCaptchaToken: (token: string | null) => void;
 }
 
 export default function PhotoInput({
@@ -46,6 +48,7 @@ export default function PhotoInput({
   faceDetected,
   setPack,
   credits,
+  setCaptchaToken,
 }: PhotoInputProps) {
   const [isWebcam, setIsWebcam] = useState(false);
   const [modelsLoaded, setModelsLoaded] = useState(false);
@@ -332,6 +335,18 @@ export default function PhotoInput({
               ? "Generating..."
               : "Generate Avatar"}
           </Button>
+          <Turnstile
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY! as string}
+            onSuccess={(token: string) => setCaptchaToken(token)}
+            onError={() => {
+              toast({
+                title: "Error with security check",
+                description: "Please try again or refresh the page",
+                variant: "destructive",
+              });
+            }}
+            className="mb-4"
+          />
         </div>
       )}
       {isWebcam && (

@@ -3,9 +3,20 @@ import { getCharacterDescription } from "@/lib/llm";
 import { createClient } from "@/lib/supabase/server";
 import { serviceRole } from "@/lib/supabase/service-role";
 import { NextRequest, NextResponse } from "next/server";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 
 export async function POST(req: NextRequest) {
-  const { imageURL, packId, posture, background } = await req.json();
+  const { imageURL, packId, posture, background, captchaToken } =
+    await req.json();
+
+  const tokenVerified = await verifyTurnstileToken(captchaToken);
+  if (!tokenVerified) {
+    return NextResponse.json(
+      { error: "Invalid captcha token" },
+      { status: 400 }
+    );
+  }
+
   const supabase = await createClient();
   // Get the authenticated user
   const {
@@ -16,7 +27,7 @@ export async function POST(req: NextRequest) {
   if (userError || !user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  console.log("imageURL", imageURL);
+
   const { data: creditsDataExist, error: creditsErrorExist } = await supabase
     .from("credits")
     .select("*")
@@ -91,7 +102,6 @@ export async function POST(req: NextRequest) {
   USDcost = USDcost + image.cost;
   // 1cent = 1credit
   const credits = Math.round(USDcost * 100);
-  console.log("credits", credits, "USDcost", USDcost);
   // create a new photo
   const { data: photoData, error: photoError } = await supabase
     .from("photos")
