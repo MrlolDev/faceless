@@ -3,12 +3,13 @@
 import { AppHeader } from "@/components/AppHeader";
 import { useAuth } from "@/hooks/use-auth";
 import PacksList from "@/components/platform/Packs/PacksList";
+import Loading from "@/components/Loading";
 
 export default function PacksPage() {
   const { user, signOut, credits } = useAuth();
 
   if (!user) {
-    return <div>Loading...</div>;
+    return <Loading element="user" />;
   }
 
   return (

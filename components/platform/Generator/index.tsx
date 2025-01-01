@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { downloadImageAsPng } from "@/lib/img-utils";
 import Rating from "../Rating";
+import Loading from "@/components/Loading";
 
 export default function AppPage({
   defaultPack,
@@ -44,7 +45,7 @@ export default function AppPage({
   );
 
   if (!user) {
-    return <div>Loading...</div>;
+    return <Loading element="user" />;
   }
 
   const handleGenerate = async (url?: string) => {
