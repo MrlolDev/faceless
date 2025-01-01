@@ -41,6 +41,7 @@ export function GetCreditsDialog() {
         title: "Success!",
         description: `You've received ${data.credits} credits!`,
       });
+      alert("You've received " + data.credits + " credits!");
       setCode("");
       router.refresh();
     } catch (error) {
@@ -50,6 +51,7 @@ export function GetCreditsDialog() {
           error instanceof Error ? error.message : "Failed to claim code",
         variant: "destructive",
       });
+      alert("Invalid code");
       setError("Invalid code");
     } finally {
       setLoading(false);
