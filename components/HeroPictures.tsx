@@ -1,6 +1,5 @@
 "use client";
 
-import { Marquee } from "@devnomic/marquee";
 import Image from "next/image";
 
 const pictures = {

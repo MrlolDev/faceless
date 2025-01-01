@@ -32,6 +32,7 @@ export default function Login() {
       });
       setStep("otp");
     } catch (error) {
+      console.error(error);
       toast({
         title: "Error sending code",
         description: "Please try again.",
@@ -47,6 +48,7 @@ export default function Login() {
     try {
       await VerifyOTP({ email, otp });
     } catch (error) {
+      console.error(error);
       toast({
         title: "Error verifying code",
         description: "Please try again.",

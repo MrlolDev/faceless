@@ -142,7 +142,7 @@ export default function PhotoInput({
 
       canvas.toBlob((blob) => {
         if (blob) {
-          const file = new File([blob], "webcam-capture.jpg", {
+          new File([blob], "webcam-capture.jpg", {
             type: "image/jpeg",
           });
           const url = URL.createObjectURL(blob);

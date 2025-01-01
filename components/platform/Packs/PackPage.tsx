@@ -5,8 +5,8 @@ import { usePack } from "@/hooks/use-pack";
 import AppPage from "../Generator";
 
 export default function PackPage({ packId }: { packId: string }) {
-  const { user, signOut, credits } = useAuth();
-  const { pack, loading, error } = usePack(packId);
+  const { user } = useAuth();
+  const { pack, loading } = usePack(packId);
 
   if (!user || loading) {
     return <div>Loading...</div>;

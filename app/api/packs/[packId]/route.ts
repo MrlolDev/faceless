@@ -63,8 +63,9 @@ export async function DELETE(
 
   // delete the original image from the bucket
   const originPhoto = pack.originPhoto; // url of the uploaded photo
-  const { data: originPhotoData, error: originPhotoError } =
-    await supabase.storage.from("packs").remove([originPhoto]);
+  const { error: originPhotoError } = await supabase.storage
+    .from("packs")
+    .remove([originPhoto]);
 
   if (originPhotoError) {
     console.error("Error deleting original image", originPhotoError);

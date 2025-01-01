@@ -1,6 +1,5 @@
 "use client";
 
-import { Pack, Photos } from "@/types/packs";
 import {
   Card,
   CardContent,
@@ -8,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Image from "next/image";
 import { usePacks } from "@/hooks/use-packs";
 import PhotoCarousel from "./PhotoCarousel";
 import { Button } from "../../ui/button";

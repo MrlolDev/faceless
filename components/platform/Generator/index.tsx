@@ -79,14 +79,6 @@ export default function AppPage({
     }
   };
 
-  const handleOpenPack = (pack: Pack & { photos: Photos[] }) => {
-    setImageUrl(pack.originPhoto);
-    setPack(pack);
-    setPreview(pack.originPhoto);
-    setGeneratedImage(pack.photos.map((photo: Photos) => photo.imgUrl));
-    setFaceDetected(true);
-  };
-
   return (
     <div className="min-h-screen bg-bg">
       <AppHeader user={user} signOut={signOut} credits={credits} />

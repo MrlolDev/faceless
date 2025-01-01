@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
     description = characterDescription.description;
     USDcost = characterDescription.cost;
     // create a new pack
-    const { data: packData, error: packError } = await supabase
+    const { data: packData } = await supabase
       .from("packs")
       .insert({
         userId: user.id,
@@ -61,7 +61,6 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (!packData) {
-      console.log(packError);
       return NextResponse.json(
         { error: "Failed to create pack" },
         { status: 500 }
@@ -69,7 +68,7 @@ export async function POST(req: NextRequest) {
     }
     pack = packData;
   } else {
-    const { data: packData, error: packError } = await supabase
+    const { data: packData } = await supabase
       .from("packs")
       .select("*")
       .eq("id", packId)
