@@ -15,20 +15,8 @@ async function Navbar() {
           </Link>
 
           <div className="flex items-center gap-10 m1100:gap-8 m900:hidden">
-            <Link className="text-xl m1100:text-base font-base" href="/about">
-              About
-            </Link>
-
-            <Link className="text-xl m1100:text-base font-base" href="/pricing">
-              Pricing
-            </Link>
-
-            <Link className="text-xl m1100:text-base font-base" href="/contact">
-              Contact
-            </Link>
-
-            <Link className="text-xl m1100:text-base font-base" href="/blog">
-              Blog
+            <Link className="text-xl m1100:text-base font-base" href="/app">
+              Get Started
             </Link>
           </div>
         </div>

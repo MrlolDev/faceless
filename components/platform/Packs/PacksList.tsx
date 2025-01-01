@@ -11,14 +11,14 @@ import {
 import Image from "next/image";
 import { usePacks } from "@/hooks/use-packs";
 import PhotoCarousel from "./PhotoCarousel";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
+import Link from "next/link";
 
 interface PacksListProps {
   userId: string;
-  onOpenPack: (pack: Pack & { photos: Photos[] }) => void;
 }
 
-export default function PacksList({ userId, onOpenPack }: PacksListProps) {
+export default function PacksList({ userId }: PacksListProps) {
   const { packs, loading, updatePhoto, deletePack } = usePacks(userId);
 
   if (loading) {
@@ -48,13 +48,15 @@ export default function PacksList({ userId, onOpenPack }: PacksListProps) {
               {pack.characterDescription}
             </p>
             <p className="text-sm font-base">
-              Total cost: {pack.totalCost} credits
+              Total cost:{" "}
+              {pack.photos.reduce((acc, photo) => acc + photo.credits, 0)}{" "}
+              credits
             </p>
           </CardContent>
           <CardFooter className="flex justify-between pt-0 mt-0">
-            <Button variant="default" onClick={() => onOpenPack(pack)}>
-              Open in editor
-            </Button>
+            <Link href={`/app/packs/${pack.id}`}>
+              <Button variant="default">Open in editor</Button>
+            </Link>
             <Button variant="neutral" onClick={() => deletePack(pack.id)}>
               Delete pack
             </Button>

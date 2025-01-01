@@ -7,7 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import Rating from "./Rating";
+import Rating from "../Rating";
 
 interface PhotoCarouselProps {
   photos: Photos[];

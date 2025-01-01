@@ -7,8 +7,8 @@ import * as faceapi from "face-api.js";
 import { useToast } from "@/hooks/use-toast";
 import { User } from "@supabase/supabase-js";
 import { PostureType, Background, Pack } from "@/types/packs";
-import PostureSelector from "@/components/platform/PackCreation/PostureSelector";
-import BackgroundSelector from "@/components/platform/PackCreation/BackgroundSelector";
+import PostureSelector from "./PostureSelector";
+import BackgroundSelector from "./BackgroundSelector";
 
 interface PhotoInputProps {
   onGenerate: (url?: string) => void;
@@ -223,106 +223,104 @@ export default function PhotoInput({
   };
 
   return (
-    <div className="flex flex-col gap-4 w-full justify-center items-center">
-      <div className="flex flex-col gap-4 w-fit justify-center items-center">
-        <div className="flex gap-2 w-full justify-between">
-          <Button
-            onClick={() => document.getElementById("photo-input")?.click()}
-            variant="neutral"
-            className="w-full"
-          >
-            <Upload className="w-4 h-4" />
-            Upload Photo
-          </Button>
-          <Button onClick={startWebcam} variant="neutral" className="w-full">
-            <Camera className="w-4 h-4" />
-            Use Webcam
-          </Button>
-          <input
-            type="file"
-            id="photo-input"
-            className="hidden"
-            accept="image/*"
-            onChange={handleFileChange}
-          />
-        </div>
-        <div
-          className={`relative aspect-square max-w-md mx-auto border-2 rounded-base overflow-hidden h-full w-80 ${
-            preview && faceDetected === false
-              ? "border-red-500"
-              : preview && faceDetected
-              ? "border-green-500"
-              : "border-border"
-          }`}
+    <div className="flex flex-col gap-4 w-fit justify-center items-center">
+      <div className="flex gap-2 w-full justify-between">
+        <Button
+          onClick={() => document.getElementById("photo-input")?.click()}
+          variant="neutral"
+          className="w-full"
         >
-          {isWebcam ? (
-            <>
-              <video
-                ref={videoRef}
-                autoPlay
-                playsInline
-                className="w-full h-full object-cover"
-              />
-            </>
-          ) : preview ? (
-            <>
-              <img
-                ref={imageRef}
-                src={preview}
-                alt="Preview"
-                className="w-full h-full object-cover"
-              />
-              <Button
-                variant="neutral"
-                size="icon"
-                className="absolute top-2 right-2"
-                onClick={clearPreview}
-              >
-                <X className="w-4 h-4" />
-              </Button>
-            </>
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-text font-base">
-              No photo selected
-            </div>
-          )}
-        </div>
-        {preview && faceDetected === false && (
-          <div className="text-red-500 text-sm">
-            No face detected in the image
-          </div>
-        )}
-        {preview && faceDetected && (
-          <div className="flex flex-col gap-4 w-full">
-            <PostureSelector
-              value={selectedPosture || "looking-forward"}
-              onChange={(posture) => onPostureChange?.(posture)}
-              disabled={loading || isUploading}
+          <Upload className="w-4 h-4" />
+          Upload Photo
+        </Button>
+        <Button onClick={startWebcam} variant="neutral" className="w-full">
+          <Camera className="w-4 h-4" />
+          Use Webcam
+        </Button>
+        <input
+          type="file"
+          id="photo-input"
+          className="hidden"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
+      </div>
+      <div
+        className={`relative aspect-square max-w-md mx-auto border-2 rounded-base overflow-hidden h-full w-80 ${
+          preview && faceDetected === false
+            ? "border-red-500"
+            : preview && faceDetected
+            ? "border-green-500"
+            : "border-border"
+        }`}
+      >
+        {isWebcam ? (
+          <>
+            <video
+              ref={videoRef}
+              autoPlay
+              playsInline
+              className="w-full h-full object-cover"
             />
-            <BackgroundSelector
-              value={background || { type: "solid", colors: ["yellow"] }}
-              onChange={setBackground}
-              disabled={loading || isUploading}
+          </>
+        ) : preview ? (
+          <>
+            <img
+              ref={imageRef}
+              src={preview}
+              alt="Preview"
+              className="w-full h-full object-cover"
             />
             <Button
-              onClick={handleGenerate}
-              className="w-full z-100"
-              disabled={loading || isUploading}
+              variant="neutral"
+              size="icon"
+              className="absolute top-2 right-2"
+              onClick={clearPreview}
             >
-              {isUploading
-                ? "Uploading..."
-                : loading
-                ? "Generating..."
-                : "Generate Avatar"}
+              <X className="w-4 h-4" />
             </Button>
+          </>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-text font-base">
+            No photo selected
           </div>
         )}
-        {isWebcam && (
-          <Button onClick={capturePhoto} className="w-full">
-            Take Photo
-          </Button>
-        )}
       </div>
+      {preview && faceDetected === false && (
+        <div className="text-red-500 text-sm">
+          No face detected in the image
+        </div>
+      )}
+      {preview && faceDetected && (
+        <div className="flex flex-col gap-4 w-full">
+          <PostureSelector
+            value={selectedPosture || "looking-forward"}
+            onChange={(posture) => onPostureChange?.(posture)}
+            disabled={loading || isUploading}
+          />
+          <BackgroundSelector
+            value={background || { type: "solid", colors: ["yellow"] }}
+            onChange={setBackground}
+            disabled={loading || isUploading}
+          />
+          <Button
+            onClick={handleGenerate}
+            className="w-full z-100"
+            disabled={loading || isUploading}
+          >
+            {isUploading
+              ? "Uploading..."
+              : loading
+              ? "Generating..."
+              : "Generate Avatar"}
+          </Button>
+        </div>
+      )}
+      {isWebcam && (
+        <Button onClick={capturePhoto} className="w-full">
+          Take Photo
+        </Button>
+      )}
     </div>
   );
 }

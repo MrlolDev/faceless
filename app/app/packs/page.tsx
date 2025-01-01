@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
-import AppPage from "@/components/platform/Generator";
+import PacksPage from "@/components/platform/Packs/PacksPage";
 
 export default async function PrivatePage() {
   const supabase = await createClient();
@@ -11,5 +11,5 @@ export default async function PrivatePage() {
     redirect("/login");
   }
 
-  return <AppPage />;
+  return <PacksPage />;
 }

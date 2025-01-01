@@ -20,7 +20,6 @@ export interface Pack {
   userId: string;
   characterDescription: string;
   originPhoto: string; // url of the uploaded photo
-  totalCost: number; // total credits used for the pack,
 }
 
 export const Postures = [
@@ -33,6 +32,37 @@ export const Postures = [
 export type PostureType = (typeof Postures)[number];
 
 export type Background = {
-  type: "solid" | "gradient";
+  type: "solid" | "gradient" | "real-scene";
+  scene?: SceneType;
   colors: string[];
 };
+
+export const Scenes = [
+  "a beach",
+  "a forest",
+  "a city",
+  "a mountain",
+  "a desert",
+  "an office",
+  "a library",
+  "a park",
+  "a school",
+  "a hospital",
+  "a museum",
+];
+
+export const SceneEmojis = {
+  "a beach": "🏖️",
+  "a forest": "🌲",
+  "a city": "🏙️",
+  "a mountain": "🏔️",
+  "a desert": "🏜️",
+  "an office": "🏢",
+  "a library": "📚",
+  "a park": "🏞️",
+  "a school": "🏫",
+  "a hospital": "🏥",
+  "a museum": "🏛️",
+};
+
+export type SceneType = (typeof Scenes)[number];

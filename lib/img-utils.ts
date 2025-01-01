@@ -11,12 +11,17 @@ export async function downloadImageAsPng(url: string) {
     img.onload = () => {
       // Create a canvas to draw and convert the image
       const canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
+      // Make canvas square based on height
+      const size = img.height;
+      canvas.width = size;
+      canvas.height = size;
 
-      // Draw the image on the canvas
+      // Draw the image on the canvas, centered if wider than height
       const ctx = canvas.getContext("2d");
-      ctx?.drawImage(img, 0, 0);
+      if (ctx) {
+        const sourceX = Math.max(0, (img.width - size) / 2);
+        ctx.drawImage(img, sourceX, 0, size, size, 0, 0, size, size);
+      }
 
       // Convert to PNG
       canvas.toBlob((pngBlob) => {

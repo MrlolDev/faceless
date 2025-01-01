@@ -66,7 +66,7 @@ export default function Login() {
         </div>
 
         {step === "email" && (
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form onSubmit={handleLogin} className="space-y-4 w-full">
             <Input
               type="email"
               placeholder="Your email"

@@ -56,7 +56,6 @@ export async function POST(req: NextRequest) {
         userId: user.id,
         characterDescription: characterDescription.description,
         originPhoto: imageURL,
-        totalCost: 0,
       })
       .select()
       .single();
@@ -157,11 +156,6 @@ export async function POST(req: NextRequest) {
       { status: 500 }
     );
   }
-  const { data: packUpdateData, error: packUpdateError } = await supabase
-    .from("packs")
-    .update({ totalCost: credits })
-    .eq("id", pack.id)
-    .select();
 
   return NextResponse.json({
     data: {

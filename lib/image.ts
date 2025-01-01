@@ -1,4 +1,4 @@
-import { PostureType } from "@/types/packs";
+import { Background, PostureType } from "@/types/packs";
 import Replicate from "replicate";
 
 declare const process: {
@@ -17,10 +17,7 @@ export const getImage = async (
   imageURL: string,
   characterDescription: string,
   posture: PostureType = "watching-horizon",
-  background: {
-    type: "solid" | "gradient";
-    colors: string[];
-  } = {
+  background: Background = {
     type: "solid",
     colors: ["yellow"],
   },
@@ -40,7 +37,11 @@ export const getImage = async (
   const backgroundPrompt =
     background.type === "solid"
       ? `The background is a solid color, ${background.colors[0]}.`
-      : `The background is a gradient, ${background.colors.join(", ")}.`;
+      : background.type === "gradient"
+      ? `The background is a gradient, ${background.colors.join(", ")}.`
+      : background.type === "real-scene"
+      ? `The background is a real scene, ${background.scene}.`
+      : "";
 
   const prompt = `A minimalist illustration of ${characterDescription}. ${posturePrompt}. The design excludes eyes, eye lines, nose, and mouth lines for a flat, clean aesthetic. A normal neck is included. ${backgroundPrompt} Styled in the artistic manner of TOK.`;
   const prediction = await replicate.predictions.create({
@@ -54,6 +55,8 @@ export const getImage = async (
       megapixels: "1",
       num_outputs: 1,
       aspect_ratio: "1:1",
+      width: 1024,
+      height: 1024,
       output_format: "webp",
       guidance_scale: 3,
       output_quality: 80,

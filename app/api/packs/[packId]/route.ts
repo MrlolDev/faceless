@@ -1,10 +1,38 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
+export async function GET(
+  req: NextRequest,
+  props: { params: Promise<{ packId: string }> }
+) {
+  const params = await props.params;
+  const { packId } = params;
+  const supabase = await createClient();
+
+  // Get the authenticated user
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { data, error } = await supabase
+    .from("packs")
+    .select("*")
+    .eq("id", packId)
+    .eq("userId", user.id)
+    .single();
+  return NextResponse.json({ data, error }, { status: 200 });
+}
+
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { packId: string } }
+  props: { params: Promise<{ packId: string }> }
 ) {
+  const params = await props.params;
   const { packId } = params;
   const supabase = await createClient();
 
@@ -39,6 +67,7 @@ export async function DELETE(
     await supabase.storage.from("packs").remove([originPhoto]);
 
   if (originPhotoError) {
+    console.error("Error deleting original image", originPhotoError);
     return NextResponse.json(
       { error: "Failed to delete original image" },
       { status: 500 }
