@@ -11,7 +11,9 @@ export function GetCreditsDialog() {
       <DialogHeader>
         <DialogTitle>Need more credits?</DialogTitle>
         <DialogDescription className="flex flex-col gap-2">
-          <div>To get more credits, please contact MrLolDev through:</div>
+          <div>
+            To get more credits (free of charge), please contact me through:
+          </div>
           <div className="flex gap-2">
             <a
               href="https://twitter.com/mrloldev"
