@@ -73,6 +73,7 @@ export default function PrivacyPage() {
               <li>Google Analytics (website usage tracking)</li>
               <li>Cloudflare Turnstile (spam protection)</li>
               <li>Replicate (AI model hosting)</li>
+              <li>OpenAI (AI model hosting)</li>
             </ul>
           </section>
 
