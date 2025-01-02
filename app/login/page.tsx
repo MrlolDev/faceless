@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { TurnstileInstance } from "@marsidev/react-turnstile";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { SendOTP, VerifyOTP } from "./actions";
 import {
@@ -23,10 +25,29 @@ export default function Login() {
   const [step, setStep] = useState<"email" | "otp">("email");
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const turnstileRef = useRef<TurnstileInstance>(null);
+  const turnstileRef2 = useRef<TurnstileInstance>(null);
   const { toast } = useToast();
+  const [otp, setOtp] = useState("");
+  const [otpAttempts, setOtpAttempts] = useState(0);
+  const router = useRouter();
+
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!isValidEmail(email)) {
+      toast({
+        title: "Invalid email",
+        description: "Please enter a valid email address",
+        variant: "destructive",
+      });
+      return;
+    }
 
     if (!acceptedTerms) {
       toast({
@@ -70,8 +91,22 @@ export default function Login() {
 
   const handleOTP = async (otp: string) => {
     setLoading(true);
+    if (otpAttempts > 3) {
+      toast({
+        title: "Too many attempts",
+        description: "Please try again later",
+        variant: "destructive",
+      });
+      return;
+    }
+    setOtpAttempts(otpAttempts + 1);
     try {
-      await VerifyOTP({ email, otp });
+      await VerifyOTP({ email, otp, token: captchaToken! });
+      router.push("/app");
+      toast({
+        title: "Success",
+        description: "You are now signed in",
+      });
     } catch (error) {
       console.error(error);
       toast({
@@ -134,6 +169,7 @@ export default function Login() {
             </div>
             <div className="flex justify-center">
               <Turnstile
+                ref={turnstileRef}
                 siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY! as string}
                 onSuccess={(token: string) => setCaptchaToken(token)}
                 onError={() => {
@@ -142,6 +178,10 @@ export default function Login() {
                     description: "Please try again or refresh the page",
                     variant: "destructive",
                   });
+                }}
+                onExpire={() => {
+                  setCaptchaToken(null);
+                  turnstileRef.current?.reset();
                 }}
                 className="mb-4"
               />
@@ -156,19 +196,68 @@ export default function Login() {
             {loading ? (
               <Loading element="session" size="large" />
             ) : (
-              <InputOTP maxLength={6} onComplete={handleOTP}>
-                <InputOTPGroup>
-                  <InputOTPSlot index={0} />
-                  <InputOTPSlot index={1} />
-                  <InputOTPSlot index={2} />
-                </InputOTPGroup>
-                <InputOTPSeparator />
-                <InputOTPGroup>
-                  <InputOTPSlot index={3} />
-                  <InputOTPSlot index={4} />
-                  <InputOTPSlot index={5} />
-                </InputOTPGroup>
-              </InputOTP>
+              <>
+                <InputOTP
+                  maxLength={6}
+                  onComplete={(code: string) => {
+                    setOtp(code);
+                  }}
+                >
+                  <InputOTPGroup>
+                    <InputOTPSlot index={0} />
+                    <InputOTPSlot index={1} />
+                    <InputOTPSlot index={2} />
+                  </InputOTPGroup>
+                  <InputOTPSeparator />
+                  <InputOTPGroup>
+                    <InputOTPSlot index={3} />
+                    <InputOTPSlot index={4} />
+                    <InputOTPSlot index={5} />
+                  </InputOTPGroup>
+                </InputOTP>
+                <Turnstile
+                  ref={turnstileRef2}
+                  siteKey={
+                    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY! as string
+                  }
+                  onSuccess={(token: string) => setCaptchaToken(token)}
+                  onError={() => {
+                    toast({
+                      title: "Error with security check",
+                      description: "Please try again or refresh the page",
+                      variant: "destructive",
+                    });
+                  }}
+                  onExpire={() => {
+                    setCaptchaToken(null);
+                    turnstileRef2.current?.reset();
+                  }}
+                  className="mb-4"
+                />
+                <div className="flex justify-between w-full gap-4">
+                  <Button
+                    className="w-full"
+                    onClick={() => {
+                      setOtpAttempts(0);
+                      setOtp("");
+                      setStep("email");
+                    }}
+                    variant="neutral"
+                  >
+                    Back
+                  </Button>
+                  <Button
+                    className="w-full"
+                    type="submit"
+                    disabled={loading}
+                    onClick={() => {
+                      handleOTP(otp);
+                    }}
+                  >
+                    Verify
+                  </Button>
+                </div>
+              </>
             )}
           </>
         )}

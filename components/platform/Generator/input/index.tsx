@@ -30,11 +30,12 @@ interface PhotoInputProps {
   credits: number;
   setPack: (pack: Pack | null) => void;
   setCaptchaToken: (token: string | null) => void;
+  captchaToken: string | null;
+  pack: Pack | null;
 }
 
 export default function PhotoInput({
   onGenerate,
-  user,
   loading,
   onPostureChange,
   selectedPosture,
@@ -47,7 +48,9 @@ export default function PhotoInput({
   setFaceDetected,
   faceDetected,
   setPack,
+  pack,
   credits,
+  captchaToken,
   setCaptchaToken,
 }: PhotoInputProps) {
   const [isWebcam, setIsWebcam] = useState(false);
@@ -206,14 +209,14 @@ export default function PhotoInput({
     if (preview && faceDetected) {
       try {
         // First fetch the blob from the preview URL
-        if (!imageUrl) {
+        if (!imageUrl || !pack) {
           const res = await fetch(preview);
           const blob = await res.blob();
 
           // Create a FormData object to send the file
           const formData = new FormData();
           formData.append("file", blob, "photo.jpg");
-          formData.append("userId", user.id);
+          formData.append("captchaToken", captchaToken!);
 
           // Upload to Supabase storage
           setIsUploading(true);

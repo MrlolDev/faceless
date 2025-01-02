@@ -1,8 +1,5 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-
 import { createClient } from "@/lib/supabase/server";
 
 export async function SendOTP({
@@ -24,6 +21,7 @@ export async function SendOTP({
   const { error } = await supabase.auth.signInWithOtp(data);
 
   if (error) {
+    console.error(error);
     throw new Error("Failed to send OTP");
   }
 
@@ -33,21 +31,26 @@ export async function SendOTP({
 export async function VerifyOTP({
   email,
   otp,
+  token,
 }: {
   email: string;
   otp: string;
+  token: string;
 }) {
   const supabase = await createClient();
   const { error } = await supabase.auth.verifyOtp({
     token: otp,
     email,
     type: "email",
+    options: {
+      captchaToken: token,
+    },
   });
 
   if (error) {
-    redirect("/error");
+    console.error(error);
+    throw new Error("Failed to verify OTP");
   }
 
-  revalidatePath("/app", "layout");
-  redirect("/app");
+  return true;
 }

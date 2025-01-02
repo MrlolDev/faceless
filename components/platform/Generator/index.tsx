@@ -112,6 +112,8 @@ export default function AppPage({
           setPack={setPack}
           credits={credits}
           setCaptchaToken={setCaptchaToken}
+          captchaToken={captchaToken}
+          pack={pack}
         />
 
         <div className="flex flex-col items-center justify-center h-full w-[350px] gap-4">
