@@ -32,6 +32,38 @@ const nextConfig = {
         source: "/:path*",
         headers: [
           {
+            key: "Content-Security-Policy",
+            value: [
+              "default-src 'self';",
+              // Scripts
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.vercel-analytics.com https://*.google-analytics.com https://challenges.cloudflare.com;",
+              // Styles
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;",
+              // Images
+              "img-src 'self' data: blob: https://*.supabase.co https://replicate.delivery https://*.google-analytics.com;",
+              // Fonts
+              "font-src 'self' https://fonts.gstatic.com;",
+              // Frames
+              "frame-src 'self' https://challenges.cloudflare.com;",
+              // Connect (for API calls, websockets)
+              "connect-src 'self' https://*.supabase.co https://*.vercel-analytics.com https://*.google-analytics.com https://replicate.delivery https://challenges.cloudflare.com;",
+              // Media
+              "media-src 'self';",
+              // Object
+              "object-src 'none';",
+              // Manifest
+              "manifest-src 'self';",
+              // Form
+              "form-action 'self';",
+              // Base URI
+              "base-uri 'self';",
+              // Frame ancestors
+              "frame-ancestors 'none';",
+              // Upgrade insecure requests
+              "upgrade-insecure-requests;",
+            ].join(" "),
+          },
+          {
             key: "X-DNS-Prefetch-Control",
             value: "on",
           },
