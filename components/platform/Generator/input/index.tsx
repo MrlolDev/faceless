@@ -230,6 +230,7 @@ export default function PhotoInput({
           }
 
           const { url } = await uploadRes.json();
+          ref.current?.reset();
           setIsUploading(false);
           setImageUrl(url);
           onGenerate(url);
@@ -239,10 +240,16 @@ export default function PhotoInput({
       } catch (error) {
         console.error("Error uploading image:", error);
         toast({
-          title: "Error",
-          description: "Failed to upload image",
+          title: "Failed to upload image",
+          description: "Please try again",
           variant: "destructive",
         });
+        setImageUrl(null);
+        setPreview(null);
+        setFaceDetected(null);
+        setPack(null);
+        setIsUploading(false);
+        ref.current?.reset();
       }
     }
   };
