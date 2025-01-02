@@ -23,7 +23,9 @@ export async function middleware(request: NextRequest) {
   if (
     request.nextUrl.pathname === "/" ||
     request.nextUrl.pathname === "/terms" ||
-    request.nextUrl.pathname === "/privacy"
+    request.nextUrl.pathname === "/privacy" ||
+    request.nextUrl.pathname === "/sitemap.xml" ||
+    request.nextUrl.pathname === "/robots.txt"
   ) {
     return response;
   }
