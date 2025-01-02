@@ -11,7 +11,6 @@ import PostureSelector from "./PostureSelector";
 import BackgroundSelector from "./BackgroundSelector";
 import { Dialog } from "@/components/ui/dialog";
 import { GetCreditsDialog } from "@/components/platform/GetCreditsDialog";
-import { Turnstile } from "@marsidev/react-turnstile";
 
 interface PhotoInputProps {
   onGenerate: (url?: string) => void;
@@ -29,8 +28,6 @@ interface PhotoInputProps {
   faceDetected: boolean | null;
   credits: number;
   setPack: (pack: Pack | null) => void;
-  setCaptchaToken: (token: string | null) => void;
-  captchaToken: string | null;
   pack: Pack | null;
 }
 
@@ -50,8 +47,6 @@ export default function PhotoInput({
   setPack,
   pack,
   credits,
-  captchaToken,
-  setCaptchaToken,
 }: PhotoInputProps) {
   const [isWebcam, setIsWebcam] = useState(false);
   const [modelsLoaded, setModelsLoaded] = useState(false);

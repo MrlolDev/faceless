@@ -45,7 +45,6 @@ export default function AppPage({
   const [faceDetected, setFaceDetected] = useState<boolean | null>(
     defaultPack ? true : false
   );
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
   if (!user) {
     return <Loading element="user" />;
@@ -64,7 +63,6 @@ export default function AppPage({
           posture: selectedPosture,
           background: background,
           packId: pack?.id || null,
-          captchaToken: captchaToken,
         }),
       });
 
@@ -111,8 +109,6 @@ export default function AppPage({
           faceDetected={faceDetected}
           setPack={setPack}
           credits={credits}
-          setCaptchaToken={setCaptchaToken}
-          captchaToken={captchaToken}
           pack={pack}
         />
 
