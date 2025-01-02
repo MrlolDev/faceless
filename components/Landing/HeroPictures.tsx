@@ -4,7 +4,7 @@ const pictures = {
   ai_one: [
     "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735820945201.webp",
     "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735822546403.webp",
-    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735822085468.webp",
+    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735842761682.webp",
     "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735822360792.webp",
   ],
   ai_two: [
