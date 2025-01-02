@@ -37,9 +37,9 @@ export const metadata: Metadata = {
     siteName: "Faceless Avatar",
     images: [
       {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
+        url: "/icon.svg",
+        width: 512,
+        height: 512,
         alt: "Faceless Avatar - AI Avatar Generator",
       },
     ],
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     title: "Faceless Avatar - AI Avatar Generator",
     description: "Transform your photos into stunning AI-generated avatars",
     creator: "@mrloldev",
-    images: ["/og-image.jpg"],
+    images: ["/icon.svg"],
   },
   icons: {
     icon: "/icon.svg",
