@@ -64,10 +64,11 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+    const fileExtension = file.type.split("/")[1];
 
     const { data, error } = await supabase.storage
       .from("packs")
-      .upload(`${user.id}/original/${Date.now()}-${file.name}`, file);
+      .upload(`${user.id}/original/${Date.now()}.${fileExtension}`, file);
 
     if (error) {
       console.error("Error uploading file:", error);
