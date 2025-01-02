@@ -29,8 +29,9 @@ export default function PhotoCarousel({
   pack,
   updatePhoto,
 }: PhotoCarouselProps) {
-  if (photos.length === 0) return null;
   const { toast } = useToast();
+
+  if (photos.length === 0) return null;
 
   const copyImageUrl = (url: string) => {
     navigator.clipboard.writeText(url);
