@@ -139,6 +139,9 @@ export default function AppPage({
                 className="w-full"
                 onClick={async () => {
                   try {
+                    sendGAEvent("event", "download_avatar", {
+                      avatarUrl: generatedImage[0],
+                    });
                     const blob = await downloadImageAsPng(generatedImage[0]);
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement("a");
@@ -165,6 +168,9 @@ export default function AppPage({
                 variant="neutral"
                 className="w-full"
                 onClick={() => {
+                  sendGAEvent("event", "share_avatar", {
+                    avatarUrl: generatedImage[0],
+                  });
                   const tweetText =
                     "Check out my new AI-generated avatar! 🤖✨\n\n\nPlatform made by @mrloldev";
                   const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
