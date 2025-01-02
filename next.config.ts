@@ -36,7 +36,7 @@ const nextConfig = {
             value: [
               "default-src 'self';",
               // Scripts
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.vercel-analytics.com https://*.google-analytics.com https://challenges.cloudflare.com;",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.vercel-analytics.com https://*.google-analytics.com https://*.googletagmanager.com https://challenges.cloudflare.com;",
               // Styles
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;",
               // Images
@@ -46,7 +46,7 @@ const nextConfig = {
               // Frames
               "frame-src 'self' https://challenges.cloudflare.com;",
               // Connect (for API calls, websockets)
-              "connect-src 'self' https://*.supabase.co https://*.vercel-analytics.com https://*.google-analytics.com https://replicate.delivery https://challenges.cloudflare.com;",
+              "connect-src 'self' blob: https://*.supabase.co https://*.vercel-analytics.com https://*.google-analytics.com https://replicate.delivery https://challenges.cloudflare.com;",
               // Media
               "media-src 'self';",
               // Object
