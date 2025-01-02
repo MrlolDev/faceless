@@ -1,7 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { verifyTurnstileToken } from "@/lib/turnstile";
 import { NextRequest, NextResponse } from "next/server";
-import sharp from "sharp";
 
 export async function POST(req: NextRequest) {
   try {
@@ -14,8 +13,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Run validations in parallel
-    const [buffer, tokenVerified, supabase] = await Promise.all([
-      file.arrayBuffer(),
+    const [tokenVerified, supabase] = await Promise.all([
       verifyTurnstileToken(captchaToken),
       createClient(),
     ]);
@@ -37,35 +35,25 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Quick file size check before processing
+    // File validation
+    const allowedTypes = [
+      "image/jpeg",
+      "image/jpg",
+      "image/png",
+      "image/webp",
+      "image/gif",
+    ];
+    if (!allowedTypes.includes(file.type)) {
+      return NextResponse.json(
+        { error: "Unsupported image format" },
+        { status: 400 }
+      );
+    }
+
+    // File size check
     if (file.size > 10 * 1024 * 1024) {
       return NextResponse.json(
         { error: "File size too large. Maximum size is 10MB" },
-        { status: 400 }
-      );
-    }
-
-    // Validate image in parallel with user authentication
-    const metadata = await sharp(buffer, { failOnError: false }).metadata();
-
-    // Image validation
-    if (!metadata?.width || !metadata?.height || !metadata?.format) {
-      return NextResponse.json(
-        { error: "Invalid image metadata" },
-        { status: 400 }
-      );
-    }
-
-    if (metadata.width > 8000 || metadata.height > 8000) {
-      return NextResponse.json(
-        { error: "Image dimensions too large" },
-        { status: 400 }
-      );
-    }
-
-    if (!["jpeg", "jpg", "png", "webp", "gif"].includes(metadata.format)) {
-      return NextResponse.json(
-        { error: "Unsupported image format" },
         { status: 400 }
       );
     }
