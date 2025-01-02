@@ -44,7 +44,7 @@ export const getImage = async (
       ? `The background is a real scene, ${background.scene}.`
       : "";
 
-  const prompt = `A minimalist illustration of ${characterDescription}. ${posturePrompt}. The design excludes eyes, eye lines, nose, and mouth lines for a flat, clean aesthetic. A normal neck is included. ${backgroundPrompt} Styled in the artistic manner of TOK.`;
+  const prompt = `A minimalist illustration of ${characterDescription}. ${posturePrompt}. No eyes. The character has eyebrows and hair. The face should be smooth and clean with NO nose, NO mouth, and NO teeth. A normal neck is included. ${backgroundPrompt} In the style of TOK.`;
 
   const prediction = await replicate.predictions.create({
     version: process.env.REPLICATE_MODEL_VERSION,

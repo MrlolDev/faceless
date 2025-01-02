@@ -50,19 +50,53 @@ export default function AppPage({
     return <Loading element="user" />;
   }
 
-  const handleGenerate = async (url?: string) => {
+  const handleGetDescription = async (url: string) => {
     setLoading(true);
     try {
-      const response = await fetch("/api/generate", {
+      const response = await fetch("/api/generate/description", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          imageURL: url || imageUrl,
+          imageURL: url,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to get description");
+      }
+
+      const data = await response.json();
+      setPack(data.data.pack);
+
+      // Now generate the image
+      await handleGenerateImage(data.data.pack.id, data.data.cost);
+    } catch (error) {
+      console.error("Error getting description:", error);
+      toast({
+        title: "Error",
+        description: "Failed to get description",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGenerateImage = async (packId: number, cost: number) => {
+    setLoading(true);
+    try {
+      const response = await fetch("/api/generate/image", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          packId,
           posture: selectedPosture,
+          cost,
           background: background,
-          packId: pack?.id || null,
         }),
       });
 
@@ -75,6 +109,7 @@ export default function AppPage({
       setGeneratedImage(data.data.photos.map((photo: Photos) => photo.imgUrl));
       setGeneratedPhoto(data.data.photos[0]);
       setCredits(data.data.actualCredits);
+
       sendGAEvent("event", "generate_avatar", {
         backgroundColor: background?.colors[0],
         backgroundType: background?.type,
@@ -83,8 +118,21 @@ export default function AppPage({
       });
     } catch (error) {
       console.error("Error generating image:", error);
+      toast({
+        title: "Error",
+        description: "Failed to generate image",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGenerate = async (url?: string) => {
+    if (!pack) {
+      await handleGetDescription(url || imageUrl!);
+    } else {
+      await handleGenerateImage(pack.id, 0);
     }
   };
 

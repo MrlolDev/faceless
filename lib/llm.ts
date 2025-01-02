@@ -36,7 +36,7 @@ export const getCharacterDescription = async (imageURL: string) => {
     {
       role: "system",
       content:
-        "Answer with a short description of the character. Do not describe the setting or background. Just describe the character as good as you can. Do not add any introduction, just answer with the description. Description should be 1-2 sentences. The description must include: character age range(young, middle-aged, elderly), character gender(male, female, non-binary), character ethnicity(white, black, asian, latino, etc.), character hair color, character eye color, character clothing, character accessories, character background(indoors, outdoors, etc.) For example: 'A young white woman with long black hair and blue eyes. She is wearing a red dress and has a necklace with a heart pendant.'",
+        "Answer with a short description of the character. Do not describe the setting or background. Just describe the character as good as you can. Do not add any introduction, just answer with the description. Description should be 1-2 sentences. The description must include: character age range(young, middle-aged, elderly), character gender(male, female, non-binary), character ethnicity(white, black, asian, latino, etc.), if character has facial hair, what type of facial hair, character hair color, character clothing, character accessories, character background(indoors, outdoors, etc.) For example: 'A young white woman with long black hair and blue eyes. She is wearing a red dress and has a necklace with a heart pendant.'",
     },
     {
       role: "user",
