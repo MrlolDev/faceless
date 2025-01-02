@@ -3,19 +3,9 @@ import { getCharacterDescription } from "@/lib/llm";
 import { createClient } from "@/lib/supabase/server";
 import { serviceRole } from "@/lib/supabase/service-role";
 import { NextRequest, NextResponse } from "next/server";
-import { verifyTurnstileToken } from "@/lib/turnstile";
 
 export async function POST(req: NextRequest) {
-  const { imageURL, packId, posture, background, captchaToken } =
-    await req.json();
-
-  const tokenVerified = await verifyTurnstileToken(captchaToken);
-  if (!tokenVerified) {
-    return NextResponse.json(
-      { error: "Invalid captcha token" },
-      { status: 400 }
-    );
-  }
+  const { imageURL, packId, posture, background } = await req.json();
 
   const supabase = await createClient();
   // Get the authenticated user

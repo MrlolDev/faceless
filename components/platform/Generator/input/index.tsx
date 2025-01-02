@@ -11,7 +11,7 @@ import PostureSelector from "./PostureSelector";
 import BackgroundSelector from "./BackgroundSelector";
 import { Dialog } from "@/components/ui/dialog";
 import { GetCreditsDialog } from "@/components/platform/GetCreditsDialog";
-import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 interface PhotoInputProps {
   onGenerate: (url?: string) => void;
@@ -61,7 +61,6 @@ export default function PhotoInput({
   const imageRef = useRef<HTMLImageElement>(null);
   const { toast } = useToast();
   const [showCreditsDialog, setShowCreditsDialog] = useState(false);
-  const ref = useRef<TurnstileInstance | null>(null);
 
   useEffect(() => {
     const loadModels = async () => {
@@ -216,7 +215,6 @@ export default function PhotoInput({
           // Create a FormData object to send the file
           const formData = new FormData();
           formData.append("file", blob, "photo.jpg");
-          formData.append("captchaToken", captchaToken!);
 
           // Upload to Supabase storage
           setIsUploading(true);
@@ -230,7 +228,6 @@ export default function PhotoInput({
           }
 
           const { url } = await uploadRes.json();
-          ref.current?.reset();
           setIsUploading(false);
           setImageUrl(url);
           onGenerate(url);
@@ -249,7 +246,6 @@ export default function PhotoInput({
         setFaceDetected(null);
         setPack(null);
         setIsUploading(false);
-        ref.current?.reset();
       }
     }
   };
@@ -346,20 +342,6 @@ export default function PhotoInput({
               ? "Generating..."
               : "Generate Avatar"}
           </Button>
-          <Turnstile
-            ref={ref}
-            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY! as string}
-            onSuccess={(token: string) => setCaptchaToken(token)}
-            onError={() => {
-              toast({
-                title: "Error with security check",
-                description: "Please try again or refresh the page",
-                variant: "destructive",
-              });
-            }}
-            className="mb-4"
-            onExpire={() => ref.current?.reset()}
-          />
         </div>
       )}
       {isWebcam && (

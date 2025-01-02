@@ -1,22 +1,17 @@
 import { createClient } from "@/lib/supabase/server";
-import { verifyTurnstileToken } from "@/lib/turnstile";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
     const file = formData.get("file") as File;
-    const captchaToken = formData.get("captchaToken") as string;
 
     if (!file) {
       return NextResponse.json({ error: "File is required" }, { status: 400 });
     }
 
     // Run validations in parallel
-    const [tokenVerified, supabase] = await Promise.all([
-      verifyTurnstileToken(captchaToken),
-      createClient(),
-    ]);
+    const supabase = await createClient();
 
     // Get the authenticated user
     const {
@@ -26,13 +21,6 @@ export async function POST(req: NextRequest) {
 
     if (userError || !user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    if (!tokenVerified) {
-      return NextResponse.json(
-        { error: "Invalid captcha token" },
-        { status: 400 }
-      );
     }
 
     // File validation
