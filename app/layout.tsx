@@ -50,8 +50,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Faceless Avatar - AI Avatar Generator",
     description: "Transform your photos into stunning AI-generated avatars",
-    creator: "@samuelbreznjak",
+    creator: "@mrloldev",
     images: ["/og-image.jpg"],
+  },
+  icons: {
+    icon: "/icon.svg",
   },
   robots: {
     index: true,
