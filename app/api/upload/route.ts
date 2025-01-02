@@ -13,63 +13,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "File is required" }, { status: 400 });
     }
 
-    // Validate that the file is an image
-    const buffer = await file.arrayBuffer();
-    let metadata;
-    try {
-      // This will throw an error if the file is not a valid image
-      metadata = await sharp(buffer).metadata();
+    // Run validations in parallel
+    const [buffer, tokenVerified, supabase] = await Promise.all([
+      file.arrayBuffer(),
+      verifyTurnstileToken(captchaToken),
+      createClient(),
+    ]);
 
-      // Verify the image has valid dimensions and format
-      if (!metadata.width || !metadata.height || !metadata.format) {
-        return NextResponse.json(
-          { error: "Invalid image metadata" },
-          { status: 400 }
-        );
-      }
-
-      // Check for reasonable image dimensions
-      if (metadata.width > 8000 || metadata.height > 8000) {
-        return NextResponse.json(
-          { error: "Image dimensions too large" },
-          { status: 400 }
-        );
-      }
-
-      // Verify it's a common image format
-      const allowedFormats = ["jpeg", "jpg", "png", "webp", "gif"];
-      if (!allowedFormats.includes(metadata.format)) {
-        return NextResponse.json(
-          { error: "Unsupported image format" },
-          { status: 400 }
-        );
-      }
-    } catch (error) {
-      console.error(error);
-      return NextResponse.json(
-        { error: "Invalid image file" },
-        { status: 400 }
-      );
-    }
-
-    // File size check (moved after metadata validation)
-    if (file.size > 10 * 1024 * 1024) {
-      // 10MB limit
-      return NextResponse.json(
-        { error: "File size too large. Maximum size is 10MB" },
-        { status: 400 }
-      );
-    }
-
-    const tokenVerified = await verifyTurnstileToken(captchaToken);
-    if (!tokenVerified) {
-      return NextResponse.json(
-        { error: "Invalid captcha token" },
-        { status: 400 }
-      );
-    }
-
-    const supabase = await createClient();
     // Get the authenticated user
     const {
       data: { user },
@@ -79,6 +29,47 @@ export async function POST(req: NextRequest) {
     if (userError || !user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+
+    if (!tokenVerified) {
+      return NextResponse.json(
+        { error: "Invalid captcha token" },
+        { status: 400 }
+      );
+    }
+
+    // Quick file size check before processing
+    if (file.size > 10 * 1024 * 1024) {
+      return NextResponse.json(
+        { error: "File size too large. Maximum size is 10MB" },
+        { status: 400 }
+      );
+    }
+
+    // Validate image in parallel with user authentication
+    const metadata = await sharp(buffer, { failOnError: false }).metadata();
+
+    // Image validation
+    if (!metadata?.width || !metadata?.height || !metadata?.format) {
+      return NextResponse.json(
+        { error: "Invalid image metadata" },
+        { status: 400 }
+      );
+    }
+
+    if (metadata.width > 8000 || metadata.height > 8000) {
+      return NextResponse.json(
+        { error: "Image dimensions too large" },
+        { status: 400 }
+      );
+    }
+
+    if (!["jpeg", "jpg", "png", "webp", "gif"].includes(metadata.format)) {
+      return NextResponse.json(
+        { error: "Unsupported image format" },
+        { status: 400 }
+      );
+    }
+
     const { data: creditsDataExist, error: creditsErrorExist } = await supabase
       .from("credits")
       .select("*")
