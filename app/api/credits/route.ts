@@ -29,7 +29,7 @@ export async function GET() {
         .insert([
           {
             userId: user.id,
-            actual: 10,
+            actual: 5,
             spent: 0,
             transactions: [],
           },
