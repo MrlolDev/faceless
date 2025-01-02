@@ -71,7 +71,8 @@ export default function PrivacyPage() {
               <li>Supabase (authentication and data storage)</li>
               <li>Vercel (hosting and analytics)</li>
               <li>Google Analytics (website usage tracking)</li>
-              <li>Turnstile (spam protection)</li>
+              <li>Cloudflare Turnstile (spam protection)</li>
+              <li>Replicate (AI model hosting)</li>
             </ul>
           </section>
 

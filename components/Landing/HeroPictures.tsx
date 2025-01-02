@@ -2,17 +2,16 @@
 
 const pictures = {
   ai_one: [
-    "https://replicate.delivery/xezq/UvZMoh4kfT1USaiRFGL3j4lT3h97X11u3XwwRfl1ODMgJwAUA/out-0.webp",
-    "https://replicate.delivery/xezq/f0wg4dTXWlzUSiyPaylqEBgpSJPTci31SghKkcGWVCm9EYAKA/out-0.webp",
-    "https://replicate.delivery/xezq/emLMhYsv1nSHdahMunOVArhlI0WAyL6Dy8NYiftbyyl5KwAUA/out-0.webp",
-    "https://replicate.delivery/xezq/lUPxIXWZrDYBAVofx9JFDjKU2bbfD57TeXNIRQHbsA7dWgBoA/out-0.webp",
-    "https://replicate.delivery/xezq/IdC6oCe69j2YSKokTgXPvJ91u2kvobwdrYCgB5Ttg22JGYAKA/out-0.webp",
+    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735820945201.webp",
+    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735822546403.webp",
+    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735822085468.webp",
+    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735822360792.webp",
   ],
   ai_two: [
-    "https://replicate.delivery/xezq/gNDCGQdhHTYMMhhwBuWDRwCROVg5y7zu5q8vrwGe2g0rFYAKA/out-0.webp",
-    "https://replicate.delivery/xezq/SPSpQ1LXwX6CBFw6Neq78d47fCif5dJ7e2l3H21IFuMjuADQB/out-0.webp",
-    "https://replicate.delivery/xezq/gbaTKw8ziwIYPJ1NRFwbL0lSKZLUQaRjOYNvkgPZnZk8CMAF/out-0.webp",
-    "https://replicate.delivery/xezq/AKQeWN0wb2Q2VyRiXZxQn4M1qy9yAwQ7YbsF64uYdmDEGYAKA/out-0.webp",
+    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735821871905.webp",
+    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735807431789.webp",
+    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735822236770.webp",
+    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735822471442.webp",
   ],
 };
 export default function HeroPictures() {

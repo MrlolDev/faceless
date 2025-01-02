@@ -13,6 +13,12 @@ import Rating from "../Rating";
 import Loading from "@/components/Loading";
 import { sendGAEvent } from "@next/third-parties/google";
 import { Reminders } from "../Reminders";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu";
 
 export default function AppPage({
   defaultPack,
@@ -135,6 +141,55 @@ export default function AppPage({
       await handleGenerateImage(pack.id, 0);
     }
   };
+  const shareOnTwitter = () => {
+    if (!generatedImage) return;
+    sendGAEvent("event", "share_avatar", {
+      avatarUrl: generatedImage[0],
+    });
+    const tweetText =
+      "Check out my new AI-generated avatar! 🤖✨\n\n\nPlatform made by @mrloldev";
+    const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      tweetText
+    )}&url=${encodeURIComponent(
+      "https://faceless-avatar.com/pic/" +
+        generatedImage[0].split("packs/")[1].split(".webp")[0]
+    )}`;
+    window.open(tweetUrl, "_blank");
+  };
+
+  const downloadImage = async () => {
+    if (!generatedImage) return;
+    try {
+      sendGAEvent("event", "download_avatar", {
+        avatarUrl: generatedImage[0],
+      });
+      const blob = await downloadImageAsPng(generatedImage[0]);
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "avatar.png";
+      a.click();
+      toast({
+        title: "Image downloaded",
+        description: "Your avatar has been downloaded",
+      });
+    } catch (error) {
+      console.error("Error downloading image:", error);
+      toast({
+        title: "Error",
+        description: "Failed to download image",
+        variant: "destructive",
+      });
+    }
+  };
+  const copyImageUrl = () => {
+    if (!generatedImage) return;
+    navigator.clipboard.writeText(generatedImage[0]);
+    toast({
+      title: "Image URL copied",
+      description: "Your image URL has been copied",
+    });
+  };
 
   return (
     <div className="min-h-screen bg-bg">
@@ -164,14 +219,38 @@ export default function AppPage({
           <div className="text-lg font-base w-fit">Your generated avatar:</div>
           {generatedImage && imageUrl && preview && !loading && (
             <div className="flex flex-col items-center h-full w-fit gap-4">
-              <div className="relative max-w-md aspect-square w-[350px]">
-                <Image
-                  src={generatedImage[0]}
-                  alt="Generated avatar"
-                  fill
-                  className="object-cover rounded-base border-2 border-border"
-                />
-              </div>
+              <ContextMenu>
+                <ContextMenuTrigger>
+                  <div className="relative max-w-md aspect-square w-[350px]">
+                    <Image
+                      src={generatedImage[0]}
+                      alt="Generated avatar"
+                      fill
+                      className="object-cover rounded-base border-2 border-border"
+                    />
+                  </div>
+                </ContextMenuTrigger>
+                <ContextMenuContent>
+                  <ContextMenuItem
+                    onClick={copyImageUrl}
+                    className="w-full cursor-pointer"
+                  >
+                    Copy Image URL
+                  </ContextMenuItem>
+                  <ContextMenuItem
+                    onClick={downloadImage}
+                    className="w-full cursor-pointer"
+                  >
+                    Download as PNG
+                  </ContextMenuItem>
+                  <ContextMenuItem
+                    onClick={shareOnTwitter}
+                    className="w-full cursor-pointer"
+                  >
+                    Share on Twitter
+                  </ContextMenuItem>
+                </ContextMenuContent>
+              </ContextMenu>
               <Rating
                 photo={generatedPhoto}
                 updatePhoto={(photo) => {
@@ -182,28 +261,7 @@ export default function AppPage({
                 variant="neutral"
                 className="w-full"
                 onClick={async () => {
-                  try {
-                    sendGAEvent("event", "download_avatar", {
-                      avatarUrl: generatedImage[0],
-                    });
-                    const blob = await downloadImageAsPng(generatedImage[0]);
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement("a");
-                    a.href = url;
-                    a.download = "avatar.png";
-                    a.click();
-                    toast({
-                      title: "Image downloaded",
-                      description: "Your avatar has been downloaded",
-                    });
-                  } catch (error) {
-                    console.error("Error downloading image:", error);
-                    toast({
-                      title: "Error",
-                      description: "Failed to download image",
-                      variant: "destructive",
-                    });
-                  }
+                  await downloadImage();
                 }}
               >
                 Download as PNG
@@ -212,18 +270,7 @@ export default function AppPage({
                 variant="neutral"
                 className="w-full"
                 onClick={() => {
-                  sendGAEvent("event", "share_avatar", {
-                    avatarUrl: generatedImage[0],
-                  });
-                  const tweetText =
-                    "Check out my new AI-generated avatar! 🤖✨\n\n\nPlatform made by @mrloldev";
-                  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                    tweetText
-                  )}&url=${encodeURIComponent(
-                    "https://faceless-avatar.com/pic/" +
-                      generatedImage[0].split("packs/")[1].split(".webp")[0]
-                  )}`;
-                  window.open(tweetUrl, "_blank");
+                  shareOnTwitter();
                 }}
               >
                 Share on Twitter{" "}

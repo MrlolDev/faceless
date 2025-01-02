@@ -9,6 +9,10 @@ export default function TermsPage() {
           Terms and Conditions
         </h1>
 
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-8">
+          Last updated: January 2, 2025
+        </p>
+
         <div className="space-y-6 text-text dark:text-darkText font-base">
           <section>
             <h2 className="text-2xl font-heading mb-4">
@@ -16,7 +20,10 @@ export default function TermsPage() {
             </h2>
             <p>
               By accessing and using Faceless Avatar, you agree to be bound by
-              these Terms and Conditions.
+              these Terms and Conditions. We reserve the right to modify these
+              terms at any time without prior notice. Your continued use of the
+              service after any changes constitutes acceptance of the modified
+              terms.
             </p>
           </section>
 
