@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { sendGAEvent } from "@next/third-parties/google";
 
 export function GetCreditsDialog() {
   const [code, setCode] = useState("");
@@ -41,7 +42,9 @@ export function GetCreditsDialog() {
         title: "Success!",
         description: `You've received ${data.credits} credits!`,
       });
-      alert("You've received " + data.credits + " credits!");
+      sendGAEvent("event", "claim_code", {
+        credits: data.credits,
+      });
       setCode("");
       router.refresh();
     } catch (error) {
@@ -51,7 +54,6 @@ export function GetCreditsDialog() {
           error instanceof Error ? error.message : "Failed to claim code",
         variant: "destructive",
       });
-      alert("Invalid code");
       setError("Invalid code");
     } finally {
       setLoading(false);

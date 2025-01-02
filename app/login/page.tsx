@@ -22,7 +22,7 @@ import Loading from "@/components/Loading";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [step, setStep] = useState<"email" | "otp">("email");
+  const [step, setStep] = useState<"email" | "otp" | "loading">("email");
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const turnstileRef = useRef<TurnstileInstance>(null);
@@ -102,6 +102,7 @@ export default function Login() {
     setOtpAttempts(otpAttempts + 1);
     try {
       await VerifyOTP({ email, otp, token: captchaToken! });
+      setStep("loading");
       router.push("/app");
       toast({
         title: "Success",
@@ -118,6 +119,10 @@ export default function Login() {
       setLoading(false);
     }
   };
+
+  if (step === "loading") {
+    return <Loading element="session" size="large" />;
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
