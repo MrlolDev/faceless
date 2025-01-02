@@ -236,11 +236,6 @@ export default function PhotoInput({
           description: "Please try again",
           variant: "destructive",
         });
-        setImageUrl(null);
-        setPreview(null);
-        setFaceDetected(null);
-        setPack(null);
-        setIsUploading(false);
       }
     }
   };
