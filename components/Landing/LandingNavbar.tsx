@@ -1,17 +1,21 @@
 import Link from "next/link";
 
 import { ThemeSwitcher } from "@/components/Theme/ThemeSwitcher";
+import Image from "next/image";
 
 export default function Navbar() {
   return (
     <nav className="fixed left-0 top-0 z-20 w-full h-16 sm:h-[88px] border-b-4 border-border dark:border-darkNavBorder bg-white dark:bg-secondaryBlack">
       <div className="mx-auto px-4 sm:px-5 max-w-[1300px] h-full flex items-center justify-between">
         <div className="flex items-center gap-4 sm:gap-10">
-          <Link
-            className="text-[22px] sm:text-[30px] h-9 w-9 sm:h-11 sm:w-11 rounded-base flex bg-main text-text border-2 border-black items-center justify-center font-heading"
-            href="/"
-          >
-            F
+          <Link href="/">
+            <Image
+              src="/icon.svg"
+              alt="Faceless Avatar Logo"
+              className="rounded-lg h-12 w-12"
+              width={50}
+              height={50}
+            />
           </Link>
 
           <div className="hidden sm:flex items-center gap-8">

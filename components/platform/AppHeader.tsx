@@ -17,6 +17,7 @@ import { Sun } from "lucide-react";
 import { Dialog } from "@/components/ui/dialog";
 import { useState } from "react";
 import { GetCreditsDialog } from "./GetCreditsDialog";
+import Image from "next/image";
 
 export function AppHeader({
   user,
@@ -39,11 +40,14 @@ export function AppHeader({
     <header className="w-full border-b border-border">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-2 sm:gap-6">
-          <Link
-            className="text-[30px] h-11 w-11 rounded-base flex bg-main text-text border-2 border-black m500:w-9 m500:h-9 m500:text-[22px] items-center justify-center font-heading"
-            href={"/app"}
-          >
-            F
+          <Link href={"/app"}>
+            <Image
+              src="/icon.svg"
+              alt="Faceless Avatar Logo"
+              className="rounded-lg h-12 w-12"
+              width={50}
+              height={50}
+            />
           </Link>
           <nav className="flex items-center gap-4 md:gap-10 sm:gap-6 text-xl m1100:text-base">
             <Link
