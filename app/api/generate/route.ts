@@ -155,6 +155,7 @@ export async function POST(req: NextRequest) {
       { status: 500 }
     );
   }
+  console.log(photoData);
 
   return NextResponse.json({
     data: {
