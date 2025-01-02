@@ -20,6 +20,7 @@ export interface Pack {
   userId: string;
   characterDescription: string;
   originPhoto: string; // url of the uploaded photo
+  created_at: Date;
 }
 
 export const Postures = [

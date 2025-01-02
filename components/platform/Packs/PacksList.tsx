@@ -43,7 +43,7 @@ export default function PacksList({ userId }: PacksListProps) {
               />
             )}
             <p className="text-sm font-base line-clamp-2 pt-0 mt-0">
-              {pack.characterDescription}
+              Created at: {new Date(pack.created_at).toLocaleDateString()}
             </p>
             <p className="text-sm font-base">
               Total cost:{" "}
