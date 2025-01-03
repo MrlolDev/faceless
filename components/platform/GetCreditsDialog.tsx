@@ -69,16 +69,7 @@ export function GetCreditsDialog() {
         <DialogTitle>{t("needMoreCredits")}</DialogTitle>
         <DialogDescription>
           <div className="flex flex-col gap-2">
-            <p>{t("youCanGetMoreCreditsInTwoWays")}</p>
-            <ol className="list-decimal ml-4">
-              <li>
-                <Link href="/app/credits" className="text-main hover:underline">
-                  {t("purchaseCredits")}
-                </Link>{" "}
-                {t("withVariousPaymentOptions")}
-              </li>
-              <li>{t("contactMeForFreeCreditsThrough")}</li>
-            </ol>
+            <p>{t("contactMeForFreeCreditsThrough")}</p>
             <div className="flex gap-2 mt-0 mb-2">
               <a
                 href="https://twitter.com/mrloldev"

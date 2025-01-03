@@ -88,12 +88,6 @@ export function AppHeader({
             >
               {t("packs")}
             </Link>
-            <Link
-              className="font-base hover:opacity-70 transition-opacity"
-              href="/app/credits"
-            >
-              {t("getCredits")}
-            </Link>
             {user.email === "mrlol.yt.oficial@gmail.com" && (
               <Link
                 className="font-base hover:opacity-70 transition-opacity"
