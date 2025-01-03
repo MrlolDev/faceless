@@ -37,7 +37,7 @@ export default function PhotoInput({
   loading,
   onPostureChange,
   selectedPosture,
-  imageUrl,
+  //imageUrl,
   setImageUrl,
   background,
   setBackground,
@@ -46,7 +46,7 @@ export default function PhotoInput({
   setFaceDetected,
   faceDetected,
   setPack,
-  pack,
+  //pack,
   credits,
 }: PhotoInputProps) {
   const [isWebcam, setIsWebcam] = useState(false);
@@ -201,7 +201,15 @@ export default function PhotoInput({
       });
       return;
     }
+    toast({
+      title: "Disabled",
+      description: "This feature is disabled for now due to copyright claims",
+      variant: "destructive",
+    });
+    setIsUploading(false);
+    return;
 
+    /*
     if (preview && faceDetected) {
       try {
         // First fetch the blob from the preview URL
@@ -239,7 +247,7 @@ export default function PhotoInput({
           variant: "destructive",
         });
       }
-    }
+    }*/
   };
 
   return (
