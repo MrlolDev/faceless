@@ -2,11 +2,13 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
+import { Credits } from "@/types/credits";
 
 export function useAuth() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [credits, setCredits] = useState<number>(0);
+  const [creditsData, setCreditsData] = useState<Credits | null>(null);
   const router = useRouter();
   const supabase = createClient();
 
@@ -25,6 +27,7 @@ export function useAuth() {
           });
           const data = await res.json();
           setCredits(data.actual);
+          setCreditsData(data);
         }
       } catch (error) {
         console.error("Error getting initial session:", error);
@@ -62,5 +65,6 @@ export function useAuth() {
     signOut,
     credits,
     setCredits,
+    creditsData,
   };
 }
