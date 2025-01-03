@@ -6,7 +6,9 @@ export async function GET() {
     const products = await api.products.list({
       limit: 100,
     });
-    return NextResponse.json(products.result.items);
+    return NextResponse.json(
+      products.result.items.filter((product) => !product.isArchived)
+    );
   } catch (error) {
     console.error("Error fetching products:", error);
     return NextResponse.json(
