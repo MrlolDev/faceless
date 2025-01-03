@@ -11,7 +11,6 @@ import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { sendGAEvent } from "@next/third-parties/google";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 export function GetCreditsDialog() {

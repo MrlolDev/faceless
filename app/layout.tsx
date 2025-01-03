@@ -4,7 +4,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/Theme/ThemeProvider";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Footer } from "@/components/Footer";
-import { CookieConsent } from "@/components/CookieConsent";
 import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({
