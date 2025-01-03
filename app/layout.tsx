@@ -90,7 +90,6 @@ export default function RootLayout({
           <Toaster />
           <Footer />
         </ThemeProvider>
-        <CookieConsent />
         <GoogleAnalytics gaId="G-6KT1M005LZ" />
       </body>
     </html>

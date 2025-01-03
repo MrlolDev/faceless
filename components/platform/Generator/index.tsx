@@ -19,12 +19,14 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
+import { useTranslations } from "next-intl";
 
 export default function AppPage({
   defaultPack,
 }: {
   defaultPack?: (Pack & { photos: Photos[] }) | null;
 }) {
+  const t = useTranslations("generator");
   const { user, signOut, credits, setCredits } = useAuth();
   const [generatedImage, setGeneratedImage] = useState<string[] | null>(
     defaultPack?.photos.map((photo) => photo.imgUrl) || null
@@ -53,7 +55,7 @@ export default function AppPage({
   );
 
   if (!user) {
-    return <Loading element="user" />;
+    return <Loading fullScreen={true} element="user" />;
   }
 
   const handleGetDescription = async (url: string) => {
@@ -81,8 +83,8 @@ export default function AppPage({
     } catch (error) {
       console.error("Error getting description:", error);
       toast({
-        title: "Error",
-        description: "Failed to get description",
+        title: t("error"),
+        description: t("failedToGetDescription"),
         variant: "destructive",
       });
     } finally {
@@ -125,8 +127,8 @@ export default function AppPage({
     } catch (error) {
       console.error("Error generating image:", error);
       toast({
-        title: "Error",
-        description: "Failed to generate image",
+        title: t("error"),
+        description: t("failedToGenerateImage"),
         variant: "destructive",
       });
     } finally {
@@ -170,14 +172,14 @@ export default function AppPage({
       a.download = "avatar.png";
       a.click();
       toast({
-        title: "Image downloaded",
-        description: "Your avatar has been downloaded",
+        title: t("imageDownloaded"),
+        description: t("avatarDownloaded"),
       });
     } catch (error) {
       console.error("Error downloading image:", error);
       toast({
-        title: "Error",
-        description: "Failed to download image",
+        title: t("error"),
+        description: t("failedToDownloadImage"),
         variant: "destructive",
       });
     }
@@ -186,8 +188,8 @@ export default function AppPage({
     if (!generatedImage) return;
     navigator.clipboard.writeText(generatedImage[0]);
     toast({
-      title: "Image URL copied",
-      description: "Your image URL has been copied",
+      title: t("imageUrlCopied"),
+      description: t("imageUrlCopiedDescription"),
     });
   };
 
@@ -216,7 +218,9 @@ export default function AppPage({
         />
 
         <div className="flex flex-col items-center justify-center h-full w-[350px] gap-4">
-          <div className="text-lg font-base w-fit">Your generated avatar:</div>
+          <div className="text-lg font-base w-fit">
+            {t("yourGeneratedAvatar")}
+          </div>
           {generatedImage && imageUrl && preview && !loading && (
             <div className="flex flex-col items-center h-full w-fit gap-4">
               <ContextMenu>
@@ -235,19 +239,19 @@ export default function AppPage({
                     onClick={copyImageUrl}
                     className="w-full cursor-pointer"
                   >
-                    Copy Image URL
+                    {t("copyImageUrl")}
                   </ContextMenuItem>
                   <ContextMenuItem
                     onClick={downloadImage}
                     className="w-full cursor-pointer"
                   >
-                    Download as PNG
+                    {t("downloadAsPng")}
                   </ContextMenuItem>
                   <ContextMenuItem
                     onClick={shareOnTwitter}
                     className="w-full cursor-pointer"
                   >
-                    Share on Twitter
+                    {t("shareOnTwitter")}
                   </ContextMenuItem>
                 </ContextMenuContent>
               </ContextMenu>
@@ -264,7 +268,7 @@ export default function AppPage({
                   await downloadImage();
                 }}
               >
-                Download as PNG
+                {t("downloadAsPng")}
               </Button>
               <Button
                 variant="neutral"
@@ -273,7 +277,7 @@ export default function AppPage({
                   shareOnTwitter();
                 }}
               >
-                Share on Twitter{" "}
+                {t("shareOnTwitter")}
                 <svg
                   className="h-4 w-4 sm:h-6 sm:w-6"
                   xmlns="http://www.w3.org/2000/svg"

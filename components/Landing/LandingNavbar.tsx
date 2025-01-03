@@ -2,8 +2,11 @@ import Link from "next/link";
 
 import { ThemeSwitcher } from "@/components/Theme/ThemeSwitcher";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export default function Navbar() {
+  const t = useTranslations("home");
+
   return (
     <nav className="fixed left-0 top-0 z-20 w-full h-16 sm:h-[88px] border-b-4 border-border dark:border-darkNavBorder bg-white dark:bg-secondaryBlack">
       <div className="mx-auto px-4 sm:px-5 max-w-[1300px] h-full flex items-center justify-between">
@@ -20,7 +23,7 @@ export default function Navbar() {
 
           <div className="hidden sm:flex items-center gap-8">
             <Link className="text-base sm:text-xl font-base" href="/app">
-              Platform
+              {t("platform")}
             </Link>
           </div>
         </div>

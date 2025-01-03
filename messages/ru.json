@@ -1,0 +1,136 @@
+{
+  "cookies": {
+    "message": "Мы используем файлы cookie для улучшения вашего опыта. Продолжая посещение этого сайта, вы соглашаетесь на использование нами файлов cookie. Узнайте больше в нашей",
+    "privacyLink": "Политике конфиденциальности",
+    "accept": "Принять"
+  },
+  "home": {
+    "title": "Безликий Аватар",
+    "description": "Faceless - это платформа для создания аватаров с помощью ИИ. Просто загрузите фотографию, и мы создадим для вас аватар на основе ИИ.",
+    "getStarted": "Начать",
+    "platform": "Платформа"
+  },
+  "login": {
+    "signIn": "Войти",
+    "enterEmail": "Введите ваш email, чтобы получить код",
+    "emailPlaceholder": "например, johndoe@gmail.com",
+    "termsOfService": "Условия использования",
+    "privacyPolicy": "Политика конфиденциальности",
+    "agreeTo": "Я согласен с",
+    "sending": "Отправка...",
+    "sendCode": "Отправить код",
+    "back": "Назад",
+    "verify": "Проверить",
+    "checkEmail": "Проверьте вашу почту для получения кода!",
+    "enterCode": "Введите код для входа",
+    "errorSendingCode": "Ошибка отправки кода",
+    "tooManyAttempts": "Слишком много попыток",
+    "tryAgainLater": "Пожалуйста, попробуйте позже",
+    "success": "Успех",
+    "signedIn": "Вы вошли в систему",
+    "errorVerifyingCode": "Ошибка проверки кода",
+    "tryAgain": "Пожалуйста, попробуйте снова."
+  },
+  "generator": {
+    "yourGeneratedAvatar": "Ваш созданный аватар:",
+    "imageDownloaded": "Изображение загружено",
+    "failedToGetDescription": "Не удалось получить описание",
+    "failedToGenerateImage": "Не удалось создать изображение",
+    "imageUrlCopied": "URL изображения скопирован",
+    "failedToDownloadImage": "Не удалось загрузить изображение",
+    "shareOnTwitter": "Поделиться в Twitter",
+    "downloadAsPng": "Скачать как PNG",
+    "uploadPhoto": "Загрузить фото",
+    "useWebcam": "Использовать веб-камеру",
+    "noPhotoSelected": "Фото не выбрано",
+    "noFaceDetectedInTheImage": "Лицо на изображении не обнаружено",
+    "generating": "Генерация...",
+    "generateAvatar": "Создать аватар",
+    "takePhoto": "Сделать фото",
+    "background": "Фон",
+    "solid": "Сплошной",
+    "gradient": "Градиент",
+    "scene": "Сцена",
+    "selectPose": "Выбрать позу",
+    "pose": "Поза",
+    "watching-horizon": "Смотрит на горизонт",
+    "looking-forward": "Смотрит вперед",
+    "looking-left": "Смотрит налево",
+    "looking-right": "Смотрит направо",
+    "faceDetected": "Лицо обнаружено",
+    "theFaceHasBeenDetectedInTheImage": "Лицо было обнаружено на изображении"
+  },
+  "appHeader": {
+    "generate": "Создать",
+    "packs": "Пакеты",
+    "getCredits": "Получить кредиты",
+    "createCodes": "Создать коды",
+    "dark": "Темная",
+    "light": "Светлая",
+    "signOut": "Выйти",
+    "credits": "Кредиты"
+  },
+  "rating": {
+    "thanksForTheLike": "Спасибо за лайк!",
+    "thanksForTheFeedback": "Спасибо за отзыв!",
+    "photoRated": "Фото оценено",
+    "failedToRatePhoto": "Не удалось оценить фото",
+    "loveAvatar": "Обожаю аватар",
+    "likeAvatar": "Нравится аватар",
+    "dislikeAvatar": "Не нравится аватар"
+  },
+  "packs": {
+    "noPacks": "Пакеты не найдены. Создайте свой первый пакет!",
+    "totalCost": "Общая стоимость",
+    "deletePack": "Удалить пакет",
+    "openInEditor": "Открыть в редакторе",
+    "credits": "кредиты",
+    "copyImageUrl": "Скопировать URL изображения",
+    "downloadAsPng": "Скачать как PNG",
+    "shareOnTwitter": "Поделиться в Twitter",
+    "originalPhoto": "Оригинальное фото",
+    "packNotFound": "Пакет не найден"
+  },
+  "credits": {
+    "getMoreCredits": "Получить больше кредитов",
+    "purchase": "Покупка",
+    "oneTimePurchaseOnly": "(Только одноразовая покупка)",
+    "noProductsAvailable": "Продукты отсутствуют.",
+    "needMoreCredits": "Нужно больше кредитов?",
+    "youCanGetMoreCreditsInTwoWays": "Вы можете получить больше кредитов двумя способами:",
+    "contactMeForFreeCreditsThrough": "Свяжитесь со мной для получения бесплатных кредитов через:",
+    "withVariousPaymentOptions": "с различными вариантами оплаты",
+    "orRedeemACode": "Или воспользуйтесь кодом:",
+    "claiming": "Заявка...",
+    "claim": "Заявить",
+    "success": "Успешно!",
+    "youveReceivedCredits": "Вы получили {{credits}} кредитов!",
+    "purchaseCredits": "Покупка кредитов",
+    "returnToGenerator": "Вернуться к генератору",
+    "yourPurchaseIsBeingProcessed": "Ваша покупка обрабатывается. Кредиты скоро будут добавлены на ваш счет.",
+    "thankYou": "Спасибо!"
+  },
+  "reminders": {
+    "credits": {
+      "message": "Хотите получить больше кредитов? Вы можете купить их прямо здесь! Используйте код 'mrloldev', чтобы получить 10% скидку на вашу первую покупку.",
+      "action": {
+        "text": "Купить кредиты",
+        "url": "/app/credits"
+      }
+    },
+    "productHunt": {
+      "message": "Поддержите нас, проголосовав на Product Hunt!",
+      "action": {
+        "text": "Голосовать на Product Hunt",
+        "url": "https://www.producthunt.com/posts/faceless-avatar"
+      }
+    },
+    "twitter": {
+      "message": "Вам нравится то, что вы видите? Подписывайтесь на нас в Twitter для обновлений!",
+      "action": {
+        "text": "Подписаться на @mrloldev",
+        "url": "https://twitter.com/mrloldev"
+      }
+    }
+  }
+}

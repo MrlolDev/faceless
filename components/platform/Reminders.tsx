@@ -3,6 +3,7 @@ import { usePathname } from "next/navigation";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Twitter, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 
 const REMINDER_MESSAGES = [
   {
@@ -39,6 +40,7 @@ export function Reminders() {
   const [isExiting, setIsExiting] = useState(false);
   const [reminder, setReminder] = useState(REMINDER_MESSAGES[0]);
   const pathname = usePathname();
+  const t = useTranslations("reminders");
 
   const handleHideReminder = () => {
     setIsExiting(true);
@@ -99,7 +101,7 @@ export function Reminders() {
         <AlertDescription className="flex items-center justify-between w-full gap-4">
           <div className="flex items-center gap-2">
             {reminder.type === "twitter" && <Twitter className="h-4 w-4" />}
-            {reminder.message}
+            {t(`${reminder.type}.message`)}
           </div>
           <div className="flex items-center gap-2">
             {reminder.action && (
@@ -112,7 +114,7 @@ export function Reminders() {
                   handleHideReminder();
                 }}
               >
-                {reminder.action.text}
+                {t(`${reminder.type}.action.text`)}
               </Button>
             )}
             <Button variant="neutral" size="sm" onClick={handleHideReminder}>

@@ -18,6 +18,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import Loading from "@/components/Loading";
+import { useTranslations } from "next-intl";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -31,6 +32,7 @@ export default function Login() {
   const [otp, setOtp] = useState("");
   const [otpAttempts, setOtpAttempts] = useState(0);
   const router = useRouter();
+  const t = useTranslations("login");
 
   const isValidEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -42,8 +44,8 @@ export default function Login() {
 
     if (!isValidEmail(email)) {
       toast({
-        title: "Invalid email",
-        description: "Please enter a valid email address",
+        title: t("invalidEmail"),
+        description: t("enterValidEmail"),
         variant: "destructive",
       });
       return;
@@ -51,8 +53,8 @@ export default function Login() {
 
     if (!acceptedTerms) {
       toast({
-        title: "Please accept the terms",
-        description: "You must accept the terms and privacy policy to continue",
+        title: t("acceptTerms"),
+        description: t("acceptTermsDescription"),
         variant: "destructive",
       });
       return;
@@ -60,8 +62,8 @@ export default function Login() {
 
     if (!captchaToken) {
       toast({
-        title: "Please complete the security check",
-        description: "Verify that you are human before proceeding",
+        title: t("securityCheck"),
+        description: t("verifyHuman"),
         variant: "destructive",
       });
       return;
@@ -73,15 +75,15 @@ export default function Login() {
       await SendOTP({ email, token: captchaToken });
 
       toast({
-        title: "Check your email for the code!",
-        description: "Enter the code to sign in",
+        title: t("checkEmail"),
+        description: t("enterCode"),
       });
       setStep("otp");
     } catch (error) {
       console.error(error);
       toast({
-        title: "Error sending code",
-        description: "Please try again.",
+        title: t("errorSendingCode"),
+        description: t("tryAgain"),
         variant: "destructive",
       });
     } finally {
@@ -93,8 +95,8 @@ export default function Login() {
     setLoading(true);
     if (otpAttempts > 3) {
       toast({
-        title: "Too many attempts",
-        description: "Please try again later",
+        title: t("tooManyAttempts"),
+        description: t("tryAgainLater"),
         variant: "destructive",
       });
       return;
@@ -105,14 +107,14 @@ export default function Login() {
       setStep("loading");
       router.push("/app");
       toast({
-        title: "Success",
-        description: "You are now signed in",
+        title: t("success"),
+        description: t("signedIn"),
       });
     } catch (error) {
       console.error(error);
       toast({
-        title: "Error verifying code",
-        description: "Please try again.",
+        title: t("errorVerifyingCode"),
+        description: t("tryAgain"),
         variant: "destructive",
       });
     } finally {
@@ -121,24 +123,22 @@ export default function Login() {
   };
 
   if (step === "loading") {
-    return <Loading element="session" size="large" />;
+    return <Loading fullScreen={true} element="session" size="large" />;
   }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
       <div className="w-full max-w-md space-y-8 flex flex-col items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-heading">Sign In</h1>
-          <p className="mt-2 text-lg font-base">
-            Enter your email to receive a code
-          </p>
+          <h1 className="text-4xl font-heading">{t("signIn")}</h1>
+          <p className="mt-2 text-lg font-base">{t("enterEmail")}</p>
         </div>
 
         {step === "email" && (
           <form onSubmit={handleLogin} className="space-y-4 w-full">
             <Input
               type="email"
-              placeholder="eg. johndoe@gmail.com"
+              placeholder={t("emailPlaceholder")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -156,19 +156,19 @@ export default function Login() {
                 htmlFor="terms"
                 className="text-sm font-base leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
-                I agree to the{" "}
+                {t("agreeTo")}{" "}
                 <Link
                   href="/terms"
                   className="underline hover:opacity-90 text-main"
                 >
-                  Terms of Service
+                  {t("termsOfService")}
                 </Link>{" "}
                 and{" "}
                 <Link
                   href="/privacy"
                   className="underline hover:opacity-90 text-main"
                 >
-                  Privacy Policy
+                  {t("privacyPolicy")}
                 </Link>
               </label>
             </div>
@@ -192,7 +192,7 @@ export default function Login() {
               />
             </div>
             <Button className="w-full" type="submit" disabled={loading}>
-              {loading ? "Sending..." : "Send Code"}
+              {loading ? t("sending") : t("sendCode")}
             </Button>
           </form>
         )}
@@ -249,7 +249,7 @@ export default function Login() {
                     }}
                     variant="neutral"
                   >
-                    Back
+                    {t("back")}
                   </Button>
                   <Button
                     className="w-full"
@@ -259,7 +259,7 @@ export default function Login() {
                       handleOTP(otp);
                     }}
                   >
-                    Verify
+                    {t("verify")}
                   </Button>
                 </div>
               </>

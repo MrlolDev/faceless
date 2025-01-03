@@ -4,6 +4,7 @@ import { Star, ThumbsUp, ThumbsDown } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { sendGAEvent } from "@next/third-parties/google";
+import { useTranslations } from "next-intl";
 
 export default function Rating({
   photo,
@@ -15,7 +16,7 @@ export default function Rating({
   className?: string;
 }) {
   const { toast } = useToast();
-
+  const t = useTranslations("rating");
   const handleRate = async (rating: number) => {
     if (!photo) return;
 
@@ -33,9 +34,9 @@ export default function Rating({
       }
       const data = await response.json();
       toast({
-        title: "Photo rated",
+        title: t("photoRated"),
         description:
-          rating > 0 ? "Thanks for the like!" : "Thanks for the feedback!",
+          rating > 0 ? t("thanksForTheLike") : t("thanksForTheFeedback"),
       });
       updatePhoto(data);
       sendGAEvent("event", "rate_photo", {
@@ -45,8 +46,8 @@ export default function Rating({
     } catch (error) {
       console.error("Error rating photo:", error);
       toast({
-        title: "Error",
-        description: "Failed to rate photo",
+        title: t("error"),
+        description: t("failedToRatePhoto"),
         variant: "destructive",
       });
     }
@@ -62,7 +63,7 @@ export default function Rating({
           "hover:text-yellow-500"
         )}
         aria-label="Love avatar"
-        title="Love avatar"
+        title={t("loveAvatar")}
       >
         <Star className="h-4 w-4" />
       </Button>
@@ -76,7 +77,7 @@ export default function Rating({
           "hover:text-green-500"
         )}
         aria-label="Like avatar"
-        title="Like avatar"
+        title={t("likeAvatar")}
       >
         <ThumbsUp className="h-4 w-4" />
       </Button>
@@ -90,7 +91,7 @@ export default function Rating({
           "hover:text-red-500"
         )}
         aria-label="Dislike avatar"
-        title="Dislike avatar"
+        title={t("dislikeAvatar")}
       >
         <ThumbsDown className="h-4 w-4" />
       </Button>

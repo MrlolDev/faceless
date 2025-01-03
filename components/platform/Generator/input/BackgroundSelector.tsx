@@ -7,6 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Paintbrush } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface BackgroundSelectorProps {
   value: Background;
@@ -41,9 +42,11 @@ export default function BackgroundSelector({
   onChange,
   disabled,
 }: BackgroundSelectorProps) {
+  const t = useTranslations("generator");
+
   return (
     <div className="flex flex-col gap-2 w-full">
-      <label className="text-sm font-base">Background:</label>
+      <label className="text-sm font-base">{t("background")}:</label>
       <div className="flex gap-2">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -51,10 +54,10 @@ export default function BackgroundSelector({
               <span className="flex items-center gap-2">
                 <Paintbrush className="w-4 h-4" />
                 {value.type === "solid"
-                  ? "Solid"
+                  ? t("solid")
                   : value.type === "gradient"
-                  ? "Gradient"
-                  : "Scene"}
+                  ? t("gradient")
+                  : t("scene")}
               </span>
             </Button>
           </DropdownMenuTrigger>
@@ -67,7 +70,7 @@ export default function BackgroundSelector({
                 })
               }
             >
-              Solid
+              {t("solid")}
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() =>
@@ -80,7 +83,7 @@ export default function BackgroundSelector({
                 })
               }
             >
-              Gradient
+              {t("gradient")}
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() =>
@@ -91,7 +94,7 @@ export default function BackgroundSelector({
                 })
               }
             >
-              Scene
+              {t("scene")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

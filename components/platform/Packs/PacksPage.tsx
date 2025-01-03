@@ -10,7 +10,7 @@ export default function PacksPage() {
   const { user, signOut, credits } = useAuth();
 
   if (!user) {
-    return <Loading element="user" />;
+    return <Loading fullScreen={true} element="user" />;
   }
 
   return (

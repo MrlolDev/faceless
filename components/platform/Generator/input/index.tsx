@@ -11,6 +11,7 @@ import PostureSelector from "./PostureSelector";
 import BackgroundSelector from "./BackgroundSelector";
 import { Dialog } from "@/components/ui/dialog";
 import { GetCreditsDialog } from "@/components/platform/GetCreditsDialog";
+import { useTranslations } from "next-intl";
 
 interface PhotoInputProps {
   onGenerate: (url?: string) => void;
@@ -56,6 +57,7 @@ export default function PhotoInput({
   const imageRef = useRef<HTMLImageElement>(null);
   const { toast } = useToast();
   const [showCreditsDialog, setShowCreditsDialog] = useState(false);
+  const t = useTranslations("generator");
 
   useEffect(() => {
     const loadModels = async () => {
@@ -84,20 +86,20 @@ export default function PhotoInput({
       if (detections.length > 0) {
         if (detections.length > 1) {
           toast({
-            title: "Multiple faces detected",
-            description: "Please ensure only one face is in the image",
+            title: t("multipleFacesDetected"),
+            description: t("pleaseEnsureOnlyOneFaceIsInTheImage"),
             variant: "destructive",
           });
         } else {
           toast({
-            title: "Face detected",
-            description: "The face has been detected in the image",
+            title: t("faceDetected"),
+            description: t("theFaceHasBeenDetectedInTheImage"),
           });
         }
       } else {
         toast({
-          title: "No face detected",
-          description: "Please ensure a face is in the image",
+          title: t("noFaceDetected"),
+          description: t("pleaseEnsureAFaceIsInTheImage"),
           variant: "destructive",
         });
       }
@@ -189,11 +191,11 @@ export default function PhotoInput({
   const handleGenerate = async () => {
     if (credits < 1) {
       toast({
-        title: "Insufficient credits",
-        description: "You need at least 1 credit to generate an avatar",
+        title: t("insufficientCredits"),
+        description: t("youNeedAtLeastOneCreditToGenerateAnAvatar"),
         action: (
           <Button variant="default" onClick={() => setShowCreditsDialog(true)}>
-            Get Credits
+            {t("getCredits")}
           </Button>
         ),
       });
@@ -232,8 +234,8 @@ export default function PhotoInput({
       } catch (error) {
         console.error("Error uploading image:", error);
         toast({
-          title: "Failed to upload image",
-          description: "Please try again",
+          title: t("failedToUploadImage"),
+          description: t("pleaseTryAgain"),
           variant: "destructive",
         });
       }
@@ -249,11 +251,11 @@ export default function PhotoInput({
           className="w-full"
         >
           <Upload className="w-4 h-4" />
-          Upload Photo
+          {t("uploadPhoto")}
         </Button>
         <Button onClick={startWebcam} variant="neutral" className="w-full">
           <Camera className="w-4 h-4" />
-          Use Webcam
+          {t("useWebcam")}
         </Button>
         <input
           type="file"
@@ -300,13 +302,13 @@ export default function PhotoInput({
           </>
         ) : (
           <div className="w-full h-full flex items-center justify-center text-text font-base">
-            No photo selected
+            {t("noPhotoSelected")}
           </div>
         )}
       </div>
       {preview && faceDetected === false && (
         <div className="text-red-500 text-sm">
-          No face detected in the image
+          {t("noFaceDetectedInTheImage")}
         </div>
       )}
       {preview && faceDetected && (
@@ -327,16 +329,16 @@ export default function PhotoInput({
             disabled={loading || isUploading}
           >
             {isUploading
-              ? "Uploading..."
+              ? t("uploading")
               : loading
-              ? "Generating..."
-              : "Generate Avatar"}
+              ? t("generating")
+              : t("generateAvatar")}
           </Button>
         </div>
       )}
       {isWebcam && (
         <Button onClick={capturePhoto} className="w-full">
-          Take Photo
+          {t("takePhoto")}
         </Button>
       )}
       <Dialog open={showCreditsDialog} onOpenChange={setShowCreditsDialog}>

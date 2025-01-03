@@ -1,0 +1,136 @@
+{
+  "cookies": {
+    "message": "Utilizamos cookies para mejorar tu experiencia. Al continuar visitando este sitio aceptas nuestro uso de cookies. Aprende más en nuestra",
+    "privacyLink": "Política de Privacidad",
+    "accept": "Aceptar"
+  },
+  "home": {
+    "title": "Faceless Avatar",
+    "description": "Faceless es una plataforma para crear avatares de IA. Solo sube una foto y generaremos un avatar de IA para ti.",
+    "getStarted": "Comenzar",
+    "platform": "Plataforma"
+  },
+  "login": {
+    "signIn": "Iniciar sesión",
+    "enterEmail": "Introduce tu correo para recibir un código",
+    "emailPlaceholder": "ej. johndoe@gmail.com",
+    "termsOfService": "Términos de Servicio",
+    "privacyPolicy": "Política de Privacidad",
+    "agreeTo": "Acepto los",
+    "sending": "Enviando...",
+    "sendCode": "Enviar código",
+    "back": "Atrás",
+    "verify": "Verificar",
+    "checkEmail": "¡Revisa tu correo para el código!",
+    "enterCode": "Introduce el código para iniciar sesión",
+    "errorSendingCode": "Error al enviar el código",
+    "tooManyAttempts": "Demasiados intentos",
+    "tryAgainLater": "Por favor, intenta de nuevo más tarde",
+    "success": "Éxito",
+    "signedIn": "Has iniciado sesión",
+    "errorVerifyingCode": "Error al verificar el código",
+    "tryAgain": "Por favor, intenta de nuevo."
+  },
+  "generator": {
+    "yourGeneratedAvatar": "Tu avatar generado:",
+    "imageDownloaded": "Imagen descargada",
+    "failedToGetDescription": "Error al obtener descripción",
+    "failedToGenerateImage": "Error al generar la imagen",
+    "imageUrlCopied": "URL de la imagen copiada",
+    "failedToDownloadImage": "Error al descargar la imagen",
+    "shareOnTwitter": "Compartir en Twitter",
+    "downloadAsPng": "Descargar como PNG",
+    "uploadPhoto": "Subir foto",
+    "useWebcam": "Usar webcam",
+    "noPhotoSelected": "No se seleccionó foto",
+    "noFaceDetectedInTheImage": "No se detectó rostro en la imagen",
+    "generating": "Generando...",
+    "generateAvatar": "Generar Avatar",
+    "takePhoto": "Tomar foto",
+    "background": "Fondo",
+    "solid": "Sólido",
+    "gradient": "Gradiente",
+    "scene": "Escena",
+    "selectPose": "Seleccionar pose",
+    "pose": "Pose",
+    "watching-horizon": "Mirando el horizonte",
+    "looking-forward": "Mirando hacia adelante",
+    "looking-left": "Mirando a la izquierda",
+    "looking-right": "Mirando a la derecha",
+    "faceDetected": "Rostro detectado",
+    "theFaceHasBeenDetectedInTheImage": "El rostro ha sido detectado en la imagen"
+  },
+  "appHeader": {
+    "generate": "Generar",
+    "packs": "Paquetes",
+    "getCredits": "Obtener créditos",
+    "createCodes": "Crear códigos",
+    "dark": "Oscuro",
+    "light": "Claro",
+    "signOut": "Cerrar sesión",
+    "credits": "Créditos"
+  },
+  "rating": {
+    "thanksForTheLike": "¡Gracias por el me gusta!",
+    "thanksForTheFeedback": "¡Gracias por tus comentarios!",
+    "photoRated": "Foto calificada",
+    "failedToRatePhoto": "Error al calificar la foto",
+    "loveAvatar": "Amo el avatar",
+    "likeAvatar": "Me gusta el avatar",
+    "dislikeAvatar": "No me gusta el avatar"
+  },
+  "packs": {
+    "noPacks": "No se encontraron paquetes. ¡Genera tu primer paquete!",
+    "totalCost": "Costo total",
+    "deletePack": "Eliminar paquete",
+    "openInEditor": "Abrir en el editor",
+    "credits": "créditos",
+    "copyImageUrl": "Copiar URL de la imagen",
+    "downloadAsPng": "Descargar como PNG",
+    "shareOnTwitter": "Compartir en Twitter",
+    "originalPhoto": "Foto original",
+    "packNotFound": "Paquete no encontrado"
+  },
+  "credits": {
+    "getMoreCredits": "Obtener más créditos",
+    "purchase": "Comprar",
+    "oneTimePurchaseOnly": "(Solo compra única)",
+    "noProductsAvailable": "No hay productos disponibles.",
+    "needMoreCredits": "¿Necesitas más créditos?",
+    "youCanGetMoreCreditsInTwoWays": "Puedes obtener más créditos de dos maneras:",
+    "contactMeForFreeCreditsThrough": "Contáctame para obtener créditos gratis a través de:",
+    "withVariousPaymentOptions": "con varias opciones de pago",
+    "orRedeemACode": "O canjear un código:",
+    "claiming": "Reclamando...",
+    "claim": "Reclamar",
+    "success": "¡Éxito!",
+    "youveReceivedCredits": "¡Has recibido {{credits}} créditos!",
+    "purchaseCredits": "Comprar créditos",
+    "returnToGenerator": "Volver al generador",
+    "yourPurchaseIsBeingProcessed": "Tu compra está siendo procesada. Tus créditos se añadirán a tu cuenta en breve.",
+    "thankYou": "¡Gracias!"
+  },
+  "reminders": {
+    "credits": {
+      "message": "¿Quieres obtener más créditos? ¡Puedes comprarlos aquí mismo! Usa el código 'mrloldev' para obtener un 10% de descuento en tu primera compra.",
+      "action": {
+        "text": "Comprar créditos",
+        "url": "/app/credits"
+      }
+    },
+    "productHunt": {
+      "message": "¡Apóyanos votando en Product Hunt!",
+      "action": {
+        "text": "Votar en Product Hunt",
+        "url": "https://www.producthunt.com/posts/faceless-avatar"
+      }
+    },
+    "twitter": {
+      "message": "¿Te gusta lo que ves? ¡Síguenos en Twitter para actualizaciones!",
+      "action": {
+        "text": "Seguir a @mrloldev",
+        "url": "https://twitter.com/mrloldev"
+      }
+    }
+  }
+}

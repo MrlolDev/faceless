@@ -1,0 +1,136 @@
+{
+  "cookies": {
+    "message": "We gebruiken cookies om uw ervaring te verbeteren. Door deze site te blijven bezoeken, gaat u akkoord met ons gebruik van cookies. Leer meer in ons",
+    "privacyLink": "Privacybeleid",
+    "accept": "Accepteren"
+  },
+  "home": {
+    "title": "Gezichtsloze Avatar",
+    "description": "Faceless is een platform voor het creëren van AI-avatars. Upload gewoon een foto en wij genereren een AI-avatar voor u.",
+    "getStarted": "Beginnen",
+    "platform": "Platform"
+  },
+  "login": {
+    "signIn": "Inloggen",
+    "enterEmail": "Voer uw e-mailadres in om een code te ontvangen",
+    "emailPlaceholder": "bv. johndoe@gmail.com",
+    "termsOfService": "Servicevoorwaarden",
+    "privacyPolicy": "Privacybeleid",
+    "agreeTo": "Ik ga akkoord met de",
+    "sending": "Versturen...",
+    "sendCode": "Code verzenden",
+    "back": "Terug",
+    "verify": "Verifiëren",
+    "checkEmail": "Controleer uw e-mail voor de code!",
+    "enterCode": "Voer de code in om in te loggen",
+    "errorSendingCode": "Fout bij het verzenden van code",
+    "tooManyAttempts": "Te veel pogingen",
+    "tryAgainLater": "Probeer het later opnieuw",
+    "success": "Succes",
+    "signedIn": "U bent nu ingelogd",
+    "errorVerifyingCode": "Fout bij het verifiëren van de code",
+    "tryAgain": "Probeer het opnieuw."
+  },
+  "generator": {
+    "yourGeneratedAvatar": "Uw gegenereerde avatar:",
+    "imageDownloaded": "Afbeelding gedownload",
+    "failedToGetDescription": "Beschrijving ophalen mislukt",
+    "failedToGenerateImage": "Afbeelding genereren mislukt",
+    "imageUrlCopied": "Afbeeldings-URL gekopieerd",
+    "failedToDownloadImage": "Afbeelding downloaden mislukt",
+    "shareOnTwitter": "Delen op Twitter",
+    "downloadAsPng": "Downloaden als PNG",
+    "uploadPhoto": "Foto uploaden",
+    "useWebcam": "Webcam gebruiken",
+    "noPhotoSelected": "Geen foto geselecteerd",
+    "noFaceDetectedInTheImage": "Geen gezicht gedetecteerd in de afbeelding",
+    "generating": "Genereren...",
+    "generateAvatar": "Avatar genereren",
+    "takePhoto": "Foto nemen",
+    "background": "Achtergrond",
+    "solid": "Effen",
+    "gradient": "Gradiënt",
+    "scene": "Scène",
+    "selectPose": "Pose selecteren",
+    "pose": "Pose",
+    "watching-horizon": "Horizon bekijken",
+    "looking-forward": "Vooruit kijken",
+    "looking-left": "Naar links kijken",
+    "looking-right": "Naar rechts kijken",
+    "faceDetected": "Gezicht gedetecteerd",
+    "theFaceHasBeenDetectedInTheImage": "Het gezicht is gedetecteerd in de afbeelding"
+  },
+  "appHeader": {
+    "generate": "Genereren",
+    "packs": "Pakketten",
+    "getCredits": "Credits verkrijgen",
+    "createCodes": "Codes creëren",
+    "dark": "Donker",
+    "light": "Licht",
+    "signOut": "Uitloggen",
+    "credits": "Credits"
+  },
+  "rating": {
+    "thanksForTheLike": "Bedankt voor de like!",
+    "thanksForTheFeedback": "Bedankt voor de feedback!",
+    "photoRated": "Foto beoordeeld",
+    "failedToRatePhoto": "Foto beoordelen mislukt",
+    "loveAvatar": "Avatar geweldig",
+    "likeAvatar": "Avatar leuk",
+    "dislikeAvatar": "Avatar niet leuk"
+  },
+  "packs": {
+    "noPacks": "Geen pakketten gevonden. Genereer uw eerste pakket!",
+    "totalCost": "Totale kosten",
+    "deletePack": "Pakket verwijderen",
+    "openInEditor": "Openen in editor",
+    "credits": "credits",
+    "copyImageUrl": "Afbeeldings-URL kopiëren",
+    "downloadAsPng": "Downloaden als PNG",
+    "shareOnTwitter": "Delen op Twitter",
+    "originalPhoto": "Originele foto",
+    "packNotFound": "Pakket niet gevonden"
+  },
+  "credits": {
+    "getMoreCredits": "Meer credits verkrijgen",
+    "purchase": "Kopen",
+    "oneTimePurchaseOnly": "(Eenmalige aankoop)",
+    "noProductsAvailable": "Geen producten beschikbaar.",
+    "needMoreCredits": "Meer credits nodig?",
+    "youCanGetMoreCreditsInTwoWays": "U kunt op twee manieren meer credits krijgen:",
+    "contactMeForFreeCreditsThrough": "Contacteer mij voor gratis credits via:",
+    "withVariousPaymentOptions": "met verschillende betaalopties",
+    "orRedeemACode": "Of wissel een code in:",
+    "claiming": "Claimen...",
+    "claim": "Claim",
+    "success": "Succes!",
+    "youveReceivedCredits": "U heeft {{credits}} credits ontvangen!",
+    "purchaseCredits": "Credits kopen",
+    "returnToGenerator": "Terug naar Generator",
+    "yourPurchaseIsBeingProcessed": "Uw aankoop wordt verwerkt. Uw credits worden binnenkort aan uw account toegevoegd.",
+    "thankYou": "Dank u!"
+  },
+  "reminders": {
+    "credits": {
+      "message": "Wilt u meer credits krijgen? U kunt ze hier kopen! Gebruik de code 'mrloldev' om 10% korting te krijgen op uw eerste aankoop.",
+      "action": {
+        "text": "Credits kopen",
+        "url": "/app/credits"
+      }
+    },
+    "productHunt": {
+      "message": "Steun ons door te stemmen op Product Hunt!",
+      "action": {
+        "text": "Stem op Product Hunt",
+        "url": "https://www.producthunt.com/posts/faceless-avatar"
+      }
+    },
+    "twitter": {
+      "message": "Vindt u het leuk? Volg ons op Twitter voor updates!",
+      "action": {
+        "text": "Volg @mrloldev",
+        "url": "https://twitter.com/mrloldev"
+      }
+    }
+  }
+}

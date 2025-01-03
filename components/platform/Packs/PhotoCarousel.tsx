@@ -17,6 +17,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { sendGAEvent } from "@next/third-parties/google";
 import { downloadImageAsPng } from "@/lib/img-utils";
+import { useTranslations } from "next-intl";
 
 interface PhotoCarouselProps {
   photos: Photos[];
@@ -30,14 +31,15 @@ export default function PhotoCarousel({
   updatePhoto,
 }: PhotoCarouselProps) {
   const { toast } = useToast();
+  const t = useTranslations("packs");
 
   if (photos.length === 0) return null;
 
   const copyImageUrl = (url: string) => {
     navigator.clipboard.writeText(url);
     toast({
-      title: "Image URL copied",
-      description: "Your image URL has been copied",
+      title: t("imageUrlCopied"),
+      description: t("imageUrlCopiedDescription"),
     });
   };
   const downloadImage = async (imgUrl: string) => {
@@ -52,14 +54,14 @@ export default function PhotoCarousel({
       a.download = "avatar.png";
       a.click();
       toast({
-        title: "Image downloaded",
-        description: "Your avatar has been downloaded",
+        title: t("imageDownloaded"),
+        description: t("imageDownloadedDescription"),
       });
     } catch (error) {
       console.error("Error downloading image:", error);
       toast({
-        title: "Error",
-        description: "Failed to download image",
+        title: t("error"),
+        description: t("failedToDownloadImage"),
         variant: "destructive",
       });
     }
@@ -90,7 +92,7 @@ export default function PhotoCarousel({
               alt="Generated avatar"
               className="object-cover rounded-base border-2 border-border w-[300px] h-[300px] aspect-square"
             />
-            <p className="text-sm font-base">Original photo</p>
+            <p className="text-sm font-base">{t("originalPhoto")}</p>
           </div>
         </CarouselItem>
         {photos.map((photo) => (
@@ -111,19 +113,19 @@ export default function PhotoCarousel({
                     onClick={() => copyImageUrl(photo.imgUrl)}
                     className="w-full cursor-pointer"
                   >
-                    Copy Image URL
+                    {t("copyImageUrl")}
                   </ContextMenuItem>
                   <ContextMenuItem
                     onClick={() => downloadImage(photo.imgUrl)}
                     className="w-full cursor-pointer"
                   >
-                    Download as PNG
+                    {t("downloadAsPng")}
                   </ContextMenuItem>
                   <ContextMenuItem
                     onClick={() => shareOnTwitter(photo.imgUrl)}
                     className="w-full cursor-pointer"
                   >
-                    Share on Twitter
+                    {t("shareOnTwitter")}
                   </ContextMenuItem>
                 </ContextMenuContent>
               </ContextMenu>

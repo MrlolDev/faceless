@@ -11,6 +11,8 @@ import { usePacks } from "@/hooks/use-packs";
 import PhotoCarousel from "./PhotoCarousel";
 import { Button } from "../../ui/button";
 import Link from "next/link";
+import Loading from "@/components/Loading";
+import { useTranslations } from "next-intl";
 
 interface PacksListProps {
   userId: string;
@@ -19,12 +21,13 @@ interface PacksListProps {
 export default function PacksList({ userId }: PacksListProps) {
   const { packs, loading, updatePhoto, deletePack } = usePacks(userId);
 
+  const t = useTranslations("packs");
   if (loading) {
-    return <div>Loading packs...</div>;
+    return <Loading fullScreen={true} element="packs" size="large" />;
   }
 
   if (packs.length === 0) {
-    return <div>No packs found. Generate your first pack!</div>;
+    return <div>{t("noPacks")}</div>;
   }
 
   return (
@@ -46,17 +49,17 @@ export default function PacksList({ userId }: PacksListProps) {
               Created at: {new Date(pack.created_at).toLocaleDateString()}
             </p>
             <p className="text-sm font-base">
-              Total cost:{" "}
+              {t("totalCost")}:{" "}
               {pack.photos.reduce((acc, photo) => acc + photo.credits, 0)}{" "}
-              credits
+              {t("credits")}
             </p>
           </CardContent>
           <CardFooter className="flex justify-between pt-0 mt-0">
             <Link href={`/app/packs/${pack.id}`}>
-              <Button variant="default">Open in editor</Button>
+              <Button variant="default">{t("openInEditor")}</Button>
             </Link>
             <Button variant="neutral" onClick={() => deletePack(pack.id)}>
-              Delete pack
+              {t("deletePack")}
             </Button>
           </CardFooter>
         </Card>

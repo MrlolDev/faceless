@@ -12,11 +12,13 @@ import {
 import { Product } from "@polar-sh/sdk/models/components/product";
 import { Credits } from "@/types/credits";
 import { cn } from "@/lib/utils";
+import Loading from "@/components/Loading";
+import { useTranslations } from "next-intl";
 
 export default function ProductsList({ credits }: { credits: Credits }) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const t = useTranslations("credits");
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -64,11 +66,11 @@ export default function ProductsList({ credits }: { credits: Credits }) {
   };
 
   if (loading) {
-    return <div>Loading products...</div>;
+    return <Loading fullScreen={true} element="products" />;
   }
 
   if (products.length === 0) {
-    return <div>No products available.</div>;
+    return <div>{t("noProductsAvailable")}</div>;
   }
 
   return (
@@ -139,9 +141,9 @@ export default function ProductsList({ credits }: { credits: Credits }) {
                 }
                 onClick={() => handlePurchase(product.prices[0].id, product.id)}
               >
-                Purchase{" "}
+                {t("purchase")}{" "}
                 {product.prices[0].amountType == "free" &&
-                  "(One time purchase only)"}
+                  t("oneTimePurchaseOnly")}
               </Button>
             </CardFooter>
           </Card>
