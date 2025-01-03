@@ -42,74 +42,72 @@ export async function POST(req: NextRequest) {
 
   const credits = Math.round((image.cost + cost) * 100);
 
-  // Run photo creation and credits update in parallel
-  const [photoResult, creditsResult] = await Promise.all([
-    // Create photo
-    supabase
-      .from("photos")
-      .insert({
-        packId: pack.id,
-        imgUrl: image.imgUrl,
-        prompt: image.prompt,
-        steps: image.steps,
-        baseModel: image.baseModel,
-        prompt_strength: image.promptStrength,
-        facelessVersion: image.facelessVersion,
-        credits: credits,
-        rating: 0,
-        userId: user.id,
-      })
-      .select()
-      .single(),
-
-    // Get and update credits
-    (async () => {
-      const { data: creditsData, error: creditsError } = await serviceRole
-        .from("credits")
-        .select("*")
-        .eq("userId", user.id)
-        .single();
-
-      if (!creditsData || creditsError) {
-        throw new Error("Failed to get credits");
-      }
-
-      const actualCredits = creditsData.actual - credits;
-      const spentCredits = creditsData.spent + credits;
-
-      const { data: updatedCredits, error: updateError } = await serviceRole
-        .from("credits")
-        .update({
-          actual: actualCredits,
-          spent: spentCredits,
-          transactions: [
-            ...(creditsData.transactions || []),
-            {
-              type: "generate",
-              amount: credits,
-              createdAt: new Date().toISOString(),
-            },
-          ],
-        })
-        .eq("userId", user.id)
-        .select();
-
-      if (!updatedCredits || updateError) {
-        throw new Error("Failed to update credits");
-      }
-
-      return { actualCredits, updatedCredits };
-    })(),
-  ]).catch((error) => {
-    console.error(error);
-    throw error;
-  });
-
-  const [{ data: photoData }, { actualCredits }] = photoResult;
+  // Create a new photo
+  const { data: photoData, error: photoError } = await supabase
+    .from("photos")
+    .insert({
+      packId: pack.id,
+      imgUrl: image.imgUrl,
+      prompt: image.prompt,
+      steps: image.steps,
+      baseModel: image.baseModel,
+      prompt_strength: image.promptStrength,
+      facelessVersion: image.facelessVersion,
+      credits: credits,
+      rating: 0,
+      userId: user.id,
+    })
+    .select()
+    .single();
 
   if (!photoData) {
+    console.log(photoError);
     return NextResponse.json(
       { error: "Failed to create photo" },
+      { status: 500 }
+    );
+  }
+
+  // Update credits
+  const { data: creditsData, error: creditsError } = await serviceRole
+    .from("credits")
+    .select("*")
+    .eq("userId", user.id)
+    .single();
+
+  if (!creditsData) {
+    console.log(creditsError);
+    return NextResponse.json(
+      { error: "Failed to get credits" },
+      { status: 500 }
+    );
+  }
+
+  const actualCredits = creditsData.actual - credits;
+  const spentCredits = creditsData.spent + credits;
+
+  const { data: creditsUpdateData, error: creditsUpdateError } =
+    await serviceRole
+      .from("credits")
+      .update({
+        actual: actualCredits,
+        spent: spentCredits,
+        transactions: [
+          ...(creditsData.transactions || []),
+          {
+            type: "generate",
+            amount: credits,
+            createdAt: new Date().toISOString(),
+          },
+        ],
+      })
+      .eq("userId", user.id)
+      .select();
+
+  if (!creditsUpdateData) {
+    console.log(creditsUpdateError);
+    return NextResponse.json(
+      { error: "Failed to update credits" },
       { status: 500 }
     );
   }
