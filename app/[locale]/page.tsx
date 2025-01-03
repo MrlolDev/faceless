@@ -1,4 +1,3 @@
-import HeroPictures from "@/components/Landing/HeroPictures";
 import Navbar from "@/components/Landing/LandingNavbar";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
