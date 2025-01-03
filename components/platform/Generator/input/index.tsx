@@ -33,7 +33,7 @@ interface PhotoInputProps {
 }
 
 export default function PhotoInput({
-  onGenerate,
+  //onGenerate,
   loading,
   onPostureChange,
   selectedPosture,
