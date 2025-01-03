@@ -18,12 +18,12 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
+        protocol: "https" as const,
         hostname: "replicate.delivery",
         pathname: "/**",
       },
       {
-        protocol: "https",
+        protocol: "https" as const,
         hostname: "kbthrjuoewftreopxkiq.supabase.co",
         pathname: "/**",
       },
