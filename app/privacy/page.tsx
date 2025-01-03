@@ -34,18 +34,43 @@ export default function PrivacyPage() {
             <ul className="list-disc pl-6 space-y-2">
               <li>Providing our avatar generation service</li>
               <li>Account management and authentication</li>
+              <li>Processing payments and managing credits</li>
+              <li>Fraud detection and prevention</li>
               <li>Service improvement and optimization</li>
               <li>Communication about your account and our services</li>
               <li>
                 Marketing and promotional purposes (generated avatars only)
               </li>
               <li>Legal compliance and fraud prevention</li>
+              <li>Resolving disputes and enforcing our agreements</li>
             </ul>
           </section>
 
           <section>
             <h2 className="text-2xl font-heading mb-4">
-              3. Data Storage and Security
+              3. Payment Information
+            </h2>
+            <p className="mb-4">Regarding payment processing:</p>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>We do not store your complete payment information</li>
+              <li>
+                Payments are processed through Polar, our secure payment
+                provider
+              </li>
+              <li>
+                We store only the last 4 digits of your card for reference
+              </li>
+              <li>
+                Transaction history is kept for accounting and legal purposes
+              </li>
+              <li>Payment data is encrypted using industry standards</li>
+              <li>We maintain records of credit purchases and usage</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-heading mb-4">
+              4. Data Storage and Security
             </h2>
             <p className="mb-4">We handle your data with care:</p>
             <ul className="list-disc pl-6 space-y-2">
@@ -64,7 +89,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-2xl font-heading mb-4">
-              4. Third-Party Services
+              5. Third-Party Services
             </h2>
             <p className="mb-4">We use the following third-party services:</p>
             <ul className="list-disc pl-6 space-y-2">
@@ -74,11 +99,13 @@ export default function PrivacyPage() {
               <li>Cloudflare Turnstile (spam protection)</li>
               <li>Replicate (AI model hosting)</li>
               <li>OpenAI (AI model hosting)</li>
+              <li>Polar (payment processing)</li>
+              <li>Stripe (payment processing)</li>
             </ul>
           </section>
 
           <section>
-            <h2 className="text-2xl font-heading mb-4">5. Your Rights</h2>
+            <h2 className="text-2xl font-heading mb-4">6. Your Rights</h2>
             <p className="mb-4">You have the right to:</p>
             <ul className="list-disc pl-6 space-y-2">
               <li>Access your personal data</li>
@@ -91,7 +118,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-2xl font-heading mb-4">
-              6. Cookies and Tracking
+              7. Cookies and Tracking
             </h2>
             <p className="mb-4">We use cookies and similar technologies for:</p>
             <ul className="list-disc pl-6 space-y-2">
@@ -104,7 +131,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-2xl font-heading mb-4">
-              7. Children&apos;s Privacy
+              8. Children&apos;s Privacy
             </h2>
             <p>
               Our service is not intended for users under the age of 13. We do
@@ -115,7 +142,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-2xl font-heading mb-4">
-              8. Changes to Privacy Policy
+              9. Changes to Privacy Policy
             </h2>
             <p>
               We may update this privacy policy from time to time. We will
@@ -125,7 +152,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-heading mb-4">9. Contact Us</h2>
+            <h2 className="text-2xl font-heading mb-4">10. Contact Us</h2>
             <p>
               If you have any questions about this privacy policy or our
               practices, please contact us at:

@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { sendGAEvent } from "@next/third-parties/google";
+import Link from "next/link";
 
 export function GetCreditsDialog() {
   const [code, setCode] = useState("");
@@ -65,11 +66,23 @@ export function GetCreditsDialog() {
       <DialogHeader>
         <DialogTitle>Need more credits?</DialogTitle>
         <DialogDescription>
-          <div className="flex flex-col gap-4">
-            <div>
-              To get more credits (free of charge), please contact me through:
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2">
+              <p>You can get more credits in two ways:</p>
+              <ol className="list-decimal ml-4">
+                <li>
+                  <Link
+                    href="/app/credits"
+                    className="text-main hover:underline"
+                  >
+                    Purchase credits
+                  </Link>{" "}
+                  with various payment options
+                </li>
+                <li>Contact me for free credits through:</li>
+              </ol>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 mt-0 mb-2">
               <a
                 href="https://twitter.com/mrloldev"
                 target="_blank"

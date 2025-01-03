@@ -1,6 +1,7 @@
 import { api } from "@/lib/polar";
 import { type NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { Transaction } from "@/types/credits";
 
 export async function GET(req: NextRequest) {
   const supabase = await createClient();
@@ -21,6 +22,26 @@ export async function GET(req: NextRequest) {
     id: productId,
   });
   const credits = parseInt(product.benefits[0].description.split(" ")[0]);
+
+  // Check if this is a free trial and if user already had one
+  if (product.prices[0].amountType === "free") {
+    const { data: creditsData } = await supabase
+      .from("credits")
+      .select("*")
+      .eq("userId", user.id)
+      .single();
+
+    const alreadyHadFreeTrial = creditsData?.transactions?.some(
+      (transaction: Transaction) => transaction.type === "free"
+    );
+
+    if (alreadyHadFreeTrial) {
+      return NextResponse.json(
+        { error: "You've already used your free trial" },
+        { status: 400 }
+      );
+    }
+  }
 
   try {
     const result = await api.checkouts.custom.create({

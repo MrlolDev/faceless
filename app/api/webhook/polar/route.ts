@@ -11,13 +11,24 @@ import { Transaction } from "@/types/credits";
 async function handleCheckoutUpdated(
   checkoutData: WebhookCheckoutUpdatedPayload
 ) {
+  if (checkoutData.data.status !== "succeeded") {
+    return;
+  }
   const product = checkoutData.data.product;
-  const { userId, credits } = checkoutData.data.customerMetadata as {
-    userId: string;
-    credits: number;
-  };
+  const userEmail = checkoutData.data.customerEmail;
 
-  if (!userId || !credits) {
+  const { data: user } = await serviceRole
+    .from("profiles")
+    .select("*")
+    .eq("email", userEmail)
+    .single();
+
+  const credits = parseInt(product.benefits[0].description.split(" ")[0]);
+
+  console.log("Checkout success", userEmail, credits);
+
+  if (!userEmail) {
+    console.log(checkoutData);
     throw new Error("Missing required metadata: userId or credits");
   }
 
@@ -25,7 +36,7 @@ async function handleCheckoutUpdated(
   const { data: creditsData, error: creditsError } = await serviceRole
     .from("credits")
     .select("*")
-    .eq("userId", userId)
+    .eq("userId", user.id)
     .single();
 
   if (creditsError) {
@@ -54,7 +65,7 @@ async function handleCheckoutUpdated(
         },
       ],
     })
-    .eq("userId", userId);
+    .eq("userId", user.id);
 
   if (updateError) {
     throw new Error(`Failed to update credits: ${updateError.message}`);
@@ -79,7 +90,6 @@ export async function POST(request: NextRequest) {
       process.env.POLAR_WEBHOOK_SECRET!
     );
 
-    console.log(webhookPayload);
     // Handle different webhook events
     switch (webhookPayload.type) {
       case "checkout.updated":

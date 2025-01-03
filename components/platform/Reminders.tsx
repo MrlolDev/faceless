@@ -26,7 +26,11 @@ const REMINDER_MESSAGES = [
   {
     type: "credits",
     message:
-      "Do you want to get more credits? You can claim a code by clicking on the credits button in the top right corner.",
+      "Do you want to get more credits? You can buy them right here! Use the code 'mrloldev' to get 10% off your first purchase.",
+    action: {
+      text: "Buy credits",
+      url: "/app/credits",
+    },
   },
 ];
 

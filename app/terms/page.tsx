@@ -38,6 +38,63 @@ export default function TermsPage() {
           </section>
 
           <section>
+            <h2 className="text-2xl font-heading mb-4">
+              3. Paid Plans & Billing
+            </h2>
+            <p>Regarding our paid credit packages:</p>
+            <ul className="list-disc pl-6 mt-2 space-y-2">
+              <li>All purchases are final and non-transferable</li>
+              <li>Prices are subject to change without notice</li>
+              <li>
+                We accept payments through our authorized payment processors
+              </li>
+              <li>You agree to provide accurate billing information</li>
+              <li>
+                Fraudulent purchases will result in immediate account
+                termination
+              </li>
+              <li>
+                We reserve the right to refuse service to any paid account
+              </li>
+              <li>
+                Paid status does not exempt users from our terms of service
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-heading mb-4">4. Refund Policy</h2>
+            <p>Our refund policy is as follows:</p>
+            <ul className="list-disc pl-6 mt-2 space-y-2">
+              <li>
+                Refund requests must be submitted within 7 days of purchase
+              </li>
+              <li>
+                Refunds will be considered for technical issues preventing
+                service use
+              </li>
+              <li>
+                Refunds will not be issued for:
+                <ul className="list-disc pl-6 mt-2 space-y-2">
+                  <li>Already used credits</li>
+                  <li>Dissatisfaction with generated avatars</li>
+                  <li>Fraudulent purchases or chargebacks</li>
+                  <li>Violations of our terms of service</li>
+                </ul>
+              </li>
+              <li>
+                We reserve the right to deny refunds to accounts showing signs
+                of abuse
+              </li>
+              <li>
+                Approved refunds will be processed through the original payment
+                method
+              </li>
+              <li>Processing of refunds may take 5-10 business days</li>
+            </ul>
+          </section>
+
+          <section>
             <h2 className="text-2xl font-heading mb-4">3. User Content</h2>
             <p>When using our service:</p>
             <ul className="list-disc pl-6 mt-2 space-y-2">

@@ -9,6 +9,11 @@ export async function SendOTP({
   email: string;
   token: string;
 }) {
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!emailRegex.test(email) || email.includes("+")) {
+    throw new Error("Invalid email format");
+  }
+
   const supabase = await createClient();
 
   const data = {

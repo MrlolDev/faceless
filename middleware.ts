@@ -25,7 +25,8 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname === "/terms" ||
     request.nextUrl.pathname === "/privacy" ||
     request.nextUrl.pathname === "/sitemap.xml" ||
-    request.nextUrl.pathname === "/robots.txt"
+    request.nextUrl.pathname === "/robots.txt" ||
+    request.nextUrl.pathname === "/api/webhook/polar"
   ) {
     return response;
   }
