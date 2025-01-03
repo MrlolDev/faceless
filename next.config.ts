@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+import createNextIntlPlugin from "next-intl/plugin";
+const withNextIntl = createNextIntlPlugin();
+
 const nextConfig = {
   webpack: (config: any, { isServer }: any) => {
     // Fixes npm packages that depend on `fs` module
@@ -98,4 +101,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

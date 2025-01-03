@@ -1,8 +1,27 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
 import { serviceRole } from "@/lib/supabase/service-role";
+import createMiddleware from "next-intl/middleware";
+import { routing } from "@/i18n/routing";
 
+const locales = ["en", "es"];
+const publicPages = [
+  "/",
+  "/terms",
+  "/privacy",
+  "/sitemap.xml",
+  "/robots.txt",
+  "/api/webhook/polar",
+];
+
+// Combine next-intl with existing middleware
 export async function middleware(request: NextRequest) {
+  const handleI18n = createMiddleware(routing);
+
+  // Handle i18n first
+  const i18nResponse = await handleI18n(request);
+  if (i18nResponse) return i18nResponse;
+
   // Check for cookie consent before loading analytics
   const cookieConsent = request.cookies.get("cookie-consent");
   const response = NextResponse.next();
@@ -20,14 +39,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // Allow direct access to the landing page
-  if (
-    request.nextUrl.pathname === "/" ||
-    request.nextUrl.pathname === "/terms" ||
-    request.nextUrl.pathname === "/privacy" ||
-    request.nextUrl.pathname === "/sitemap.xml" ||
-    request.nextUrl.pathname === "/robots.txt" ||
-    request.nextUrl.pathname === "/api/webhook/polar"
-  ) {
+  if (publicPages.includes(request.nextUrl.pathname)) {
     return response;
   }
 
@@ -38,5 +50,6 @@ export const config = {
   matcher: [
     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
     "/_next/script/google-analytics",
+    "/((?!api|_next|.*\\..*).*)",
   ],
 };
