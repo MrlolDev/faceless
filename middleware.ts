@@ -3,14 +3,14 @@ import { updateSession } from "@/lib/supabase/middleware";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "@/i18n/routing";
 
-const publicPages = [
-  "/",
-  "/terms",
-  "/privacy",
-  "/sitemap.xml",
+const publicPages = ["/", "/terms", "/privacy"];
+const withoutLocale = [
+  "/api",
+  "models",
+  "/_next",
+  "/favicon.ico",
   "/robots.txt",
-  "/api/webhook/polar",
-  "/models",
+  "/sitemap.xml",
 ];
 
 // Combine next-intl with existing middleware
@@ -37,10 +37,7 @@ export async function middleware(request: NextRequest) {
     // response render image
     return NextResponse.rewrite(imageUrl);
   }
-  if (
-    request.nextUrl.pathname.startsWith("/models") ||
-    request.nextUrl.pathname.startsWith("/api")
-  ) {
+  if (withoutLocale.includes(request.nextUrl.pathname)) {
     return response;
   }
 

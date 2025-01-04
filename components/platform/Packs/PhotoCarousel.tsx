@@ -48,7 +48,7 @@ export default function PhotoCarousel({
         avatarUrl: imgUrl,
       });
       const blob = await downloadImageAsPng(imgUrl);
-      const url = URL.createObjectURL(blob);
+      const url = URL.createObjectURL(blob.blob);
       const a = document.createElement("a");
       a.href = url;
       a.download = "avatar.png";
