@@ -77,7 +77,9 @@
     "originalPhoto": "Оригинальное фото",
     "error": "Ошибка",
     "multipleFacesDetected": "Обнаружено несколько лиц",
-    "pleaseEnsureOnlyOneFaceIsInTheImage": "Пожалуйста, убедитесь, что на изображении только одно лицо"
+    "pleaseEnsureOnlyOneFaceIsInTheImage": "Пожалуйста, убедитесь, что на изображении только одно лицо",
+    "failedToUploadImage": "Не удалось загрузить изображение",
+    "pleaseTryAgain": "Пожалуйста, попробуйте еще раз"
   },
   "appHeader": {
     "generate": "Создать",

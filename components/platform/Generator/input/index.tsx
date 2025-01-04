@@ -103,38 +103,8 @@ export default function PhotoInput({
   }, []);
 
   const detectFace = async (element: HTMLImageElement | HTMLVideoElement) => {
-    if (!modelsLoaded) return;
-
-    try {
-      const detections = await faceapi.detectAllFaces(
-        element,
-        new faceapi.TinyFaceDetectorOptions()
-      );
-      setFaceDetected(detections.length > 0);
-      if (detections.length > 0) {
-        if (detections.length > 1) {
-          toast({
-            title: t("multipleFacesDetected"),
-            description: t("pleaseEnsureOnlyOneFaceIsInTheImage"),
-            variant: "destructive",
-          });
-        } else {
-          toast({
-            title: t("faceDetected"),
-            description: t("theFaceHasBeenDetectedInTheImage"),
-          });
-        }
-      } else {
-        toast({
-          title: t("noFaceDetected"),
-          description: t("pleaseEnsureAFaceIsInTheImage"),
-          variant: "destructive",
-        });
-      }
-    } catch (error) {
-      console.error("Error detecting faces:", error);
-      setFaceDetected(null);
-    }
+    // Always set faceDetected to true to bypass face detection
+    setFaceDetected(true);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -150,12 +120,8 @@ export default function PhotoInput({
             const url = URL.createObjectURL(blob);
             setImageUrl(null);
             setPreview(url);
-            setFaceDetected(null);
+            setFaceDetected(true); // Always set to true
             setPack(null);
-            // Use the cropped image for face detection
-            const croppedImg = new Image();
-            croppedImg.src = url;
-            croppedImg.onload = () => detectFace(croppedImg);
           }
         }, "image/jpeg");
       };
@@ -241,11 +207,7 @@ export default function PhotoInput({
             setImageUrl(null);
             setPack(null);
             stopWebcam();
-
-            // Use the cropped image for face detection
-            const img = new Image();
-            img.src = url;
-            img.onload = () => detectFace(img);
+            setFaceDetected(true); // Always set to true
           } else {
             throw new Error("Failed to create blob from canvas");
           }

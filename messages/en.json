@@ -77,7 +77,9 @@
     "originalPhoto": "Original photo",
     "error": "Error",
     "multipleFacesDetected": "Multiple faces detected",
-    "pleaseEnsureOnlyOneFaceIsInTheImage": "Please ensure only one face is in the image"
+    "pleaseEnsureOnlyOneFaceIsInTheImage": "Please ensure only one face is in the image",
+    "failedToUploadImage": "Failed to upload image",
+    "pleaseTryAgain": "Please try again"
   },
   "appHeader": {
     "generate": "Generate",

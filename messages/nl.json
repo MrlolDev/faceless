@@ -77,7 +77,9 @@
     "originalPhoto": "Originele foto",
     "error": "Fout",
     "multipleFacesDetected": "Meerdere gezichten gedetecteerd",
-    "pleaseEnsureOnlyOneFaceIsInTheImage": "Zorg ervoor dat er slechts één gezicht in de afbeelding is"
+    "pleaseEnsureOnlyOneFaceIsInTheImage": "Zorg ervoor dat er slechts één gezicht in de afbeelding is",
+    "failedToUploadImage": "Afbeelding uploaden mislukt",
+    "pleaseTryAgain": "Probeer het opnieuw"
   },
   "appHeader": {
     "generate": "Genereren",

@@ -77,7 +77,9 @@
     "originalPhoto": "Foto original",
     "error": "Erro",
     "multipleFacesDetected": "Vários rostos detectados",
-    "pleaseEnsureOnlyOneFaceIsInTheImage": "Por favor, certifique-se de que apenas um rosto esteja na imagem"
+    "pleaseEnsureOnlyOneFaceIsInTheImage": "Por favor, certifique-se de que apenas um rosto esteja na imagem",
+    "failedToUploadImage": "Falha ao carregar a imagem",
+    "pleaseTryAgain": "Por favor, tente novamente"
   },
   "appHeader": {
     "generate": "Gerar",
