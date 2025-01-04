@@ -17,29 +17,57 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Faceless Avatar - AI Avatar Generator",
+  title: {
+    default: "Faceless Avatar - AI Avatar Generator",
+    template: "%s | Faceless Avatar",
+  },
   description:
-    "Generate unique AI avatars with Faceless Avatar. Transform your photos into stunning AI-generated portraits with our advanced image generation technology.",
+    "Transform your photos into stunning AI-generated avatars with Faceless Avatar. Create unique, professional profile pictures using advanced AI technology. Free credits for new users.",
   keywords: [
-    "AI avatar",
-    "avatar generator",
-    "AI portrait",
+    "AI avatar generator",
     "profile picture generator",
-    "artificial intelligence",
-    "digital avatar",
+    "artificial intelligence avatar",
+    "digital avatar creator",
+    "AI portrait generator",
+    "professional profile picture",
+    "avatar maker",
+    "AI photo transformation",
+    "custom avatar generator",
+    "personalized avatar",
   ],
   authors: [{ name: "MrlolDev" }],
+  creator: "MrlolDev",
+  publisher: "Faceless Avatar",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: "https://faceless-avatar.com",
+    languages: {
+      en: "https://faceless-avatar.com/en",
+      es: "https://faceless-avatar.com/es",
+      fr: "https://faceless-avatar.com/fr",
+      de: "https://faceless-avatar.com/de",
+      pt: "https://faceless-avatar.com/pt",
+      it: "https://faceless-avatar.com/it",
+      nl: "https://faceless-avatar.com/nl",
+      ru: "https://faceless-avatar.com/ru",
+    },
+  },
   openGraph: {
     title: "Faceless Avatar - AI Avatar Generator",
-    description: "Transform your photos into stunning AI-generated avatars",
+    description:
+      "Transform your photos into stunning AI-generated avatars. Create unique, professional profile pictures in seconds.",
     url: "https://faceless-avatar.com",
     siteName: "Faceless Avatar",
     images: [
       {
-        url: "/icon.svg",
-        width: 512,
-        height: 512,
-        alt: "Faceless Avatar - AI Avatar Generator",
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Faceless Avatar - AI Avatar Generator Examples",
       },
     ],
     locale: "en_US",
@@ -48,9 +76,10 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Faceless Avatar - AI Avatar Generator",
-    description: "Transform your photos into stunning AI-generated avatars",
+    description:
+      "Transform your photos into stunning AI-generated avatars. Create unique, professional profile pictures in seconds.",
     creator: "@mrloldev",
-    images: ["/icon.svg"],
+    images: ["/og-image.jpg"],
   },
   icons: {
     icon: "/icon.svg",

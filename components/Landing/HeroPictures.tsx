@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 const pictures = {
   ai_one: [
     "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735986426283.webp",
@@ -28,13 +30,17 @@ export default function HeroPictures() {
           }}
         >
           {[...pictures.ai_one, ...pictures.ai_one].map((picture, index) => (
-            <img
+            <Image
               key={index}
               src={picture}
-              alt="Faceless Avatar"
+              alt={`AI-generated avatar example ${
+                index + 1
+              } - Professional profile picture`}
               width={400}
               height={400}
               className="w-full h-full object-cover"
+              priority={index < 2}
+              loading={index < 2 ? "eager" : "lazy"}
             />
           ))}
         </div>
@@ -47,13 +53,17 @@ export default function HeroPictures() {
           }}
         >
           {[...pictures.ai_two, ...pictures.ai_two].map((picture, index) => (
-            <img
+            <Image
               key={index}
               src={picture}
-              alt="Faceless Avatar"
+              alt={`AI-generated avatar example ${
+                index + 1
+              } - Professional profile picture`}
               width={400}
               height={400}
               className="w-full h-full object-cover"
+              priority={index < 2}
+              loading={index < 2 ? "eager" : "lazy"}
             />
           ))}
         </div>

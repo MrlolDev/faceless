@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import HeroPictures from "@/components/Landing/HeroPictures";
+
 export default function Home() {
   const t = useTranslations("home");
 
