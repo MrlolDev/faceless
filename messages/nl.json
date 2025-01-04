@@ -81,7 +81,8 @@
     "failedToUploadImage": "Afbeelding uploaden mislukt",
     "pleaseTryAgain": "Probeer het opnieuw",
     "removeBackground": "Verwijder Achtergrond",
-    "failedToRemoveBackground": "Achtergrond verwijderen mislukt"
+    "failedToRemoveBackground": "Achtergrond verwijderen mislukt",
+    "avatarDownloaded": "Afbeelding succesvol gedownload"
   },
   "appHeader": {
     "generate": "Genereren",

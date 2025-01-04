@@ -81,7 +81,8 @@
     "failedToUploadImage": "Не удалось загрузить изображение",
     "pleaseTryAgain": "Пожалуйста, попробуйте еще раз",
     "removeBackground": "Удалить фон",
-    "failedToRemoveBackground": "Не удалось удалить фон"
+    "failedToRemoveBackground": "Не удалось удалить фон",
+    "avatarDownloaded": "Изображение успешно загружено"
   },
   "appHeader": {
     "generate": "Создать",

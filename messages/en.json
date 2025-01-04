@@ -72,6 +72,7 @@
     "copyImage": "Copy Image",
     "copyImageDescription": "Copy the image to your clipboard",
     "avatarCopied": "Image copied to clipboard successfully",
+    "avatarDownloaded": "Image downloaded successfully",
     "imageCopied": "Image copied to clipboard",
     "copyImageError": "Failed to copy image",
     "originalPhoto": "Original photo",

@@ -81,7 +81,8 @@
     "failedToUploadImage": "Bild konnte nicht hochgeladen werden",
     "pleaseTryAgain": "Bitte versuchen Sie es erneut",
     "removeBackground": "Hintergrund entfernen",
-    "failedToRemoveBackground": "Entfernen des Hintergrunds fehlgeschlagen"
+    "failedToRemoveBackground": "Entfernen des Hintergrunds fehlgeschlagen",
+    "avatarDownloaded": "Bild erfolgreich heruntergeladen"
   },
   "appHeader": {
     "generate": "Generieren",

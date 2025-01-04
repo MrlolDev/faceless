@@ -81,7 +81,8 @@
     "failedToUploadImage": "Caricamento dell'immagine non riuscito",
     "pleaseTryAgain": "Si prega di riprovare",
     "removeBackground": "Rimuovi Sfondo",
-    "failedToRemoveBackground": "Rimozione dello sfondo fallita"
+    "failedToRemoveBackground": "Rimozione dello sfondo fallita",
+    "avatarDownloaded": "Immagine scaricata con successo"
   },
   "appHeader": {
     "generate": "Genera",

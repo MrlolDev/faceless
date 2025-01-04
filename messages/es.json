@@ -81,7 +81,8 @@
     "failedToUploadImage": "Error al subir la imagen",
     "pleaseTryAgain": "Por favor, inténtalo de nuevo",
     "removeBackground": "Eliminar fondo",
-    "failedToRemoveBackground": "Error al eliminar el fondo"
+    "failedToRemoveBackground": "Error al eliminar el fondo",
+    "avatarDownloaded": "Imagen descargada con éxito"
   },
   "appHeader": {
     "generate": "Generar",
