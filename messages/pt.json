@@ -79,7 +79,9 @@
     "multipleFacesDetected": "Vários rostos detectados",
     "pleaseEnsureOnlyOneFaceIsInTheImage": "Por favor, certifique-se de que apenas um rosto esteja na imagem",
     "failedToUploadImage": "Falha ao carregar a imagem",
-    "pleaseTryAgain": "Por favor, tente novamente"
+    "pleaseTryAgain": "Por favor, tente novamente",
+    "removeBackground": "Remover Fundo",
+    "failedToRemoveBackground": "Falha ao remover o fundo"
   },
   "appHeader": {
     "generate": "Gerar",

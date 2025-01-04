@@ -79,7 +79,9 @@
     "multipleFacesDetected": "Plusieurs visages détectés",
     "pleaseEnsureOnlyOneFaceIsInTheImage": "Veuillez vous assurer qu'une seule visage est dans l'image",
     "failedToUploadImage": "Échec du téléchargement de l'image",
-    "pleaseTryAgain": "Veuillez réessayer"
+    "pleaseTryAgain": "Veuillez réessayer",
+    "removeBackground": "Supprimer l'arrière-plan",
+    "failedToRemoveBackground": "Échec de la suppression de l'arrière-plan"
   },
   "appHeader": {
     "generate": "Générer",

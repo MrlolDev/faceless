@@ -1,3 +1,4 @@
+import { updateCredits } from "@/lib/credits";
 import { createClient } from "@/lib/supabase/server";
 import { serviceRole } from "@/lib/supabase/service-role";
 
@@ -43,41 +44,17 @@ export async function POST(
     const shouldGiveCredits = Math.random() < 0.1;
 
     if (shouldGiveCredits) {
-      // Get current credits
-      const { data: creditsData, error: creditsError } = await serviceRole
-        .from("credits")
-        .select("*")
-        .eq("userId", user.id)
-        .single();
-
-      if (creditsError) {
-        console.error("Error fetching credits:", creditsError);
-      } else {
-        // Update credits
-        const { error: updateError } = await serviceRole
-          .from("credits")
-          .update({
-            actual: creditsData.actual + 3,
-            transactions: [
-              ...(creditsData.transactions || []),
-              {
-                type: "reward",
-                amount: 3,
-                createdAt: new Date().toISOString(),
-              },
-            ],
-          })
-          .eq("userId", user.id);
-
-        if (updateError) {
-          console.error("Error updating credits:", updateError);
-        }
+      const { credits } = await updateCredits(user.id, 3, "reward");
+      if (!credits) {
+        return NextResponse.json(
+          { error: "Error updating credits" },
+          { status: 500 }
+        );
       }
-
       return NextResponse.json({
         ...data,
         bonusCredits: 3,
-        newCreditBalance: creditsData.actual + 3,
+        newCreditBalance: credits.actual,
       });
     }
 

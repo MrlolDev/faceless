@@ -79,7 +79,9 @@
     "multipleFacesDetected": "Multiple faces detected",
     "pleaseEnsureOnlyOneFaceIsInTheImage": "Please ensure only one face is in the image",
     "failedToUploadImage": "Failed to upload image",
-    "pleaseTryAgain": "Please try again"
+    "pleaseTryAgain": "Please try again",
+    "removeBackground": "Remove Background",
+    "failedToRemoveBackground": "Failed to remove background"
   },
   "appHeader": {
     "generate": "Generate",

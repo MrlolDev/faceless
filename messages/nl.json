@@ -79,7 +79,9 @@
     "multipleFacesDetected": "Meerdere gezichten gedetecteerd",
     "pleaseEnsureOnlyOneFaceIsInTheImage": "Zorg ervoor dat er slechts één gezicht in de afbeelding is",
     "failedToUploadImage": "Afbeelding uploaden mislukt",
-    "pleaseTryAgain": "Probeer het opnieuw"
+    "pleaseTryAgain": "Probeer het opnieuw",
+    "removeBackground": "Verwijder Achtergrond",
+    "failedToRemoveBackground": "Achtergrond verwijderen mislukt"
   },
   "appHeader": {
     "generate": "Genereren",

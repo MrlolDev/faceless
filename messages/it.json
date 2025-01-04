@@ -79,7 +79,9 @@
     "multipleFacesDetected": "Rilevate più facce",
     "pleaseEnsureOnlyOneFaceIsInTheImage": "Assicurati che ci sia solo un volto nell'immagine",
     "failedToUploadImage": "Caricamento dell'immagine non riuscito",
-    "pleaseTryAgain": "Si prega di riprovare"
+    "pleaseTryAgain": "Si prega di riprovare",
+    "removeBackground": "Rimuovi Sfondo",
+    "failedToRemoveBackground": "Rimozione dello sfondo fallita"
   },
   "appHeader": {
     "generate": "Genera",

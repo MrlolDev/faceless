@@ -107,3 +107,16 @@ export const getImage = async (
     cost: (output.metrics?.predict_time || 0) * 0.001525,
   };
 };
+
+export const removeBackground = async (imageURL: string) => {
+  console.log("Removing background from image:", imageURL);
+  const prediction = await replicate.predictions.create({
+    version: "95fcc2a26d3899cd6c2691c900465aaeff466285a65c14638cc5f36f34befaf1",
+    input: {
+      image: imageURL,
+    },
+  });
+
+  const output = await replicate.wait(prediction);
+  return output.output;
+};

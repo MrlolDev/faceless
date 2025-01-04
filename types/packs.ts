@@ -10,6 +10,7 @@ export interface Photos {
   created_at: Date;
   userId: string;
   upscaledImgUrl: string;
+  noBackgroundImgUrl: string;
   rating: number; // -1, 0, 1, 2
   packId: number;
   credits: number; // credits per photo

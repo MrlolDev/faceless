@@ -79,7 +79,9 @@
     "multipleFacesDetected": "Обнаружено несколько лиц",
     "pleaseEnsureOnlyOneFaceIsInTheImage": "Пожалуйста, убедитесь, что на изображении только одно лицо",
     "failedToUploadImage": "Не удалось загрузить изображение",
-    "pleaseTryAgain": "Пожалуйста, попробуйте еще раз"
+    "pleaseTryAgain": "Пожалуйста, попробуйте еще раз",
+    "removeBackground": "Удалить фон",
+    "failedToRemoveBackground": "Не удалось удалить фон"
   },
   "appHeader": {
     "generate": "Создать",

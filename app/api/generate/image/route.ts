@@ -1,3 +1,4 @@
+import { updateCredits } from "@/lib/credits";
 import { getImage } from "@/lib/image";
 import { createClient } from "@/lib/supabase/server";
 import { serviceRole } from "@/lib/supabase/service-role";
@@ -69,44 +70,13 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Update credits
-  const { data: creditsData, error: creditsError } = await serviceRole
-    .from("credits")
-    .select("*")
-    .eq("userId", user.id)
-    .single();
+  const { credits: updatedCredits } = await updateCredits(
+    user.id,
+    -credits,
+    "generate"
+  );
 
-  if (!creditsData) {
-    console.log(creditsError);
-    return NextResponse.json(
-      { error: "Failed to get credits" },
-      { status: 500 }
-    );
-  }
-
-  const actualCredits = creditsData.actual - credits;
-  const spentCredits = creditsData.spent + credits;
-
-  const { data: creditsUpdateData, error: creditsUpdateError } =
-    await serviceRole
-      .from("credits")
-      .update({
-        actual: actualCredits,
-        spent: spentCredits,
-        transactions: [
-          ...(creditsData.transactions || []),
-          {
-            type: "generate",
-            amount: credits,
-            createdAt: new Date().toISOString(),
-          },
-        ],
-      })
-      .eq("userId", user.id)
-      .select();
-
-  if (!creditsUpdateData) {
-    console.log(creditsUpdateError);
+  if (!updatedCredits) {
     return NextResponse.json(
       { error: "Failed to update credits" },
       { status: 500 }
@@ -117,7 +87,7 @@ export async function POST(req: NextRequest) {
     data: {
       pack: pack,
       photos: [photoData],
-      actualCredits: actualCredits,
+      actualCredits: updatedCredits.actual,
     },
   });
 }

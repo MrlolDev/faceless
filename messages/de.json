@@ -79,7 +79,9 @@
     "multipleFacesDetected": "Mehrere Gesichter erkannt",
     "pleaseEnsureOnlyOneFaceIsInTheImage": "Bitte stellen Sie sicher, dass nur ein Gesicht im Bild ist",
     "failedToUploadImage": "Bild konnte nicht hochgeladen werden",
-    "pleaseTryAgain": "Bitte versuchen Sie es erneut"
+    "pleaseTryAgain": "Bitte versuchen Sie es erneut",
+    "removeBackground": "Hintergrund entfernen",
+    "failedToRemoveBackground": "Entfernen des Hintergrunds fehlgeschlagen"
   },
   "appHeader": {
     "generate": "Generieren",
