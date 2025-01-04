@@ -75,7 +75,9 @@
     "imageCopied": "Afbeelding naar klembord gekopieerd",
     "copyImageError": "Afbeelding kopiëren mislukt",
     "originalPhoto": "Originele foto",
-    "error": "Fout"
+    "error": "Fout",
+    "multipleFacesDetected": "Meerdere gezichten gedetecteerd",
+    "pleaseEnsureOnlyOneFaceIsInTheImage": "Zorg ervoor dat er slechts één gezicht in de afbeelding is"
   },
   "appHeader": {
     "generate": "Genereren",

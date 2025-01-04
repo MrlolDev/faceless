@@ -75,7 +75,9 @@
     "imageCopied": "Image copiée dans le presse-papiers",
     "copyImageError": "Échec de la copie de l'image",
     "originalPhoto": "Photo originale",
-    "error": "Erreur"
+    "error": "Erreur",
+    "multipleFacesDetected": "Plusieurs visages détectés",
+    "pleaseEnsureOnlyOneFaceIsInTheImage": "Veuillez vous assurer qu'une seule visage est dans l'image"
   },
   "appHeader": {
     "generate": "Générer",

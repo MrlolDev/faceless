@@ -75,7 +75,9 @@
     "imageCopied": "Imagen copiada al portapapeles",
     "copyImageError": "Error al copiar la imagen",
     "originalPhoto": "Foto original",
-    "error": "Error"
+    "error": "Error",
+    "multipleFacesDetected": "Se detectaron múltiples rostros",
+    "pleaseEnsureOnlyOneFaceIsInTheImage": "Por favor asegúrese de que solo haya un rostro en la imagen"
   },
   "appHeader": {
     "generate": "Generar",

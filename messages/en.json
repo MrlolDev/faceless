@@ -75,7 +75,9 @@
     "imageCopied": "Image copied to clipboard",
     "copyImageError": "Failed to copy image",
     "originalPhoto": "Original photo",
-    "error": "Error"
+    "error": "Error",
+    "multipleFacesDetected": "Multiple faces detected",
+    "pleaseEnsureOnlyOneFaceIsInTheImage": "Please ensure only one face is in the image"
   },
   "appHeader": {
     "generate": "Generate",

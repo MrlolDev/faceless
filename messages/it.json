@@ -75,7 +75,9 @@
     "imageCopied": "Immagine copiata negli appunti",
     "copyImageError": "Copia immagine fallita",
     "originalPhoto": "Foto originale",
-    "error": "Errore"
+    "error": "Errore",
+    "multipleFacesDetected": "Rilevate più facce",
+    "pleaseEnsureOnlyOneFaceIsInTheImage": "Assicurati che ci sia solo un volto nell'immagine"
   },
   "appHeader": {
     "generate": "Genera",

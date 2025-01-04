@@ -75,7 +75,9 @@
     "imageCopied": "Imagem copiada para a área de transferência",
     "copyImageError": "Falha ao copiar imagem",
     "originalPhoto": "Foto original",
-    "error": "Erro"
+    "error": "Erro",
+    "multipleFacesDetected": "Vários rostos detectados",
+    "pleaseEnsureOnlyOneFaceIsInTheImage": "Por favor, certifique-se de que apenas um rosto esteja na imagem"
   },
   "appHeader": {
     "generate": "Gerar",

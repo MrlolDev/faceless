@@ -75,7 +75,9 @@
     "imageCopied": "Изображение скопировано в буфер обмена",
     "copyImageError": "Не удалось скопировать изображение",
     "originalPhoto": "Оригинальное фото",
-    "error": "Ошибка"
+    "error": "Ошибка",
+    "multipleFacesDetected": "Обнаружено несколько лиц",
+    "pleaseEnsureOnlyOneFaceIsInTheImage": "Пожалуйста, убедитесь, что на изображении только одно лицо"
   },
   "appHeader": {
     "generate": "Создать",
