@@ -1,7 +1,6 @@
 import { updateCredits } from "@/lib/credits";
 import { getImage } from "@/lib/image";
 import { createClient } from "@/lib/supabase/server";
-import { serviceRole } from "@/lib/supabase/service-role";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {

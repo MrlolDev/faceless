@@ -77,7 +77,6 @@ export default function PhotoInput({
   credits,
 }: PhotoInputProps) {
   const [isWebcam, setIsWebcam] = useState(false);
-  const [modelsLoaded, setModelsLoaded] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -86,26 +85,6 @@ export default function PhotoInput({
   const [showCreditsDialog, setShowCreditsDialog] = useState(false);
   const t = useTranslations("generator");
   const [isWebcamLoading, setIsWebcamLoading] = useState(false);
-
-  useEffect(() => {
-    const loadModels = async () => {
-      try {
-        await Promise.all([
-          faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
-          faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
-        ]);
-        setModelsLoaded(true);
-      } catch (error) {
-        console.error("Error loading face detection models:", error);
-      }
-    };
-    loadModels();
-  }, []);
-
-  const detectFace = async (element: HTMLImageElement | HTMLVideoElement) => {
-    // Always set faceDetected to true to bypass face detection
-    setFaceDetected(true);
-  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
