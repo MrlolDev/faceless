@@ -30,7 +30,8 @@ export async function POST(req: NextRequest) {
     pack.originPhoto,
     pack.characterDescription,
     posture,
-    background
+    background,
+    user.id
   );
 
   if (!image) {

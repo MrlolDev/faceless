@@ -22,6 +22,7 @@ export const getImage = async (
     type: "solid",
     colors: ["yellow"],
   },
+  userId: string,
   baseModel: "schnell" | "dev" = "schnell",
   steps: number = 4,
   promptStrength: number = 0.8
@@ -81,7 +82,7 @@ export const getImage = async (
   // Upload to Supabase Storage
   const { data: uploadData, error: uploadError } = await serviceRole.storage
     .from("packs")
-    .upload(`${Date.now()}.webp`, webpBlob, {
+    .upload(`${userId}/generated/${Date.now()}.webp`, webpBlob, {
       contentType: "image/webp",
       cacheControl: "3600",
     });

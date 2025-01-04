@@ -58,7 +58,24 @@
     "looking-left": "Naar links kijken",
     "looking-right": "Naar rechts kijken",
     "faceDetected": "Gezicht gedetecteerd",
-    "theFaceHasBeenDetectedInTheImage": "Het gezicht is gedetecteerd in de afbeelding"
+    "theFaceHasBeenDetectedInTheImage": "Het gezicht is gedetecteerd in de afbeelding",
+    "webcamError": "Webcamfout",
+    "pleaseAllowCameraAccess": "Sta toegang tot de camera toe",
+    "noFaceDetected": "Geen gezicht gedetecteerd",
+    "pleaseEnsureAFaceIsInTheImage": "Zorg ervoor dat er een gezicht in de afbeelding is",
+    "failedToCapturePhoto": "Foto maken mislukt",
+    "pleaseWaitForCameraToLoad": "Wacht tot de camera geladen is",
+    "uploading": "Uploaden",
+    "copyImageUrl": "Kopieer afbeeldings-URL",
+    "copyImageUrlDescription": "Kopieer de URL van de afbeelding naar je klembord",
+    "imageUrlCopiedDescription": "Afbeeldings-URL gekopieerd naar klembord",
+    "copyImage": "Kopieer afbeelding",
+    "copyImageDescription": "Kopieer de afbeelding naar je klembord",
+    "avatarCopied": "Afbeelding succesvol naar klembord gekopieerd",
+    "imageCopied": "Afbeelding naar klembord gekopieerd",
+    "copyImageError": "Afbeelding kopiëren mislukt",
+    "originalPhoto": "Originele foto",
+    "error": "Fout"
   },
   "appHeader": {
     "generate": "Genereren",
@@ -77,7 +94,9 @@
     "failedToRatePhoto": "Foto beoordelen mislukt",
     "loveAvatar": "Avatar geweldig",
     "likeAvatar": "Avatar leuk",
-    "dislikeAvatar": "Avatar niet leuk"
+    "dislikeAvatar": "Avatar niet leuk",
+    "youveReceivedCredits": "Je hebt {{credits}} credits ontvangen!",
+    "success": "Gefeliciteerd!"
   },
   "packs": {
     "noPacks": "Geen pakketten gevonden. Genereer uw eerste pakket!",
@@ -131,6 +150,29 @@
         "text": "Volg @mrloldev",
         "url": "https://twitter.com/mrloldev"
       }
+    },
+    "freeCredits": {
+      "message": "Wist je dat je gratis credits kunt krijgen door foto's te beoordelen?",
+      "action": {
+        "text": "Beoordeel je vorige foto's",
+        "url": "/app/packs"
+      }
     }
+  },
+  "getCreditsDialog": {
+    "youCanGetMoreCreditsInThreeWays": "Je kunt op drie manieren meer credits krijgen:",
+    "ratePhotosAndYouCanGetBonusCreditsForFree": "Beoordeel foto's en je kunt gratis bonuscredits krijgen",
+    "buyCredits": "Koop credits",
+    "needMoreCredits": "Meer credits nodig?",
+    "orRedeemACode": "Of wissel een code in:",
+    "withVariousPaymentOptions": "met verschillende betaalopties",
+    "contactMeForFreeCreditsThrough": "Neem contact met me op voor gratis credits via:",
+    "purchaseCredits": "Koop credits",
+    "claim": "Claim",
+    "claiming": "Claimen...",
+    "success": "Succes!",
+    "youveReceivedCredits": "Je hebt {{credits}} credits ontvangen!",
+    "invalidCode": "Ongeldige code",
+    "enterCode": "Voer code in"
   }
 }

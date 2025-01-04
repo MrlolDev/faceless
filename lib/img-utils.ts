@@ -7,7 +7,7 @@ export async function downloadImageAsPng(url: string) {
   const img = new Image();
   const blobUrl = URL.createObjectURL(blob);
 
-  return new Promise<Blob>((resolve, reject) => {
+  return new Promise<{ blob: Blob; url: string }>((resolve, reject) => {
     img.onload = () => {
       // Create a canvas to draw and convert the image
       const canvas = document.createElement("canvas");
@@ -26,7 +26,10 @@ export async function downloadImageAsPng(url: string) {
       // Convert to PNG
       canvas.toBlob((pngBlob) => {
         if (pngBlob) {
-          resolve(pngBlob);
+          resolve({
+            blob: pngBlob,
+            url: URL.createObjectURL(pngBlob),
+          });
         } else {
           reject(new Error("Failed to convert image to PNG"));
         }

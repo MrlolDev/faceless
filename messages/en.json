@@ -58,7 +58,24 @@
     "looking-left": "Looking Left",
     "looking-right": "Looking Right",
     "faceDetected": "Face Detected",
-    "theFaceHasBeenDetectedInTheImage": "The face has been detected in the image"
+    "theFaceHasBeenDetectedInTheImage": "The face has been detected in the image",
+    "webcamError": "Webcam Error",
+    "pleaseAllowCameraAccess": "Please allow camera access",
+    "noFaceDetected": "No face detected",
+    "pleaseEnsureAFaceIsInTheImage": "Please ensure a face is in the image",
+    "failedToCapturePhoto": "Failed to capture photo",
+    "pleaseWaitForCameraToLoad": "Please wait for the camera to load",
+    "uploading": "Uploading",
+    "copyImageUrl": "Copy Image URL",
+    "copyImageUrlDescription": "Copy the image URL to your clipboard",
+    "imageUrlCopiedDescription": "Image URL copied to clipboard",
+    "copyImage": "Copy Image",
+    "copyImageDescription": "Copy the image to your clipboard",
+    "avatarCopied": "Image copied to clipboard successfully",
+    "imageCopied": "Image copied to clipboard",
+    "copyImageError": "Failed to copy image",
+    "originalPhoto": "Original photo",
+    "error": "Error"
   },
   "appHeader": {
     "generate": "Generate",
@@ -77,7 +94,9 @@
     "failedToRatePhoto": "Failed to rate photo",
     "loveAvatar": "Love avatar",
     "likeAvatar": "Like avatar",
-    "dislikeAvatar": "Dislike avatar"
+    "dislikeAvatar": "Dislike avatar",
+    "youveReceivedCredits": "You've received {{credits}} credits!",
+    "success": "Congratulations!"
   },
   "packs": {
     "noPacks": "No packs found. Generate your first pack!",
@@ -110,6 +129,22 @@
     "yourPurchaseIsBeingProcessed": "Your purchase is being processed. Your credits will be added to your account shortly.",
     "thankYou": "Thank You!"
   },
+  "getCreditsDialog": {
+    "youCanGetMoreCreditsInThreeWays": "You can get more credits in three ways:",
+    "ratePhotosAndYouCanGetBonusCreditsForFree": "Rate photos and you can get bonus credits for free",
+    "buyCredits": "Buy credits",
+    "needMoreCredits": "Need more credits?",
+    "orRedeemACode": "Or redeem a code:",
+    "withVariousPaymentOptions": "with various payment options",
+    "contactMeForFreeCreditsThrough": "Contact me for free credits through:",
+    "purchaseCredits": "Purchase credits",
+    "claim": "Claim",
+    "claiming": "Claiming...",
+    "success": "Success!",
+    "youveReceivedCredits": "You've received {{credits}} credits!",
+    "invalidCode": "Invalid code",
+    "enterCode": "Enter code"
+  },
   "reminders": {
     "credits": {
       "message": "Do you want to get more credits? You can buy them right here! Use the code 'mrloldev' to get 10% off your first purchase.",
@@ -130,6 +165,13 @@
       "action": {
         "text": "Follow @mrloldev",
         "url": "https://twitter.com/mrloldev"
+      }
+    },
+    "freeCredits": {
+      "message": "Did you know you can get free credits by rating photos?",
+      "action": {
+        "text": "Rate your previous photos",
+        "url": "/app/packs"
       }
     }
   }

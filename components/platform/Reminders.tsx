@@ -33,6 +33,14 @@ const REMINDER_MESSAGES = [
       url: "/app/credits",
     },
   },
+  {
+    type: "freeCredits",
+    message: "Did you know you can get free credits by rating photos?",
+    action: {
+      text: "Rate your previous photos",
+      url: "/app/packs",
+    },
+  },
 ];
 
 export function Reminders() {

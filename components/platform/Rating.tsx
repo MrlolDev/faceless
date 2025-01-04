@@ -33,11 +33,24 @@ export default function Rating({
         throw new Error("Failed to rate photo");
       }
       const data = await response.json();
+
+      // Show rating toast
       toast({
         title: t("photoRated"),
         description:
           rating > 0 ? t("thanksForTheLike") : t("thanksForTheFeedback"),
       });
+
+      // If bonus credits were awarded, show additional toast
+      if (data.bonusCredits) {
+        toast({
+          title: t("success"),
+          description: t("youveReceivedCredits", {
+            credits: data.bonusCredits,
+          }),
+        });
+      }
+
       updatePhoto(data);
       sendGAEvent("event", "rate_photo", {
         rating,

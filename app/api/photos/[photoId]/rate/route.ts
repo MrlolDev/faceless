@@ -38,6 +38,49 @@ export async function POST(
         { status: 500 }
       );
     }
+
+    // 10% chance to give 3 free credits
+    const shouldGiveCredits = Math.random() < 0.1;
+
+    if (shouldGiveCredits) {
+      // Get current credits
+      const { data: creditsData, error: creditsError } = await serviceRole
+        .from("credits")
+        .select("*")
+        .eq("userId", user.id)
+        .single();
+
+      if (creditsError) {
+        console.error("Error fetching credits:", creditsError);
+      } else {
+        // Update credits
+        const { error: updateError } = await serviceRole
+          .from("credits")
+          .update({
+            actual: creditsData.actual + 3,
+            transactions: [
+              ...(creditsData.transactions || []),
+              {
+                type: "reward",
+                amount: 3,
+                createdAt: new Date().toISOString(),
+              },
+            ],
+          })
+          .eq("userId", user.id);
+
+        if (updateError) {
+          console.error("Error updating credits:", updateError);
+        }
+      }
+
+      return NextResponse.json({
+        ...data,
+        bonusCredits: 3,
+        newCreditBalance: creditsData.actual + 3,
+      });
+    }
+
     return NextResponse.json(data);
   } catch (error) {
     console.error("Error in rate route:", error);

@@ -12,6 +12,7 @@ import BackgroundSelector from "./BackgroundSelector";
 import { Dialog } from "@/components/ui/dialog";
 import { GetCreditsDialog } from "@/components/platform/GetCreditsDialog";
 import { useTranslations } from "next-intl";
+import Loading from "@/components/Loading";
 
 interface PhotoInputProps {
   onGenerate: (url?: string) => void;
@@ -32,12 +33,38 @@ interface PhotoInputProps {
   pack: Pack | null;
 }
 
+const cropToSquare = (
+  source: HTMLImageElement | HTMLVideoElement,
+  canvas: HTMLCanvasElement
+) => {
+  const size = Math.min(source.width, source.height);
+  const x = (source.width - size) / 2;
+  const y = (source.height - size) / 2;
+
+  canvas.width = size;
+  canvas.height = size;
+
+  const ctx = canvas.getContext("2d");
+  ctx?.drawImage(
+    source,
+    x,
+    y,
+    size,
+    size, // Source coordinates
+    0,
+    0,
+    size,
+    size // Destination coordinates
+  );
+  return canvas;
+};
+
 export default function PhotoInput({
-  //onGenerate,
+  onGenerate,
   loading,
   onPostureChange,
   selectedPosture,
-  //imageUrl,
+  imageUrl,
   setImageUrl,
   background,
   setBackground,
@@ -46,7 +73,7 @@ export default function PhotoInput({
   setFaceDetected,
   faceDetected,
   setPack,
-  //pack,
+  pack,
   credits,
 }: PhotoInputProps) {
   const [isWebcam, setIsWebcam] = useState(false);
@@ -58,6 +85,7 @@ export default function PhotoInput({
   const { toast } = useToast();
   const [showCreditsDialog, setShowCreditsDialog] = useState(false);
   const t = useTranslations("generator");
+  const [isWebcamLoading, setIsWebcamLoading] = useState(false);
 
   useEffect(() => {
     const loadModels = async () => {
@@ -112,70 +140,140 @@ export default function PhotoInput({
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const url = URL.createObjectURL(file);
-      setImageUrl(null);
-      setPreview(url);
-      setFaceDetected(null);
-      setPack(null);
-      // Create new image for face detection
       const img = new Image();
-      img.src = url;
-      img.onload = () => detectFace(img);
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        cropToSquare(img, canvas);
+
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const url = URL.createObjectURL(blob);
+            setImageUrl(null);
+            setPreview(url);
+            setFaceDetected(null);
+            setPack(null);
+            // Use the cropped image for face detection
+            const croppedImg = new Image();
+            croppedImg.src = url;
+            croppedImg.onload = () => detectFace(croppedImg);
+          }
+        }, "image/jpeg");
+      };
+      img.src = URL.createObjectURL(file);
     }
   };
 
   const startWebcam = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        streamRef.current = stream;
-        await videoRef.current.play();
+      // If already active, stop webcam
+      if (isWebcam && streamRef.current) {
+        stopWebcam();
+        return;
       }
+
+      // Set loading and webcam states
+      setIsWebcamLoading(true);
+      setIsWebcam(true);
       setImageUrl(null);
       setFaceDetected(null);
-      setIsWebcam(true);
       setPack(null);
+      setPreview(null);
+
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          width: { ideal: 1080 },
+          height: { ideal: 1080 },
+          facingMode: "user",
+        },
+      });
+
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        await videoRef.current.play();
+        streamRef.current = stream;
+      }
     } catch (error) {
       console.error("Error accessing webcam:", error);
+      setIsWebcam(false);
+      toast({
+        title: t("webcamError"),
+        description: t("pleaseAllowCameraAccess"),
+        variant: "destructive",
+      });
+    } finally {
+      setIsWebcamLoading(false);
     }
   };
 
   const capturePhoto = () => {
-    if (videoRef.current) {
+    if (!videoRef.current || !videoRef.current.videoWidth) {
+      console.log("Video not ready:", videoRef.current);
+      toast({
+        title: t("error"),
+        description: t("pleaseWaitForCameraToLoad"),
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
       const canvas = document.createElement("canvas");
-      canvas.width = videoRef.current.videoWidth;
-      canvas.height = videoRef.current.videoHeight;
-      canvas.getContext("2d")?.drawImage(videoRef.current, 0, 0);
+      const video = videoRef.current;
 
-      canvas.toBlob((blob) => {
-        if (blob) {
-          new File([blob], "webcam-capture.jpg", {
-            type: "image/jpeg",
-          });
-          const url = URL.createObjectURL(blob);
-          setPreview(url);
-          setImageUrl(url);
-          setPack(null);
-          stopWebcam();
+      // Set canvas dimensions to match video dimensions
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
 
-          // Create new image for face detection
-          const img = new Image();
-          img.src = url;
-          img.onload = () => detectFace(img);
-        }
-      }, "image/jpeg");
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        throw new Error("Could not get canvas context");
+      }
+
+      // Draw the current frame from video to canvas
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      // Convert to blob
+      canvas.toBlob(
+        (blob) => {
+          if (blob) {
+            const url = URL.createObjectURL(blob);
+            setPreview(url);
+            setImageUrl(null);
+            setPack(null);
+            stopWebcam();
+
+            // Use the cropped image for face detection
+            const img = new Image();
+            img.src = url;
+            img.onload = () => detectFace(img);
+          } else {
+            throw new Error("Failed to create blob from canvas");
+          }
+        },
+        "image/jpeg",
+        0.95
+      );
+    } catch (error) {
+      console.error("Error capturing photo:", error);
+      toast({
+        title: t("error"),
+        description: t("failedToCapturePhoto"),
+        variant: "destructive",
+      });
     }
   };
 
   const stopWebcam = () => {
     if (streamRef.current) {
-      streamRef.current.getTracks().forEach((track) => track.stop());
+      streamRef.current.getTracks().forEach((track) => {
+        track.stop();
+      });
       streamRef.current = null;
     }
+    if (videoRef.current) {
+      videoRef.current.srcObject = null;
+    }
     setIsWebcam(false);
-    setImageUrl(null);
-    setPack(null);
   };
 
   const clearPreview = () => {
@@ -201,15 +299,7 @@ export default function PhotoInput({
       });
       return;
     }
-    toast({
-      title: "Disabled",
-      description: "This feature is disabled for now due to copyright claims",
-      variant: "destructive",
-    });
-    setIsUploading(false);
-    return;
 
-    /*
     if (preview && faceDetected) {
       try {
         // First fetch the blob from the preview URL
@@ -247,7 +337,7 @@ export default function PhotoInput({
           variant: "destructive",
         });
       }
-    }*/
+    }
   };
 
   return (
@@ -290,6 +380,16 @@ export default function PhotoInput({
               playsInline
               className="w-full h-full object-cover"
             />
+            {isWebcamLoading && (
+              <div className="absolute inset-0 flex items-center justify-center bg-background/80">
+                <Loading element="webcam" size="large" />
+              </div>
+            )}
+            <div className="absolute top-2 right-2">
+              <Button variant="neutral" size="icon" onClick={stopWebcam}>
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
           </>
         ) : preview ? (
           <>

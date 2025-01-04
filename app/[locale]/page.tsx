@@ -2,7 +2,7 @@ import Navbar from "@/components/Landing/LandingNavbar";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-
+import HeroPictures from "@/components/Landing/HeroPictures";
 export default function Home() {
   const t = useTranslations("home");
 
@@ -26,6 +26,7 @@ export default function Home() {
           </Link>
         </div>
       </main>
+      <HeroPictures />
     </div>
   );
 }

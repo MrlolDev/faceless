@@ -2,16 +2,16 @@
 
 const pictures = {
   ai_one: [
-    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735820945201.webp",
-    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735822546403.webp",
-    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735842761682.webp",
-    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735822360792.webp",
+    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735986426283.webp",
+    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735986595857.webp",
+    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735986672727.webp",
+    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/14661532-5c5a-4a1b-8b85-db7b7b7eb4f7/generated/1735987566887.webp",
   ],
   ai_two: [
-    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735821871905.webp",
-    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735807431789.webp",
-    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735822236770.webp",
-    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/1735822471442.webp",
+    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/14661532-5c5a-4a1b-8b85-db7b7b7eb4f7/generated/1735987187198.webp",
+    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/14661532-5c5a-4a1b-8b85-db7b7b7eb4f7/generated/1735987303275.webp",
+    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/14661532-5c5a-4a1b-8b85-db7b7b7eb4f7/generated/1735987505304.webp",
+    "https://kbthrjuoewftreopxkiq.supabase.co/storage/v1/object/public/packs/14661532-5c5a-4a1b-8b85-db7b7b7eb4f7/generated/1735987642180.webp",
   ],
 };
 export default function HeroPictures() {

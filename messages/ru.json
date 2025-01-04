@@ -58,7 +58,24 @@
     "looking-left": "Смотрит налево",
     "looking-right": "Смотрит направо",
     "faceDetected": "Лицо обнаружено",
-    "theFaceHasBeenDetectedInTheImage": "Лицо было обнаружено на изображении"
+    "theFaceHasBeenDetectedInTheImage": "Лицо было обнаружено на изображении",
+    "webcamError": "Ошибка веб-камеры",
+    "pleaseAllowCameraAccess": "Пожалуйста, разрешите доступ к камере",
+    "noFaceDetected": "Лицо не обнаружено",
+    "pleaseEnsureAFaceIsInTheImage": "Убедитесь, что в кадре есть лицо",
+    "failedToCapturePhoto": "Не удалось сделать фото",
+    "pleaseWaitForCameraToLoad": "Пожалуйста, подождите загрузки камеры",
+    "uploading": "Загрузка",
+    "copyImageUrl": "Скопировать URL изображения",
+    "copyImageUrlDescription": "Скопируйте URL изображения в буфер обмена",
+    "imageUrlCopiedDescription": "URL изображения скопирован в буфер обмена",
+    "copyImage": "Скопировать изображение",
+    "copyImageDescription": "Скопируйте изображение в буфер обмена",
+    "avatarCopied": "Изображение успешно скопировано в буфер обмена",
+    "imageCopied": "Изображение скопировано в буфер обмена",
+    "copyImageError": "Не удалось скопировать изображение",
+    "originalPhoto": "Оригинальное фото",
+    "error": "Ошибка"
   },
   "appHeader": {
     "generate": "Создать",
@@ -77,7 +94,9 @@
     "failedToRatePhoto": "Не удалось оценить фото",
     "loveAvatar": "Обожаю аватар",
     "likeAvatar": "Нравится аватар",
-    "dislikeAvatar": "Не нравится аватар"
+    "dislikeAvatar": "Не нравится аватар",
+    "youveReceivedCredits": "Вы получили {{credits}} кредитов!",
+    "success": "Поздравляем!"
   },
   "packs": {
     "noPacks": "Пакеты не найдены. Создайте свой первый пакет!",
@@ -131,6 +150,29 @@
         "text": "Подписаться на @mrloldev",
         "url": "https://twitter.com/mrloldev"
       }
+    },
+    "freeCredits": {
+      "message": "Знаете ли вы, что можно получить бесплатные кредиты, оценивая фотографии?",
+      "action": {
+        "text": "Оцените ваши предыдущие фотографии",
+        "url": "/app/packs"
+      }
     }
+  },
+  "getCreditsDialog": {
+    "youCanGetMoreCreditsInThreeWays": "Вы можете получить больше кредитов тремя способами:",
+    "ratePhotosAndYouCanGetBonusCreditsForFree": "Оценивайте фотографии и получайте бонусные кредиты бесплатно",
+    "buyCredits": "Купить кредиты",
+    "needMoreCredits": "Нужно больше кредитов?",
+    "orRedeemACode": "Или активируйте код:",
+    "withVariousPaymentOptions": "с различными вариантами оплаты",
+    "contactMeForFreeCreditsThrough": "Свяжитесь со мной для получения бесплатных кредитов через:",
+    "purchaseCredits": "Приобрести кредиты",
+    "claim": "Запросить",
+    "claiming": "Запрос...",
+    "success": "Успешно!",
+    "youveReceivedCredits": "Вы получили {{credits}} кредитов!",
+    "invalidCode": "Неверный код",
+    "enterCode": "Введите код"
   }
 }

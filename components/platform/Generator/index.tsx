@@ -165,12 +165,12 @@ export default function AppPage({
       sendGAEvent("event", "download_avatar", {
         avatarUrl: generatedImage[0],
       });
-      const blob = await downloadImageAsPng(generatedImage[0]);
-      const url = URL.createObjectURL(blob);
+      const { url } = await downloadImageAsPng(generatedImage[0]);
       const a = document.createElement("a");
       a.href = url;
       a.download = "avatar.png";
       a.click();
+      URL.revokeObjectURL(url);
       toast({
         title: t("imageDownloaded"),
         description: t("avatarDownloaded"),
@@ -191,6 +191,32 @@ export default function AppPage({
       title: t("imageUrlCopied"),
       description: t("imageUrlCopiedDescription"),
     });
+  };
+
+  const copyImage = async () => {
+    if (!generatedImage) return;
+    try {
+      sendGAEvent("event", "copy_avatar", {
+        avatarUrl: generatedImage[0],
+      });
+      const { blob } = await downloadImageAsPng(generatedImage[0]);
+
+      // Create ClipboardItem and write to clipboard
+      const item = new ClipboardItem({ "image/png": blob });
+      await navigator.clipboard.write([item]);
+
+      toast({
+        title: t("imageCopied"),
+        description: t("avatarCopied"),
+      });
+    } catch (error) {
+      console.error("Error copying image:", error);
+      toast({
+        title: t("error"),
+        description: t("failedToCopyImage"),
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -240,6 +266,12 @@ export default function AppPage({
                     className="w-full cursor-pointer"
                   >
                     {t("copyImageUrl")}
+                  </ContextMenuItem>
+                  <ContextMenuItem
+                    onClick={copyImage}
+                    className="w-full cursor-pointer"
+                  >
+                    {t("copyImage")}
                   </ContextMenuItem>
                   <ContextMenuItem
                     onClick={downloadImage}

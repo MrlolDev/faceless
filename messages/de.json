@@ -58,7 +58,24 @@
     "looking-left": "Nach links schauen",
     "looking-right": "Nach rechts schauen",
     "faceDetected": "Gesicht erkannt",
-    "theFaceHasBeenDetectedInTheImage": "Das Gesicht wurde im Bild erkannt"
+    "theFaceHasBeenDetectedInTheImage": "Das Gesicht wurde im Bild erkannt",
+    "webcamError": "Webcam-Fehler",
+    "pleaseAllowCameraAccess": "Bitte erlauben Sie den Zugriff auf die Kamera",
+    "noFaceDetected": "Kein Gesicht erkannt",
+    "pleaseEnsureAFaceIsInTheImage": "Bitte stellen Sie sicher, dass ein Gesicht im Bild ist",
+    "failedToCapturePhoto": "Foto konnte nicht aufgenommen werden",
+    "pleaseWaitForCameraToLoad": "Bitte warten Sie, bis die Kamera geladen ist",
+    "uploading": "Hochladen",
+    "copyImageUrl": "Bild-URL kopieren",
+    "copyImageUrlDescription": "Kopieren Sie die Bild-URL in Ihre Zwischenablage",
+    "imageUrlCopiedDescription": "Bild-URL in die Zwischenablage kopiert",
+    "copyImage": "Bild kopieren",
+    "copyImageDescription": "Kopieren Sie das Bild in Ihre Zwischenablage",
+    "avatarCopied": "Bild erfolgreich in die Zwischenablage kopiert",
+    "imageCopied": "Bild in die Zwischenablage kopiert",
+    "copyImageError": "Bild konnte nicht kopiert werden",
+    "originalPhoto": "Originalfoto",
+    "error": "Fehler"
   },
   "appHeader": {
     "generate": "Generieren",
@@ -77,7 +94,9 @@
     "failedToRatePhoto": "Foto konnte nicht bewertet werden",
     "loveAvatar": "Avatar lieben",
     "likeAvatar": "Avatar mögen",
-    "dislikeAvatar": "Avatar nicht mögen"
+    "dislikeAvatar": "Avatar nicht mögen",
+    "youveReceivedCredits": "Sie haben {{credits}} Credits erhalten!",
+    "success": "Glückwunsch!"
   },
   "packs": {
     "noPacks": "Keine Pakete gefunden. Erstellen Sie Ihr erstes Paket!",
@@ -131,6 +150,29 @@
         "text": "Folgen @mrloldev",
         "url": "https://twitter.com/mrloldev"
       }
+    },
+    "freeCredits": {
+      "message": "Wussten Sie, dass Sie kostenlose Credits erhalten können, indem Sie Fotos bewerten?",
+      "action": {
+        "text": "Bewerten Sie Ihre vorherigen Fotos",
+        "url": "/app/packs"
+      }
     }
+  },
+  "getCreditsDialog": {
+    "youCanGetMoreCreditsInThreeWays": "Sie können auf drei Arten mehr Credits erhalten:",
+    "ratePhotosAndYouCanGetBonusCreditsForFree": "Bewerten Sie Fotos und Sie können kostenlos Bonus-Credits erhalten",
+    "buyCredits": "Credits kaufen",
+    "needMoreCredits": "Brauchen Sie mehr Credits?",
+    "orRedeemACode": "Oder lösen Sie einen Code ein:",
+    "withVariousPaymentOptions": "mit verschiedenen Zahlungsoptionen",
+    "contactMeForFreeCreditsThrough": "Kontaktieren Sie mich für kostenlose Credits über:",
+    "purchaseCredits": "Credits kaufen",
+    "claim": "Anspruch",
+    "claiming": "Beanspruchung...",
+    "success": "Erfolg!",
+    "youveReceivedCredits": "Sie haben {{credits}} Credits erhalten!",
+    "invalidCode": "Ungültiger Code",
+    "enterCode": "Code eingeben"
   }
 }

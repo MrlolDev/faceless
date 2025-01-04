@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { sendGAEvent } from "@next/third-parties/google";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 export function GetCreditsDialog() {
@@ -19,7 +20,7 @@ export function GetCreditsDialog() {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
   const router = useRouter();
-  const t = useTranslations("credits");
+  const t = useTranslations("getCreditsDialog");
 
   const handleClaimCode = async () => {
     if (!code) return;
@@ -42,7 +43,9 @@ export function GetCreditsDialog() {
 
       toast({
         title: t("success"),
-        description: t("youveReceivedCredits", { credits: data.credits }),
+        description: t("youveReceivedCredits", {
+          credits: data.credits,
+        }),
       });
       sendGAEvent("event", "claim_code", {
         credits: data.credits,
@@ -51,12 +54,12 @@ export function GetCreditsDialog() {
       router.refresh();
     } catch (error) {
       toast({
-        title: "Error",
+        title: t("error"),
         description:
           error instanceof Error ? error.message : "Failed to claim code",
         variant: "destructive",
       });
-      setError("Invalid code");
+      setError(t("invalidCode"));
     } finally {
       setLoading(false);
     }
@@ -68,7 +71,22 @@ export function GetCreditsDialog() {
         <DialogTitle>{t("needMoreCredits")}</DialogTitle>
         <DialogDescription>
           <div className="flex flex-col gap-2">
-            <p>{t("contactMeForFreeCreditsThrough")}</p>
+            <div className="flex flex-col gap-2">
+              <p>{t("youCanGetMoreCreditsInThreeWays")}</p>
+              <ol className="list-decimal ml-4">
+                <li>
+                  <Link
+                    href="/app/credits"
+                    className="text-main hover:underline"
+                  >
+                    {t("purchaseCredits")}
+                  </Link>{" "}
+                  {t("withVariousPaymentOptions")}
+                </li>
+                <li>{t("ratePhotosAndYouCanGetBonusCreditsForFree")}</li>
+                <li>{t("contactMeForFreeCreditsThrough")}</li>
+              </ol>
+            </div>
             <div className="flex gap-2 mt-0 mb-2">
               <a
                 href="https://twitter.com/mrloldev"
@@ -99,7 +117,7 @@ export function GetCreditsDialog() {
               <p>{t("orRedeemACode")}</p>
               <div className="flex gap-2">
                 <Input
-                  placeholder="Enter code"
+                  placeholder={t("enterCode")}
                   value={code}
                   className={cn(error && "border-red-500")}
                   onChange={(e) => setCode(e.target.value)}
