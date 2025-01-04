@@ -14,10 +14,18 @@ import { Credits } from "@/types/credits";
 import { cn } from "@/lib/utils";
 import Loading from "@/components/Loading";
 import { useTranslations } from "next-intl";
+import { TurnstileInstance } from "@marsidev/react-turnstile";
+import { Turnstile } from "@marsidev/react-turnstile";
+import { useRef } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 export default function ProductsList({ credits }: { credits: Credits }) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const turnstileRef = useRef<TurnstileInstance>(null);
+  const { toast } = useToast();
+
   const t = useTranslations("credits");
   useEffect(() => {
     const fetchProducts = async () => {
@@ -37,8 +45,18 @@ export default function ProductsList({ credits }: { credits: Credits }) {
 
   const handlePurchase = async (priceId: string, productId: string) => {
     try {
+      if (!captchaToken) {
+        toast({
+          title: "Error with security check",
+          description: "Please try again or refresh the page",
+          variant: "destructive",
+        });
+        turnstileRef.current?.reset();
+        return;
+      }
+
       const response = await fetch(
-        `/api/checkout?priceId=${priceId}&productId=${productId}`
+        `/api/checkout?priceId=${priceId}&productId=${productId}&captchaToken=${captchaToken}`
       );
       if (!response.ok) throw new Error("Checkout failed");
 
@@ -52,6 +70,12 @@ export default function ProductsList({ credits }: { credits: Credits }) {
       }
     } catch (error) {
       console.error("Error initiating checkout:", error);
+      toast({
+        title: "Error with security check",
+        description: "Please try again or refresh the page",
+        variant: "destructive",
+      });
+      turnstileRef.current?.reset();
     }
   };
 
@@ -148,6 +172,23 @@ export default function ProductsList({ credits }: { credits: Credits }) {
             </CardFooter>
           </Card>
         ))}
+      <Turnstile
+        ref={turnstileRef}
+        siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY! as string}
+        onSuccess={(token: string) => setCaptchaToken(token)}
+        onError={() => {
+          toast({
+            title: "Error with security check",
+            description: "Please try again or refresh the page",
+            variant: "destructive",
+          });
+        }}
+        onExpire={() => {
+          setCaptchaToken(null);
+          turnstileRef.current?.reset();
+        }}
+        className="mb-4"
+      />
     </div>
   );
 }

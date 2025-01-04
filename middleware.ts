@@ -3,10 +3,10 @@ import { updateSession } from "@/lib/supabase/middleware";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "@/i18n/routing";
 
-const publicPages = ["/", "/terms", "/privacy"];
+const publicPages = ["/", "/api", "/models", "/terms", "/privacy"];
 const withoutLocale = [
   "/api",
-  "models",
+  "/models",
   "/_next",
   "/favicon.ico",
   "/robots.txt",
@@ -37,7 +37,12 @@ export async function middleware(request: NextRequest) {
     // response render image
     return NextResponse.rewrite(imageUrl);
   }
-  if (withoutLocale.includes(request.nextUrl.pathname)) {
+  if (
+    withoutLocale.includes(request.nextUrl.pathname) ||
+    request.nextUrl.pathname.startsWith("/api") ||
+    request.nextUrl.pathname.startsWith("/models") ||
+    request.nextUrl.pathname.startsWith("/_next")
+  ) {
     return response;
   }
 
