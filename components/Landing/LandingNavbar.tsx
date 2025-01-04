@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ThemeSwitcher } from "@/components/Theme/ThemeSwitcher";
 import Image from "next/image";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { Globe } from "lucide-react";
 import {
@@ -27,7 +27,6 @@ const LANGUAGES = {
 
 export default function Navbar() {
   const t = useTranslations("home");
-  const locale = useLocale();
   const router = useRouter();
 
   const handleLanguageChange = (newLocale: string) => {
