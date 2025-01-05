@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import HeroPictures from "@/components/Landing/HeroPictures";
 import { useTheme } from "next-themes";
-const productHunt = true;
+const productHunt = false;
 
 export default function Home() {
   const t = useTranslations("home");
