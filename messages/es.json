@@ -92,7 +92,13 @@
     "dark": "Oscuro",
     "light": "Claro",
     "signOut": "Cerrar sesión",
-    "credits": "Créditos"
+    "credits": "Créditos",
+    "deleteAccount": "Eliminar cuenta",
+    "deleteAccountTitle": "Eliminar cuenta",
+    "deleteAccountDescription": "Esta acción no se puede deshacer. Esto eliminará permanentemente tu cuenta y eliminará todos tus datos de nuestros servidores.",
+    "cancel": "Cancelar",
+    "error": "Error",
+    "failedToDeleteAccount": "No se pudo eliminar la cuenta. Por favor, intenta de nuevo."
   },
   "rating": {
     "thanksForTheLike": "¡Gracias por el me gusta!",

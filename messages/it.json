@@ -92,7 +92,13 @@
     "dark": "Scuro",
     "light": "Chiaro",
     "signOut": "Esci",
-    "credits": "Crediti"
+    "credits": "Crediti",
+    "deleteAccount": "Elimina Account",
+    "deleteAccountTitle": "Elimina Account",
+    "deleteAccountDescription": "Questa azione non può essere annullata. Ciò eliminerà definitivamente il tuo account e rimuoverà tutti i tuoi dati dai nostri server.",
+    "cancel": "Annulla",
+    "error": "Errore",
+    "failedToDeleteAccount": "Impossibile eliminare l'account. Per favore riprova."
   },
   "rating": {
     "thanksForTheLike": "Grazie per il mi piace!",

@@ -92,7 +92,13 @@
     "dark": "Donker",
     "light": "Licht",
     "signOut": "Uitloggen",
-    "credits": "Credits"
+    "credits": "Credits",
+    "deleteAccount": "Account verwijderen",
+    "deleteAccountTitle": "Account verwijderen",
+    "deleteAccountDescription": "Deze actie kan niet ongedaan worden gemaakt. Dit zal uw account permanent verwijderen en al uw gegevens van onze servers verwijderen.",
+    "cancel": "Annuleren",
+    "error": "Fout",
+    "failedToDeleteAccount": "Account verwijderen mislukt. Probeer het opnieuw."
   },
   "rating": {
     "thanksForTheLike": "Bedankt voor de like!",

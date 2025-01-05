@@ -92,7 +92,13 @@
     "dark": "Escuro",
     "light": "Claro",
     "signOut": "Sair",
-    "credits": "Créditos"
+    "credits": "Créditos",
+    "deleteAccount": "Excluir Conta",
+    "deleteAccountTitle": "Excluir Conta",
+    "deleteAccountDescription": "Esta ação não pode ser desfeita. Isso irá excluir permanentemente sua conta e remover todos os seus dados de nossos servidores.",
+    "cancel": "Cancelar",
+    "error": "Erro",
+    "failedToDeleteAccount": "Falha ao excluir a conta. Por favor, tente novamente."
   },
   "rating": {
     "thanksForTheLike": "Obrigado pelo like!",

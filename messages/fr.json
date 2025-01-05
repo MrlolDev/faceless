@@ -92,7 +92,13 @@
     "dark": "Sombre",
     "light": "Clair",
     "signOut": "Se déconnecter",
-    "credits": "Crédits"
+    "credits": "Crédits",
+    "deleteAccount": "Supprimer le compte",
+    "deleteAccountTitle": "Supprimer le compte",
+    "deleteAccountDescription": "Cette action est irréversible. Cela supprimera définitivement votre compte et retirera toutes vos données de nos serveurs.",
+    "cancel": "Annuler",
+    "error": "Erreur",
+    "failedToDeleteAccount": "Échec de la suppression du compte. Veuillez réessayer."
   },
   "rating": {
     "thanksForTheLike": "Merci pour le like !",

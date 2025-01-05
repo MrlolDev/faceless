@@ -15,7 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { ChevronDown, Moon, Globe } from "lucide-react";
+import { ChevronDown, Moon, Globe, Trash2 } from "lucide-react";
 import { Sun } from "lucide-react";
 import { Dialog } from "@/components/ui/dialog";
 import { useState } from "react";
@@ -24,6 +24,17 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import Cookies from "js-cookie";
 import { useLocale } from "next-intl";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { useToast } from "@/hooks/use-toast";
 
 const LANGUAGES = {
   en: "English",
@@ -54,12 +65,36 @@ export function AppHeader({
   };
   const { setTheme, theme } = useTheme();
   const [showCreditsDialog, setShowCreditsDialog] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const { toast } = useToast();
   const t = useTranslations("appHeader");
 
   const handleLanguageChange = (newLocale: string) => {
     Cookies.set("NEXT_LOCALE", newLocale, { path: "/" });
     const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);
     router.push(newPath);
+  };
+
+  const handleDeleteAccount = async () => {
+    try {
+      const response = await fetch("/api/account/delete", {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete account");
+      }
+
+      await signOut();
+      router.push("/login");
+    } catch (error) {
+      console.error("Error deleting account:", error);
+      toast({
+        title: t("error"),
+        description: t("failedToDeleteAccount"),
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -168,6 +203,14 @@ export function AppHeader({
                 )}
               </DropdownMenuItem>
 
+              <DropdownMenuItem
+                className="text-destructive focus:text-destructive"
+                onClick={() => setShowDeleteDialog(true)}
+              >
+                <Trash2 className="h-4 w-4 mr-2" />
+                {t("deleteAccount")}
+              </DropdownMenuItem>
+
               <DropdownMenuItem onClick={handleSignOut}>
                 {t("signOut")}
               </DropdownMenuItem>
@@ -175,6 +218,22 @@ export function AppHeader({
           </DropdownMenu>
         </div>
       </div>
+      <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t("deleteAccountTitle")}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {t("deleteAccountDescription")}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDeleteAccount}>
+              {t("deleteAccount")}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </header>
   );
 }

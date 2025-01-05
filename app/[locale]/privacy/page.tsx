@@ -163,6 +163,41 @@ export default function PrivacyPage() {
           <section className="mt-8">
             <p className="text-sm">Last updated: January 1, 2025</p>
           </section>
+
+          <section>
+            <h2 className="text-2xl font-heading mb-4">11. Data Deletion</h2>
+            <p className="mb-4">When you request account deletion:</p>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>
+                We permanently delete your personal information from our
+                Supabase database
+              </li>
+              <li>
+                All your uploaded photos and generated avatars are removed from
+                storage
+              </li>
+              <li>Your credit history and transaction records are erased</li>
+              <li>Your authentication data is removed from our system</li>
+              <li>
+                Please note that while we delete all data under our direct
+                control, we cannot guarantee the deletion of:
+                <ul className="list-disc pl-6 mt-2 space-y-2">
+                  <li>Data processed by OpenAI's image generation models</li>
+                  <li>Data processed by Replicate's AI models</li>
+                  <li>Analytics data collected by third-party services</li>
+                  <li>Backup copies required by law</li>
+                  <li>
+                    Data that may have been cached or stored by content delivery
+                    networks
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Account deletion is permanent and irreversible - all associated
+                data will be lost
+              </li>
+            </ul>
+          </section>
         </div>
       </main>
     </div>

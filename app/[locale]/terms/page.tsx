@@ -134,6 +134,24 @@ export default function TermsPage() {
                 Retain or delete any data associated with terminated accounts
               </li>
             </ul>
+            <p className="mt-4">When you delete your account:</p>
+            <ul className="list-disc pl-6 mt-2 space-y-2">
+              <li>
+                We will permanently delete all your personal data from our
+                servers
+              </li>
+              <li>Your generated avatars will be removed from our storage</li>
+              <li>Your credit history and transactions will be deleted</li>
+              <li>
+                We cannot delete data that has been processed by third-party
+                services (such as OpenAI or Replicate) as it falls under their
+                respective data retention policies
+              </li>
+              <li>
+                Account deletion is permanent and cannot be reversed - all
+                credits and generated content will be lost
+              </li>
+            </ul>
           </section>
 
           <section>
