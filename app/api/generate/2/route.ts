@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const { packId, posture, background, cost } = await req.json();
+  const { packId, posture, background, cost, startTime } = await req.json();
 
   const supabase = await createClient();
   const {
@@ -43,6 +43,8 @@ export async function POST(req: NextRequest) {
 
   const credits = Math.round((image.cost + cost) * 100);
 
+  const timeForImage = performance.now() - startTime;
+  const timeForImageInSeconds = timeForImage / 1000;
   // Create a new photo
   const { data: photoData, error: photoError } = await supabase
     .from("photos")
@@ -57,6 +59,7 @@ export async function POST(req: NextRequest) {
       credits: credits,
       rating: 0,
       userId: user.id,
+      timeForImage: timeForImageInSeconds,
     })
     .select()
     .single();

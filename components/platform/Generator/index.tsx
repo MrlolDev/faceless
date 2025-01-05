@@ -20,6 +20,8 @@ import {
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
 import { useTranslations } from "next-intl";
+import { useTheme } from "next-themes";
+const productHunt = false;
 
 export default function AppPage({
   defaultPack,
@@ -27,6 +29,7 @@ export default function AppPage({
   defaultPack?: (Pack & { photos: Photos[] }) | null;
 }) {
   const t = useTranslations("generator");
+  const { theme } = useTheme();
   const { user, signOut, credits, setCredits } = useAuth();
   const [generatedImage, setGeneratedImage] = useState<string[] | null>(
     defaultPack?.photos.map((photo) => photo.imgUrl) || null
@@ -58,10 +61,10 @@ export default function AppPage({
     return <Loading fullScreen={true} element="user" />;
   }
 
-  const handleGetDescription = async (url: string) => {
+  const handleGet1 = async (url: string, startTime: number) => {
     setLoading(true);
     try {
-      const response = await fetch("/api/generate/description", {
+      const response = await fetch("/api/generate/1", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +82,7 @@ export default function AppPage({
       setPack(data.data.pack);
 
       // Now generate the image
-      await handleGenerateImage(data.data.pack.id, data.data.cost);
+      await handleGenerate2(data.data.pack.id, data.data.cost, startTime);
     } catch (error) {
       console.error("Error getting description:", error);
       toast({
@@ -92,10 +95,14 @@ export default function AppPage({
     }
   };
 
-  const handleGenerateImage = async (packId: number, cost: number) => {
+  const handleGenerate2 = async (
+    packId: number,
+    cost: number,
+    startTime: number
+  ) => {
     setLoading(true);
     try {
-      const response = await fetch("/api/generate/image", {
+      const response = await fetch("/api/generate/2", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -105,6 +112,7 @@ export default function AppPage({
           posture: selectedPosture,
           cost,
           background: background,
+          startTime,
         }),
       });
 
@@ -136,11 +144,11 @@ export default function AppPage({
     }
   };
 
-  const handleGenerate = async (url?: string) => {
+  const handleGenerate = async (startTime: number, url?: string) => {
     if (!pack) {
-      await handleGetDescription(url || imageUrl!);
+      await handleGet1(url || imageUrl!, startTime);
     } else {
-      await handleGenerateImage(pack.id, 0);
+      await handleGenerate2(pack.id, 0, startTime);
     }
   };
   const shareOnTwitter = () => {
@@ -351,6 +359,20 @@ export default function AppPage({
               >
                 {t("removeBackground")}
               </Button>
+              {productHunt && (
+                <a
+                  href="https://www.producthunt.com/posts/faceless-avatar?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-faceless&#0045;avatar"
+                  target="_blank"
+                >
+                  <img
+                    src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=749370&theme=${theme}`}
+                    alt="Faceless&#0032;Avatar - Create&#0032;stunning&#0032;faceless&#0032;avatar&#0032;illustrations&#0032;in&#0032;seconds&#0033; | Product Hunt"
+                    style={{ width: "250px", height: "54px" }}
+                    width="250"
+                    height="54"
+                  />
+                </a>
+              )}
             </div>
           )}
         </div>

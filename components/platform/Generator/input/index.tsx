@@ -14,7 +14,7 @@ import { useTranslations } from "next-intl";
 import Loading from "@/components/Loading";
 
 interface PhotoInputProps {
-  onGenerate: (url?: string) => void;
+  onGenerate: (startTime: number, url?: string) => void;
   user: User;
   loading: boolean;
   onPostureChange?: (posture: PostureType) => void;
@@ -227,6 +227,7 @@ export default function PhotoInput({
   };
 
   const handleGenerate = async () => {
+    const startTime = performance.now();
     if (credits < 1) {
       toast({
         title: t("insufficientCredits"),
@@ -265,9 +266,9 @@ export default function PhotoInput({
           const { url } = await uploadRes.json();
           setIsUploading(false);
           setImageUrl(url);
-          onGenerate(url);
+          onGenerate(startTime, url);
         } else {
-          onGenerate();
+          onGenerate(startTime);
         }
       } catch (error) {
         console.error("Error uploading image:", error);

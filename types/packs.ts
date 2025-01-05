@@ -14,6 +14,7 @@ export interface Photos {
   rating: number; // -1, 0, 1, 2
   packId: number;
   credits: number; // credits per photo
+  timeForImage: number; // time in seconds for image generation since clicking the button
 }
 
 export interface Pack {

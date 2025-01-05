@@ -1,11 +1,15 @@
+"use client";
 import Navbar from "@/components/Landing/LandingNavbar";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import HeroPictures from "@/components/Landing/HeroPictures";
+import { useTheme } from "next-themes";
+const productHunt = true;
 
 export default function Home() {
   const t = useTranslations("home");
+  const { theme } = useTheme();
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -19,12 +23,27 @@ export default function Home() {
           <p className="mt-4 sm:mt-6 mb-6 sm:mb-8 leading-snug text-lg sm:text-xl md:text-2xl lg:text-3xl font-base">
             {t("description")}
           </p>
-
-          <Link href="/app" className="inline-block">
-            <Button size="lg" className="w-full sm:w-auto">
-              {t("getStarted")}
-            </Button>
-          </Link>
+          <div className="flex flex-row items-center gap-2">
+            <Link href="/app" className="inline-block">
+              <Button size="lg" className="w-full sm:w-auto">
+                {t("getStarted")}
+              </Button>
+            </Link>
+            {productHunt && (
+              <a
+                href="https://www.producthunt.com/posts/faceless-avatar?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-faceless&#0045;avatar"
+                target="_blank"
+              >
+                <img
+                  src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=749370&theme=${theme}`}
+                  alt="Faceless&#0032;Avatar - Create&#0032;stunning&#0032;faceless&#0032;avatar&#0032;illustrations&#0032;in&#0032;seconds&#0033; | Product Hunt"
+                  style={{ width: "250px", height: "54px" }}
+                  width="250"
+                  height="54"
+                />
+              </a>
+            )}
+          </div>
         </div>
       </main>
       <HeroPictures />
