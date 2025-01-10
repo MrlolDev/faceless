@@ -1,7 +1,10 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest, props: { params: Promise<{ userId: string }> }) {
+export async function GET(
+  request: NextRequest,
+  props: { params: Promise<{ userId: string }> }
+) {
   const params = await props.params;
   try {
     const supabase = await createClient();
@@ -22,7 +25,7 @@ export async function GET(request: NextRequest, props: { params: Promise<{ userI
     }
 
     const { data: packs, error: packsError } = await supabase
-      .from("packs")
+      .from("faceless_packs")
       .select("*")
       .eq("userId", params.userId);
 

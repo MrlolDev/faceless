@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
     }
 
     const { data: creditsDataExist, error: creditsErrorExist } = await supabase
-      .from("credits")
+      .from("faceless_credits")
       .select("*")
       .eq("userId", user.id)
       .single();

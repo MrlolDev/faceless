@@ -25,7 +25,7 @@ export async function GET(
     }
 
     const { data, error } = await serviceRole
-      .from("photos")
+      .from("faceless_photos")
       .select("*")
       .eq("id", parseInt(params.photoId))
       .eq("userId", user.id)
@@ -84,7 +84,7 @@ export async function GET(
     } = serviceRole.storage.from("packs").getPublicUrl(uploadData.path);
     delete data.id;
     const { data: photoData, error: photoError } = await serviceRole
-      .from("photos")
+      .from("faceless_photos")
       .update({
         noBackgroundImgUrl: publicUrl,
         credits: data.credits + 1,

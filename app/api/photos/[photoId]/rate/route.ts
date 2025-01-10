@@ -25,7 +25,7 @@ export async function POST(
 
     // Update the photo rating
     const { data, error } = await serviceRole
-      .from("photos")
+      .from("faceless_photos")
       .update({ rating: rating })
       .eq("id", parseInt(params.photoId))
       .eq("userId", user.id)

@@ -18,7 +18,7 @@ export async function DELETE() {
 
     // Delete all user's storage files
     const { data: storageData, error: storageError } = await serviceRole.storage
-      .from("packs")
+      .from("faceless_packs")
       .list(`${user.id}`);
 
     if (storageError) {
@@ -34,7 +34,7 @@ export async function DELETE() {
         (file) => `${user.id}/${file.name}`
       );
       const { error: deleteError } = await serviceRole.storage
-        .from("packs")
+        .from("faceless_packs")
         .remove(filesToDelete);
 
       if (deleteError) {

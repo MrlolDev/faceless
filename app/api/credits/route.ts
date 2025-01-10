@@ -17,7 +17,7 @@ export async function GET() {
 
     // Using service role to fetch credits
     const { data: credits, error: creditsError } = await supabase
-      .from("credits")
+      .from("faceless_credits")
       .select("*")
       .eq("userId", user.id)
       .single();
@@ -25,7 +25,7 @@ export async function GET() {
     // If no credits record exists, create one with default values
     if (!credits) {
       const { data: newCredits, error: createError } = await supabase
-        .from("credits")
+        .from("faceless_credits")
         .insert([
           {
             userId: user.id,

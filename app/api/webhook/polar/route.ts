@@ -34,7 +34,7 @@ async function handleCheckoutUpdated(
 
   // Get user's current credits
   const { data: creditsData, error: creditsError } = await serviceRole
-    .from("credits")
+    .from("faceless_credits")
     .select("*")
     .eq("userId", user.id)
     .single();
@@ -52,7 +52,7 @@ async function handleCheckoutUpdated(
   }
   // Update user's credits
   const { error: updateError } = await serviceRole
-    .from("credits")
+    .from("faceless_credits")
     .update({
       actual: creditsData.actual + credits,
       transactions: [

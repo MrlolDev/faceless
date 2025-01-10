@@ -20,7 +20,7 @@ export async function GET(
   }
 
   const { data, error } = await supabase
-    .from("packs")
+    .from("faceless_packs")
     .select("*")
     .eq("id", packId)
     .eq("userId", user.id)
@@ -48,7 +48,7 @@ export async function DELETE(
 
   // First verify the pack belongs to the user
   const { data: pack, error: packError } = await supabase
-    .from("packs")
+    .from("faceless_packs")
     .select("userId, originPhoto")
     .eq("id", packId)
     .single();
@@ -64,7 +64,7 @@ export async function DELETE(
   // delete the original image from the bucket
   const originPhoto = pack.originPhoto; // url of the uploaded photo
   const { error: originPhotoError } = await supabase.storage
-    .from("packs")
+    .from("faceless_packs")
     .remove([originPhoto]);
 
   if (originPhotoError) {
@@ -76,7 +76,7 @@ export async function DELETE(
   }
 
   const { data, error } = await supabase
-    .from("packs")
+    .from("faceless_packs")
     .delete()
     .eq("id", packId)
     .eq("userId", user.id);

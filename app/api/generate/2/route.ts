@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
   }
 
   const { data: pack } = await supabase
-    .from("packs")
+    .from("faceless_packs")
     .select("*")
     .eq("id", packId)
     .single();
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
   const timeForImageInSeconds = timeForImage / 1000;
   // Create a new photo
   const { data: photoData, error: photoError } = await supabase
-    .from("photos")
+    .from("faceless_photos")
     .insert({
       packId: pack.id,
       imgUrl: image.imgUrl,

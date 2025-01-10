@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
   // Check if this is a free trial and if user already had one
   if (product.prices[0].amountType === "free") {
     const { data: creditsData } = await supabase
-      .from("credits")
+      .from("faceless_credits")
       .select("*")
       .eq("userId", user.id)
       .single();

@@ -1,7 +1,10 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest, props: { params: Promise<{ packId: string }> }) {
+export async function GET(
+  request: NextRequest,
+  props: { params: Promise<{ packId: string }> }
+) {
   const params = await props.params;
   try {
     const supabase = await createClient();
@@ -18,7 +21,7 @@ export async function GET(request: NextRequest, props: { params: Promise<{ packI
 
     // First verify the pack belongs to the user
     const { data: pack, error: packError } = await supabase
-      .from("packs")
+      .from("faceless_packs")
       .select("userId")
       .eq("id", params.packId)
       .single();
@@ -33,7 +36,7 @@ export async function GET(request: NextRequest, props: { params: Promise<{ packI
 
     // Fetch photos for the pack
     const { data: photos, error: photosError } = await supabase
-      .from("photos")
+      .from("faceless_photos")
       .select("*")
       .eq("packId", params.packId);
 

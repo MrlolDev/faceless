@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
 
     // Check if code exists and is valid
     const { data: codeData, error: codeError } = await serviceRole
-      .from("codes")
+      .from("faceless_codes")
       .select("*")
       .eq("code", code)
       .eq("is_active", true)
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     // Check if code has expired
     if (new Date(codeData.expires_at) < new Date()) {
       await serviceRole
-        .from("codes")
+        .from("faceless_codes")
         .update({ is_active: false })
         .eq("id", codeData.id);
       return NextResponse.json({ error: "Code has expired" }, { status: 400 });
@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
 
     // Get user's current credits
     const { data: creditsData, error: creditsError } = await serviceRole
-      .from("credits")
+      .from("faceless_credits")
       .select("*")
       .eq("userId", user.id)
       .single();
@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
 
     // Update code usage
     const { error: updateCodeError } = await serviceRole
-      .from("codes")
+      .from("faceless_codes")
       .update({
         usedBy: [...codeData.usedBy, user.id],
       })
@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
     // Update user's credits
     const { data: updatedCredits, error: updateCreditsError } =
       await serviceRole
-        .from("credits")
+        .from("faceless_credits")
         .update({
           actual: creditsData.actual + codeData.credits,
           transactions: [

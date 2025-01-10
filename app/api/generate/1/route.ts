@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
   }
 
   const { data: creditsDataExist, error: creditsErrorExist } = await supabase
-    .from("credits")
+    .from("faceless_credits")
     .select("*")
     .eq("userId", user.id)
     .single();
@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
 
   // Create a new pack
   const { data: packData } = await supabase
-    .from("packs")
+    .from("faceless_packs")
     .insert({
       userId: user.id,
       characterDescription: characterDescription.description,

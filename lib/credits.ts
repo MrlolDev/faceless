@@ -6,7 +6,7 @@ export const updateCredits = async (
   type: string
 ) => {
   const { data: creditsData, error: creditsError } = await serviceRole
-    .from("credits")
+    .from("faceless_credits")
     .select("*")
     .eq("userId", userId)
     .single();
@@ -16,7 +16,7 @@ export const updateCredits = async (
   } else {
     // Update credits
     const { error: updateError, data: updatedCredits } = await serviceRole
-      .from("credits")
+      .from("faceless_credits")
       .update({
         actual: creditsData.actual + amount,
         transactions: [

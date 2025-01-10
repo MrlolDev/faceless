@@ -15,7 +15,7 @@ export async function GET() {
     }
 
     const { data, error } = await serviceRole
-      .from("codes")
+      .from("faceless_codes")
       .select("*")
       .order("created_at", { ascending: false });
 
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { error } = await serviceRole.from("codes").insert({
+  const { error } = await serviceRole.from("faceless_codes").insert({
     code,
     credits,
     maxUses,
@@ -81,7 +81,10 @@ export async function DELETE(req: NextRequest) {
   if (userError || !user || user.email !== "mrlol.yt.oficial@gmail.com") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  const { error } = await serviceRole.from("codes").delete().eq("id", id);
+  const { error } = await serviceRole
+    .from("faceless_codes")
+    .delete()
+    .eq("id", id);
   if (error) {
     console.error("Error in admin codes route:", error);
     return NextResponse.json(
@@ -107,7 +110,7 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const { error } = await serviceRole
-    .from("codes")
+    .from("faceless_codes")
     .update({ is_active })
     .eq("id", id);
   if (error) {
