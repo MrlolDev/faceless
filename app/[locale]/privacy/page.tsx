@@ -182,8 +182,10 @@ export default function PrivacyPage() {
                 Please note that while we delete all data under our direct
                 control, we cannot guarantee the deletion of:
                 <ul className="list-disc pl-6 mt-2 space-y-2">
-                  <li>Data processed by OpenAI's image generation models</li>
-                  <li>Data processed by Replicate's AI models</li>
+                  <li>
+                    Data processed by OpenAI&apos;s image generation models
+                  </li>
+                  <li>Data processed by Replicate&apos;s AI models</li>
                   <li>Analytics data collected by third-party services</li>
                   <li>Backup copies required by law</li>
                   <li>
