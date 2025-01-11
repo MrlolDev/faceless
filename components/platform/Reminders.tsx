@@ -14,7 +14,6 @@ const REMINDER_MESSAGES = [
       url: "https://twitter.com/mrloldev",
     },
   },
-  /*
   {
     type: "producthunt",
     message: "Support us by voting on Product Hunt!",
@@ -23,7 +22,6 @@ const REMINDER_MESSAGES = [
       url: "https://www.producthunt.com/posts/faceless-avatar",
     },
   },
-  */
   {
     type: "credits",
     message:

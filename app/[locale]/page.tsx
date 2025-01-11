@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import HeroPictures from "@/components/Landing/HeroPictures";
 import { useTheme } from "next-themes";
-const productHunt = false;
+const productHunt = true;
 
 export default function Home() {
   const t = useTranslations("home");
@@ -34,13 +34,16 @@ export default function Home() {
                 href="https://www.producthunt.com/posts/faceless-avatar?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-faceless&#0045;avatar"
                 target="_blank"
               >
-                <img
-                  src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=749370&theme=${theme}`}
-                  alt="Faceless&#0032;Avatar - Create&#0032;stunning&#0032;faceless&#0032;avatar&#0032;illustrations&#0032;in&#0032;seconds&#0033; | Product Hunt"
-                  style={{ width: "250px", height: "54px" }}
-                  width="250"
-                  height="54"
-                />
+                <div suppressHydrationWarning>
+                  <img
+                    suppressHydrationWarning
+                    src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=749370&theme=${theme}`}
+                    alt="Faceless Avatar - Create stunning faceless avatar illustrations in seconds! | Product Hunt"
+                    style={{ width: "250px", height: "54px" }}
+                    width="250"
+                    height="54"
+                  />
+                </div>
               </a>
             )}
           </div>
