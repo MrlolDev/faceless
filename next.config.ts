@@ -32,6 +32,11 @@ const nextConfig = {
         hostname: "api.producthunt.com",
         pathname: "/**",
       },
+      {
+        protocol: "https" as const,
+        hostname: "media.theresanaiforthat.com",
+        pathname: "/**",
+      },
     ],
   },
   headers: async () => {
@@ -48,7 +53,7 @@ const nextConfig = {
               // Styles
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;",
               // Images
-              "img-src 'self' data: blob: https://*.supabase.co https://replicate.delivery https://*.google-analytics.com https://*.producthunt.com;",
+              "img-src 'self' data: blob: https://*.supabase.co https://replicate.delivery https://*.google-analytics.com https://*.producthunt.com https://media.theresanaiforthat.com;",
               // Fonts
               "font-src 'self' https://fonts.gstatic.com;",
               // Frames

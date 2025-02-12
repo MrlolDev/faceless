@@ -23,16 +23,32 @@ export default function Home() {
           <p className="mt-4 sm:mt-6 mb-6 sm:mb-8 leading-snug text-lg sm:text-xl md:text-2xl lg:text-3xl font-base">
             {t("description")}
           </p>
-          <div className="flex flex-row items-center gap-2">
+          <div className="flex flex-row items-center gap-2 h-full">
             <Link href="/app" className="inline-block">
               <Button size="lg" className="w-full sm:w-auto">
                 {t("getStarted")}
               </Button>
             </Link>
+          </div>
+          <div className="flex flex-row items-center gap-2 h-full mt-8 mb-2">
+            <a
+              href="https://theresanaiforthat.com/ai/faceless-avatar/?ref=featured&v=4530430"
+              target="_blank"
+              rel="nofollow"
+              className="w-full sm:w-auto h-full "
+              suppressHydrationWarning
+            >
+              <img
+                suppressHydrationWarning
+                width="250"
+                src="https://media.theresanaiforthat.com/featured-on-taaft.png?width=600"
+              />
+            </a>
             {productHunt && (
               <a
                 href="https://www.producthunt.com/posts/faceless-avatar?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-faceless&#0045;avatar"
                 target="_blank"
+                className="w-full sm:w-auto"
               >
                 <div suppressHydrationWarning>
                   <img
