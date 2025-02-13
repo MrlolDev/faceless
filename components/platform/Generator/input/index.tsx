@@ -312,6 +312,43 @@ export default function PhotoInput({
             ? "border-green-500"
             : "border-border"
         }`}
+        onDragOver={(e) => {
+          e.preventDefault();
+          e.currentTarget.classList.add("border-main");
+        }}
+        onDragLeave={(e) => {
+          e.preventDefault();
+          e.currentTarget.classList.remove("border-main");
+        }}
+        onDrop={(e) => {
+          e.preventDefault();
+          e.currentTarget.classList.remove("border-main");
+          const file = e.dataTransfer.files[0];
+          if (file && file.type.startsWith("image/")) {
+            const img = new Image();
+            img.onload = () => {
+              const canvas = document.createElement("canvas");
+              cropToSquare(img, canvas);
+
+              canvas.toBlob((blob) => {
+                if (blob) {
+                  const url = URL.createObjectURL(blob);
+                  setImageUrl(null);
+                  setPreview(url);
+                  setFaceDetected(true); // Always set to true
+                  setPack(null);
+                }
+              }, "image/jpeg");
+            };
+            img.src = URL.createObjectURL(file);
+          } else {
+            toast({
+              title: t("error"),
+              description: t("pleaseUploadAnImage"),
+              variant: "destructive",
+            });
+          }
+        }}
       >
         {isWebcam ? (
           <>
@@ -350,8 +387,11 @@ export default function PhotoInput({
             </Button>
           </>
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-text font-base">
-            {t("noPhotoSelected")}
+          <div className="w-full h-full flex flex-col items-center justify-center text-text font-base gap-2">
+            <div>{t("noPhotoSelected")}</div>
+            <div className="text-sm text-muted-foreground">
+              {t("dragAndDropOrClickToUpload")}
+            </div>
           </div>
         )}
       </div>

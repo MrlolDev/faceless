@@ -29,7 +29,9 @@
     "success": "Succes",
     "signedIn": "U bent nu ingelogd",
     "errorVerifyingCode": "Fout bij het verifiëren van de code",
-    "tryAgain": "Probeer het opnieuw."
+    "tryAgain": "Probeer het opnieuw.",
+    "securityCheck": "Sicherheitscontrole",
+    "verifyHuman": "Verifiëren dat u een mens bent"
   },
   "generator": {
     "yourGeneratedAvatar": "Uw gegenereerde avatar:",
@@ -82,7 +84,8 @@
     "pleaseTryAgain": "Probeer het opnieuw",
     "removeBackground": "Verwijder Achtergrond",
     "failedToRemoveBackground": "Achtergrond verwijderen mislukt",
-    "avatarDownloaded": "Afbeelding succesvol gedownload"
+    "avatarDownloaded": "Afbeelding succesvol gedownload",
+    "dragAndDropOrClickToUpload": "Sleep en drop of klik om een afbeelding te uploaden"
   },
   "appHeader": {
     "generate": "Genereren",

@@ -29,7 +29,9 @@
     "success": "Успех",
     "signedIn": "Вы вошли в систему",
     "errorVerifyingCode": "Ошибка проверки кода",
-    "tryAgain": "Пожалуйста, попробуйте снова."
+    "tryAgain": "Пожалуйста, попробуйте снова.",
+    "securityCheck": "Проверка безопасности",
+    "verifyHuman": "Проверить, что вы человек"
   },
   "generator": {
     "yourGeneratedAvatar": "Ваш созданный аватар:",
@@ -82,7 +84,8 @@
     "pleaseTryAgain": "Пожалуйста, попробуйте еще раз",
     "removeBackground": "Удалить фон",
     "failedToRemoveBackground": "Не удалось удалить фон",
-    "avatarDownloaded": "Изображение успешно загружено"
+    "avatarDownloaded": "Изображение успешно загружено",
+    "dragAndDropOrClickToUpload": "Перетащите и отпустите или нажмите, чтобы загрузить изображение"
   },
   "appHeader": {
     "generate": "Создать",

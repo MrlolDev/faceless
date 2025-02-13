@@ -29,7 +29,9 @@
     "success": "Success",
     "signedIn": "You are now signed in",
     "errorVerifyingCode": "Error verifying code",
-    "tryAgain": "Please try again."
+    "tryAgain": "Please try again.",
+    "securityCheck": "Security Check",
+    "verifyHuman": "Verify Human"
   },
   "generator": {
     "yourGeneratedAvatar": "Your generated avatar:",
@@ -82,7 +84,8 @@
     "failedToUploadImage": "Failed to upload image",
     "pleaseTryAgain": "Please try again",
     "removeBackground": "Remove Background",
-    "failedToRemoveBackground": "Failed to remove background"
+    "failedToRemoveBackground": "Failed to remove background",
+    "dragAndDropOrClickToUpload": "Drag and drop or click to upload"
   },
   "appHeader": {
     "generate": "Generate",

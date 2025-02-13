@@ -29,7 +29,9 @@
     "success": "Éxito",
     "signedIn": "Has iniciado sesión",
     "errorVerifyingCode": "Error al verificar el código",
-    "tryAgain": "Por favor, intenta de nuevo."
+    "tryAgain": "Por favor, intenta de nuevo.",
+    "securityCheck": "Verificación de seguridad",
+    "verifyHuman": "Verificar humano"
   },
   "generator": {
     "yourGeneratedAvatar": "Tu avatar generado:",
@@ -82,7 +84,8 @@
     "pleaseTryAgain": "Por favor, inténtalo de nuevo",
     "removeBackground": "Eliminar fondo",
     "failedToRemoveBackground": "Error al eliminar el fondo",
-    "avatarDownloaded": "Imagen descargada con éxito"
+    "avatarDownloaded": "Imagen descargada con éxito",
+    "dragAndDropOrClickToUpload": "Arrastra y suelta o haz clic para subir una imagen"
   },
   "appHeader": {
     "generate": "Generar",
