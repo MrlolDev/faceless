@@ -48,6 +48,7 @@ export default function Login() {
         description: t("enterValidEmail"),
         variant: "destructive",
       });
+      turnstileRef.current?.reset();
       return;
     }
 
@@ -57,6 +58,7 @@ export default function Login() {
         description: t("acceptTermsDescription"),
         variant: "destructive",
       });
+      turnstileRef.current?.reset();
       return;
     }
 
@@ -66,6 +68,7 @@ export default function Login() {
         description: t("verifyHuman"),
         variant: "destructive",
       });
+      turnstileRef.current?.reset();
       return;
     }
 
@@ -86,6 +89,7 @@ export default function Login() {
         description: t("tryAgain"),
         variant: "destructive",
       });
+      turnstileRef.current?.reset();
     } finally {
       setLoading(false);
     }
@@ -99,6 +103,8 @@ export default function Login() {
         description: t("tryAgainLater"),
         variant: "destructive",
       });
+      turnstileRef.current?.reset();
+      turnstileRef2.current?.reset();
       return;
     }
     setOtpAttempts(otpAttempts + 1);
@@ -110,6 +116,8 @@ export default function Login() {
         title: t("success"),
         description: t("signedIn"),
       });
+      turnstileRef.current?.reset();
+      turnstileRef2.current?.reset();
     } catch (error) {
       console.error(error);
       toast({
@@ -117,6 +125,8 @@ export default function Login() {
         description: t("tryAgain"),
         variant: "destructive",
       });
+      turnstileRef.current?.reset();
+      turnstileRef2.current?.reset();
     } finally {
       setLoading(false);
     }

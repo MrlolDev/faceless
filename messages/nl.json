@@ -31,7 +31,11 @@
     "errorVerifyingCode": "Fout bij het verifiëren van de code",
     "tryAgain": "Probeer het opnieuw.",
     "securityCheck": "Sicherheitscontrole",
-    "verifyHuman": "Verifiëren dat u een mens bent"
+    "verifyHuman": "Verifiëren dat u een mens bent",
+    "acceptTerms": "Accepteer de servicevoorwaarden en het privacybeleid.",
+    "acceptTermsDescription": "Door in te loggen, gaat u akkoord met onze servicevoorwaarden en het privacybeleid.",
+    "invalidEmail": "Ongeldig e-mailadres",
+    "enterValidEmail": "Voer een geldig e-mailadres in."
   },
   "generator": {
     "yourGeneratedAvatar": "Uw gegenereerde avatar:",

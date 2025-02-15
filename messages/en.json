@@ -31,7 +31,11 @@
     "errorVerifyingCode": "Error verifying code",
     "tryAgain": "Please try again.",
     "securityCheck": "Security Check",
-    "verifyHuman": "Verify Human"
+    "verifyHuman": "Verify Human",
+    "acceptTerms": "Please accept the terms of service and privacy policy.",
+    "acceptTermsDescription": "By signing in, you agree to our terms of service and privacy policy.",
+    "invalidEmail": "Invalid email",
+    "enterValidEmail": "Please enter a valid email address."
   },
   "generator": {
     "yourGeneratedAvatar": "Your generated avatar:",

@@ -31,7 +31,11 @@
     "errorVerifyingCode": "Erro ao verificar código",
     "tryAgain": "Por favor, tente novamente.",
     "securityCheck": "Verificação de segurança",
-    "verifyHuman": "Verificar humano"
+    "verifyHuman": "Verificar humano",
+    "acceptTerms": "Por favor, aceite os termos de serviço e a política de privacidade.",
+    "acceptTermsDescription": "Ao se registrar, você concorda com nossos termos de serviço e política de privacidade.",
+    "invalidEmail": "Email inválido",
+    "enterValidEmail": "Por favor, insira um endereço de email válido."
   },
   "generator": {
     "yourGeneratedAvatar": "Seu avatar gerado:",

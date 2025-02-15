@@ -31,7 +31,11 @@
     "errorVerifyingCode": "Erreur lors de la vérification du code",
     "tryAgain": "Veuillez réessayer.",
     "securityCheck": "Vérification de sécurité",
-    "verifyHuman": "Vérifier que vous êtes humain"
+    "verifyHuman": "Vérifier que vous êtes humain",
+    "acceptTerms": "Veuillez accepter les conditions d'utilisation et la politique de confidentialité.",
+    "acceptTermsDescription": "En vous connectant, vous acceptez nos conditions d'utilisation et notre politique de confidentialité.",
+    "invalidEmail": "Email invalide",
+    "enterValidEmail": "Veuillez saisir une adresse email valide."
   },
   "generator": {
     "yourGeneratedAvatar": "Votre avatar généré :",
