@@ -35,7 +35,8 @@
     "acceptTerms": "Si prega di accettare i termini di servizio e la politica sulla privacy.",
     "acceptTermsDescription": "Accedendo, accetti i nostri termini di servizio e la politica sulla privacy.",
     "invalidEmail": "Email non valida",
-    "enterValidEmail": "Si prega di inserire un indirizzo email valido."
+    "enterValidEmail": "Si prega di inserire un indirizzo email valido.",
+    "verifying": "Verifica che sei umano..."
   },
   "generator": {
     "yourGeneratedAvatar": "Il tuo avatar generato:",

@@ -35,7 +35,8 @@
     "acceptTerms": "Please accept the terms of service and privacy policy.",
     "acceptTermsDescription": "By signing in, you agree to our terms of service and privacy policy.",
     "invalidEmail": "Invalid email",
-    "enterValidEmail": "Please enter a valid email address."
+    "enterValidEmail": "Please enter a valid email address.",
+    "verifying": "Verifying you are human..."
   },
   "generator": {
     "yourGeneratedAvatar": "Your generated avatar:",

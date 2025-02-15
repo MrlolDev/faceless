@@ -201,8 +201,16 @@ export default function Login() {
                 className="mb-4"
               />
             </div>
-            <Button className="w-full" type="submit" disabled={loading}>
-              {loading ? t("sending") : t("sendCode")}
+            <Button
+              className="w-full"
+              type="submit"
+              disabled={loading || !acceptedTerms || !captchaToken}
+            >
+              {loading
+                ? t("sending")
+                : captchaToken
+                ? t("sendCode")
+                : t("verifying")}
             </Button>
           </form>
         )}

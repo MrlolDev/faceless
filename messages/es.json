@@ -35,7 +35,8 @@
     "acceptTerms": "Por favor acepte los términos de servicio y la política de privacidad.",
     "acceptTermsDescription": "Al iniciar sesión, usted acepta nuestros términos de servicio y política de privacidad.",
     "invalidEmail": "Correo electrónico no válido",
-    "enterValidEmail": "Por favor, introduzca una dirección de correo electrónico válida."
+    "enterValidEmail": "Por favor, introduzca una dirección de correo electrónico válida.",
+    "verifying": "Verificando que eres humano..."
   },
   "generator": {
     "yourGeneratedAvatar": "Tu avatar generado:",

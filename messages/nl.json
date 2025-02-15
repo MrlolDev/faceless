@@ -35,7 +35,8 @@
     "acceptTerms": "Accepteer de servicevoorwaarden en het privacybeleid.",
     "acceptTermsDescription": "Door in te loggen, gaat u akkoord met onze servicevoorwaarden en het privacybeleid.",
     "invalidEmail": "Ongeldig e-mailadres",
-    "enterValidEmail": "Voer een geldig e-mailadres in."
+    "enterValidEmail": "Voer een geldig e-mailadres in.",
+    "verifying": "Bezig met verifiëren dat u een mens bent..."
   },
   "generator": {
     "yourGeneratedAvatar": "Uw gegenereerde avatar:",

@@ -35,7 +35,8 @@
     "acceptTerms": "Veuillez accepter les conditions d'utilisation et la politique de confidentialité.",
     "acceptTermsDescription": "En vous connectant, vous acceptez nos conditions d'utilisation et notre politique de confidentialité.",
     "invalidEmail": "Email invalide",
-    "enterValidEmail": "Veuillez saisir une adresse email valide."
+    "enterValidEmail": "Veuillez saisir une adresse email valide.",
+    "verifying": "Vérification que vous êtes humain..."
   },
   "generator": {
     "yourGeneratedAvatar": "Votre avatar généré :",

@@ -35,7 +35,8 @@
     "acceptTerms": "Bitte akzeptieren Sie die Nutzungsbedingungen und die Datenschutzrichtlinie.",
     "acceptTermsDescription": "Mit Ihrer Anmeldung stimmen Sie unseren Nutzungsbedingungen und der Datenschutzrichtlinie zu.",
     "invalidEmail": "Ungültige E-Mail",
-    "enterValidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein."
+    "enterValidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+    "verifying": "Überprüfung, ob Sie ein Mensch sind..."
   },
   "generator": {
     "yourGeneratedAvatar": "Ihr generierter Avatar:",
